@@ -66,6 +66,8 @@ Vector3D & Vector3D::operator=(Vector3D const& u)
     this->x = u.x;
     this->y = u.y;
     this->z = u.z;
+
+    return *this;
     
 }
 
