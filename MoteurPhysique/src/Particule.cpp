@@ -25,5 +25,5 @@ void Particule::integrer(float temps)
 {
 	updatePosition(temps);
 	updateVitesse(temps);
-	updateAcceleration;
+	updateAcceleration();
 }
