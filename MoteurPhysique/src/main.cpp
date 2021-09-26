@@ -27,7 +27,9 @@ int main(void)
     GLFWwindow* window = my_MoteurPhysique.initWindow();
     
     ObjectToDraw myObject;
+
     myObject.initialization();
+
 
     while (!glfwWindowShouldClose(window))
     {
