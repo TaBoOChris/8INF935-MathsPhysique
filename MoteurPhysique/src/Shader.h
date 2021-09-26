@@ -13,5 +13,9 @@ public :
 
 	void activate();	// Activate the shader
 	void terminate();	// delete the shader 
+
+private:
+	
+	void compileErrors(unsigned int shader, const char* type); // check if shaders have compiled properly
 };
 

@@ -17,6 +17,8 @@ private :
 	EBO* m_EBO;
 	Shader* m_shaderProgram;
 
+	GLuint m_uniID;
+
 public :
 
 	ObjectToDraw(); // constructor

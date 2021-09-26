@@ -50,6 +50,8 @@ void ObjectToDraw::initialization()
 	m_VAO->unBind();
 	m_VBO->unBind();
 	m_EBO->unBind();
+
+	m_uniID = glGetUniformLocation(m_shaderProgram->m_ID, "scale");
 }
 
 void ObjectToDraw::terminate()
@@ -64,7 +66,8 @@ void ObjectToDraw::terminate()
 
 void ObjectToDraw::display()
 {
-	m_shaderProgram->activate();
-	m_VAO->bind();
+	m_shaderProgram->activate();	// Telle OpenGL wich shader we want to use
+	glUniform1f(m_uniID, 0.5f);		// assign a value to the uniform (be done after actavation)
+	m_VAO->bind();					// bind the VAO so OpenGL Knows to use it
 	glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);		// Draw the triangle using the GL_TRIANGLES primitive
 }
