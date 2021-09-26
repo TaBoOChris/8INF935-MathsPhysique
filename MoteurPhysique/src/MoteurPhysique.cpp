@@ -9,11 +9,11 @@
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
 
-int MoteurPhysique::initWindow()
+GLFWwindow* MoteurPhysique::initWindow()
 {
     /* Initialize the library */
     if (!glfwInit())
-        return -1;
+        return NULL;
 
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);  // using OpenGL 3 for Major Version
@@ -27,7 +27,7 @@ int MoteurPhysique::initWindow()
     {
         std::cout << "fail to create Window" << std::endl;
         glfwTerminate();
-        return -1;
+        return NULL;
     }
 
     glfwMakeContextCurrent(this->m_window);     // Make the window's context current 
@@ -51,28 +51,17 @@ int MoteurPhysique::initWindow()
 
     glfwSetMouseButtonCallback(this->m_window, &MoteurPhysique::mouse_button_callback); // input mouse
 
-    return 0;
+    return m_window;
 }
 
 void MoteurPhysique::display()
 {
-    while (!glfwWindowShouldClose(this->m_window))
-    {
-        
-        /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
-
-
-
-        /* Swap front and back buffers */
-        glfwSwapBuffers(this->m_window);
-
-         
+        glfwSwapBuffers(this->m_window); // Swap front and back buffers 
         glfwPollEvents(); // Poll for and process events 
-    }
+}
 
-
-
+void MoteurPhysique::terminate()
+{
     glfwDestroyWindow(this->m_window); // destroy window
     glfwTerminate();  //stop glfw
 }

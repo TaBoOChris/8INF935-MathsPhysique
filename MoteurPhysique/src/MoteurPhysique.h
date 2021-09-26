@@ -7,8 +7,9 @@ private:
 
 public : 
 
-	int initWindow();
+	GLFWwindow* initWindow();
 	void display();
+	void terminate();
 
 	void drawRectangle();
 	void drawTriangle();
