@@ -22,7 +22,7 @@ int main(void)
 
     //------------------------------
 
-    MoteurPhysique my_MoteurPhysique;
+    MoteurPhysique my_MoteurPhysique; 
 
     GLFWwindow* window = my_MoteurPhysique.initWindow();
     

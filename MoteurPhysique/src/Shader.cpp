@@ -34,11 +34,11 @@ std::string get_file_contents(const char* filename)
 
 Shader::Shader(const char* vertexFile, const char* fragmentFile)
 {
-
+	// Read files	 and store strings
 	std::string vertexCode		= get_file_contents(vertexFile);
 	std::string fragmentCode	= get_file_contents(fragmentFile);
 
-
+	// convert shader source strings into char
 	const char* vertexSource = vertexCode.c_str();
 	const char* fragmentSource = fragmentCode.c_str();
 
