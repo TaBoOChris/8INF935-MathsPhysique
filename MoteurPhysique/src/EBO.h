@@ -2,6 +2,8 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <vector>
+
 
 class EBO
 {
@@ -9,7 +11,7 @@ class EBO
 public:
 	GLuint m_ID;
 
-	EBO(GLuint* Indices, GLsizeiptr size);
+	EBO(std::vector<GLuint>& indices);
 
 	void bind();		// Bind the EBO
 	void unBind();		// unBind the EBO

@@ -6,7 +6,7 @@
 #include "EBO.h"
 #include "VBO.h"
 #include "VAO.h"
-
+/*
 class ObjectToDraw
 {
 
@@ -35,3 +35,4 @@ public :
 
 };
 
+*/

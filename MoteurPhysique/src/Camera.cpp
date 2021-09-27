@@ -1,4 +1,10 @@
 #include "Camera.h"
+#include<GLFW/glfw3.h>
+#include"glm/glm.hpp"
+#include"glm/gtc/matrix_transform.hpp"
+#include"glm/gtc/type_ptr.hpp"
+#include"glm/gtx/rotate_vector.hpp"
+#include"glm/gtx/vector_angle.hpp"
 
 Camera::Camera(int width, int height, glm::vec3 position)
 {
@@ -7,15 +13,25 @@ Camera::Camera(int width, int height, glm::vec3 position)
 	Camera::position = position;
 }
 
-void Camera::Matrix(float FOVdeg, float nearPlane, float farPlane, Shader& shader, const char* uniform)
+void Camera::updateMatrix(float FOVdeg, float nearPlane, float farPlane)
 {
+	// Initializes matrices since otherwise they will be the null matrix
 	glm::mat4 view = glm::mat4(1.0f);
 	glm::mat4 projection = glm::mat4(1.0f);
 
+	// Makes camera look in the right direction from the right position
 	view = glm::lookAt(position, position + orientation, up);
-	projection = glm::perspective(glm::radians(FOVdeg), (float)(width / height), nearPlane, farPlane);
+	// Adds perspective to the scene
+	projection = glm::perspective(glm::radians(FOVdeg), (float)width / height, nearPlane, farPlane);
 
-	glUniformMatrix4fv(glGetUniformLocation(shader.m_ID, uniform), 1, GL_FALSE, glm::value_ptr(projection * view));
+	// Sets new camera matrix
+	cameraMatrix = projection * view;
+}
+
+void Camera::Matrix(Shader& shader, const char* uniform)
+{
+	// Exports camera matrix
+	glUniformMatrix4fv(glGetUniformLocation(shader.m_ID, uniform), 1, GL_FALSE, glm::value_ptr(cameraMatrix));
 
 }
 

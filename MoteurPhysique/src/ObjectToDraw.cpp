@@ -17,7 +17,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
-
+/*
 GLfloat vertices[] =
 { //     COORDINATES     /        COLORS      /   TexCoord  //
 	-0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,	0.0f, 0.0f,
@@ -38,6 +38,8 @@ GLuint indices[] =
 	2, 3, 4,
 	3, 0, 4
 };
+
+
 
 ObjectToDraw::ObjectToDraw()
 {
@@ -94,3 +96,5 @@ void ObjectToDraw::display()
 	m_VAO->bind();					// bind the VAO so OpenGL Knows to use it
 	glDrawElements(GL_TRIANGLES, sizeof(indices)/sizeof(int), GL_UNSIGNED_INT, 0);		// Draw the triangle using the GL_TRIANGLES primitive
 }
+
+*/
