@@ -19,7 +19,6 @@ private :
 	VAO* m_VAO;
 	VBO* m_VBO;
 	EBO* m_EBO;
-	Shader* m_shaderProgram;
 
 	GLuint m_uniID;
 	Texture* m_texture;
@@ -28,7 +27,7 @@ public :
 
 	ObjectToDraw(); // constructor
 
-	void initialization();
+	void initialization(Shader& shader);
 
 	void terminate();
 

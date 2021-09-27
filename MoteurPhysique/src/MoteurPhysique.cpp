@@ -21,7 +21,7 @@ GLFWwindow* MoteurPhysique::initWindow(int windowWidth, int windowHeight)
 
 
     /* Create a windowed mode window and its OpenGL context */
-    this->m_window = glfwCreateWindow(windowWidth, windowHeight, "Moteur Physique OpenGL", NULL, NULL);
+    this->m_window = glfwCreateWindow(800, 800, "Moteur Physique OpenGL", NULL, NULL);
     if (!this->m_window)
     {
         std::cout << "fail to create Window" << std::endl;
@@ -66,64 +66,6 @@ void MoteurPhysique::terminate()
 }
 
 
-
-void MoteurPhysique::drawRectangle()
-{
-    glRectd(0.5f, 0.5f, -0.5f, -0.5f);
-}
-
-void MoteurPhysique::drawTriangle()
-{
-    glBegin(GL_TRIANGLES);
-    glVertex2f(-0.5f, -0.5f);
-    glVertex2f(0.0f, 0.5f);
-    glVertex2f(0.5f, -0.5f);
-    glEnd();
-}
-
-void MoteurPhysique::drawLines()
-{
-    glColor3f(1.0, 0.0, 0.0); // red x
-    glBegin(GL_LINES);
-    // x aix
-
-    glVertex3f(-4.0, 0.0f, 0.0f);
-    glVertex3f(4.0, 0.0f, 0.0f);
-
-    glVertex3f(4.0, 0.0f, 0.0f);
-    glVertex3f(3.0, 1.0f, 0.0f);
-
-    glVertex3f(4.0, 0.0f, 0.0f);
-    glVertex3f(3.0, -1.0f, 0.0f);
-    glEnd();
-
-    // y 
-    glColor3f(0.0, 1.0, 0.0); // green y
-    glBegin(GL_LINES);
-    glVertex3f(0.0, -4.0f, 0.0f);
-    glVertex3f(0.0, 4.0f, 0.0f);
-
-    glVertex3f(0.0, 4.0f, 0.0f);
-    glVertex3f(1.0, 3.0f, 0.0f);
-
-    glVertex3f(0.0, 4.0f, 0.0f);
-    glVertex3f(-1.0, 3.0f, 0.0f);
-    glEnd();
-
-    // z 
-    glColor3f(0.0, 0.0, 1.0); // blue z
-    glBegin(GL_LINES);
-    glVertex3f(0.0, 0.0f, -4.0f);
-    glVertex3f(0.0, 0.0f, 4.0f);
-
-
-    glVertex3f(0.0, 0.0f, 4.0f);
-    glVertex3f(0.0, 1.0f, 3.0f);
-
-    glVertex3f(0.0, 0.0f, 4.0f);
-    glVertex3f(0.0, -1.0f, 3.0f);
-    glEnd();
-}
 
 void MoteurPhysique::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {

@@ -10,13 +10,11 @@ out vec2 texCoord;	// Outputs the texture coordinate tothe Fragment shader
 
 uniform float scale;	// COntrol the scale of the vertices
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 proj;
+uniform mat4 camMatrix;
 
 void main()
 {
-   gl_Position = proj*view*model*vec4(aPos, 1.0f);
+   gl_Position = camMatrix*vec4(aPos, 1.0f);
 
    
    color = aColor;		// Assigns the colors				from the Vertex Data to "color"
