@@ -14,11 +14,19 @@ private :
 
 public :
 
+	Particule();
+
+	Particule(float invMasse);
+
+	Particule(float invMasse, float frottement);
+
 	Vector3D appliedForce;
 
 	float getInverseMasse();
 
 	void setInverseMasse(float invM);
+
+	void setFrottement(float frott);
 
 	void updateAcceleration();
 
@@ -30,4 +38,6 @@ public :
 
 
 };
+
+
 
