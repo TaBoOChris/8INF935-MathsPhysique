@@ -3,13 +3,12 @@
 
 #include <iostream>
 #include <GL/glew.h>
-
 #include <GLFW/glfw3.h>
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 800
 
-GLFWwindow* MoteurPhysique::initWindow()
+
+
+GLFWwindow* MoteurPhysique::initWindow(int windowWidth, int windowHeight)
 {
     /* Initialize the library */
     if (!glfwInit())
@@ -22,7 +21,7 @@ GLFWwindow* MoteurPhysique::initWindow()
 
 
     /* Create a windowed mode window and its OpenGL context */
-    this->m_window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Moteur Physique OpenGL", NULL, NULL);
+    this->m_window = glfwCreateWindow(windowWidth, windowHeight, "Moteur Physique OpenGL", NULL, NULL);
     if (!this->m_window)
     {
         std::cout << "fail to create Window" << std::endl;
@@ -43,7 +42,7 @@ GLFWwindow* MoteurPhysique::initWindow()
 
     }
 
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT); // specify the viewport of openGL in the window
+    glViewport(0, 0, windowWidth, windowHeight); // specify the viewport of openGL in the window
     glClearColor(0.17f, 0.13f, 0.17f, 1.0f); // color of the background
     glClear(GL_COLOR_BUFFER_BIT); // clean the back buffer and assign new color
     glfwSwapBuffers(m_window); // swap the back buffer with the front buffer

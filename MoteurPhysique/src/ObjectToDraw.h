@@ -12,7 +12,10 @@ class ObjectToDraw
 
 private :
 
-	//GLfloat *m_vertices;
+
+	float m_rotation = 0.0f;
+	double m_prevTime;
+
 	VAO* m_VAO;
 	VBO* m_VBO;
 	EBO* m_EBO;

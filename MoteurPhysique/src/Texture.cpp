@@ -32,7 +32,7 @@ Texture::Texture(const char* image, GLenum textType, GLenum slot, GLenum format,
 	glBindTexture(textType, 0);		// unbind opengl texture , it can't accidentally be modified
 }
 
-void Texture::texUnit(Shader shader, const char* uniform, GLuint unit)
+void Texture::texUnit(Shader& shader, const char* uniform, GLuint unit)
 {
 	GLuint textUni = glGetUniformLocation(shader.m_ID, uniform);
 	shader.activate();

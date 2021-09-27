@@ -7,7 +7,7 @@ private:
 
 public : 
 
-	GLFWwindow* initWindow();
+	GLFWwindow* initWindow(int windowWidth, int windowHeight);
 	void display();
 	void terminate();
 

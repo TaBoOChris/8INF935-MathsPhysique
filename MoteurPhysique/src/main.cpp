@@ -10,7 +10,8 @@
 
 using namespace std;
 
-
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 800
 
 
 int main(void)
@@ -24,7 +25,7 @@ int main(void)
 
     MoteurPhysique my_MoteurPhysique; 
 
-    GLFWwindow* window = my_MoteurPhysique.initWindow();
+    GLFWwindow* window = my_MoteurPhysique.initWindow(WINDOW_WIDTH, WINDOW_HEIGHT);
     
     ObjectToDraw myObject;
 
@@ -34,8 +35,11 @@ int main(void)
     while (!glfwWindowShouldClose(window))
     {
         
-        glClear(GL_COLOR_BUFFER_BIT);
+        
         myObject.display();
+
+
+
         my_MoteurPhysique.display();
     }
 
