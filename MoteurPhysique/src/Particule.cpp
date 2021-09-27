@@ -2,23 +2,28 @@
 
 float Particule::getInverseMasse()
 {
-	return inverseMasse;
+	return this->inverseMasse;
+}
+
+void Particule::setInverseMasse(float invM)
+{
+	this->inverseMasse = invM;
 }
 
 void Particule::updateAcceleration()
 {
-	acceleration = inverseMasse * appliedForce;
+	this->acceleration = this->inverseMasse * this->appliedForce;
 }
 
 
 void Particule::updateVitesse(float temps)
 {
-	vitesse = vitesse * pow(frottement, temps) + acceleration * temps;
+	this->vitesse = this->vitesse * pow(this->frottement, temps) + this->acceleration * temps;
 }
 
 void Particule::updatePosition(float temps)
 {
-	position = position + vitesse * temps + acceleration * pow(temps, 2) * 0.5f;
+	this->position = this->position + this->vitesse * temps + this->acceleration * pow(temps, 2) * 0.5f;
 }
 
 void Particule::integrer(float temps)
