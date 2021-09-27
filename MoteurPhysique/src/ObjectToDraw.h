@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "Shader.h"
+#include "Texture.h"
 #include "EBO.h"
 #include "VBO.h"
 #include "VAO.h"
@@ -18,6 +19,7 @@ private :
 	Shader* m_shaderProgram;
 
 	GLuint m_uniID;
+	Texture* m_texture;
 
 public :
 
