@@ -18,6 +18,8 @@ public :
 
 	float getInverseMasse();
 
+	void setInverseMasse(float invM);
+
 	void updateAcceleration();
 
 	void updateVitesse(float temps);
