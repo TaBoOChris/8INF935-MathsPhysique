@@ -1,5 +1,23 @@
 #include "Particule.h"
 
+Particule::Particule()
+{
+	this->inverseMasse = 100000000000000.0f;
+	this->frottement = 0.0f;
+}
+
+Particule::Particule(float invMasse)
+{
+	this->inverseMasse = invMasse;
+	this->frottement = 0.0f;
+}
+
+Particule::Particule(float invMasse, float frott)
+{
+	this->inverseMasse = invMasse;
+	this->frottement = frott;
+}
+
 float Particule::getInverseMasse()
 {
 	return this->inverseMasse;
@@ -8,6 +26,11 @@ float Particule::getInverseMasse()
 void Particule::setInverseMasse(float invM)
 {
 	this->inverseMasse = invM;
+}
+
+void Particule::setFrottement(float frott)
+{
+	this->frottement = frott;
 }
 
 void Particule::updateAcceleration()
@@ -32,3 +55,4 @@ void Particule::integrer(float temps)
 	updateVitesse(temps);
 	updateAcceleration();
 }
+
