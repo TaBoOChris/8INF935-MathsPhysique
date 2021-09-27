@@ -23,33 +23,7 @@ GLuint indices[] =
 	0, 2, 3
 };
 
-Vertex lightVertices[] =
-{ //     COORDINATES     //
-	Vertex{glm::vec3(-0.1f, -0.1f,  0.1f)},
-	Vertex{glm::vec3(-0.1f, -0.1f, -0.1f)},
-	Vertex{glm::vec3(0.1f, -0.1f, -0.1f)},
-	Vertex{glm::vec3(0.1f, -0.1f,  0.1f)},
-	Vertex{glm::vec3(-0.1f,  0.1f,  0.1f)},
-	Vertex{glm::vec3(-0.1f,  0.1f, -0.1f)},
-	Vertex{glm::vec3(0.1f,  0.1f, -0.1f)},
-	Vertex{glm::vec3(0.1f,  0.1f,  0.1f)}
-};
 
-GLuint lightIndices[] =
-{
-	0, 1, 2,
-	0, 2, 3,
-	0, 4, 7,
-	0, 7, 3,
-	3, 7, 6,
-	3, 6, 2,
-	2, 6, 5,
-	2, 5, 1,
-	1, 5, 4,
-	1, 4, 0,
-	4, 5, 6,
-	4, 6, 7
-};
 
 int main(void)
 {
@@ -72,38 +46,38 @@ int main(void)
 		Texture("planks.png", "diffuse", 0, GL_RGBA, GL_UNSIGNED_BYTE),
 		Texture("planksSpec.png", "specular", 1, GL_RED, GL_UNSIGNED_BYTE) 
 	};
-    
-	// Generates Shader object using shaders default.vert and default.frag
-	Shader shaderProgram("default.vert", "default.frag");
+
+
 	// Store mesh data in vectors for the mesh
 	std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
 	std::vector <GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
 	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
 	// Create floor mesh
-	Mesh floor(verts, ind, tex);
+	Mesh floor(verts, ind, tex);	
+	Mesh floor2(verts, ind, tex);
 
+
+	std::vector<Mesh> meshes;
+	meshes.push_back(floor);
+	meshes.push_back(floor2);
 	//----
 
 
 
 	glEnable(GL_DEPTH_TEST);
 
-    Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT,glm::vec3(0.0f,0.0f,2.0f));
+    Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT,glm::vec3(2.0f,2.0f,2.0f));
 
 
 	float position = 0.0f;
 	double prevTime = glfwGetTime();
+	float i = 1;
 
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        shaderProgram.activate();	// Telle OpenGL wich shader we want to use
-        
-
-
-		//--------
-
+		// Time boucle
 		double crntTime = glfwGetTime();
 		if (crntTime-prevTime >= 1/30)
 		{
@@ -111,41 +85,24 @@ int main(void)
 			prevTime = crntTime;
 		}
 
-		glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-		glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
-
-
-		glm::vec3 objectPos = glm::vec3(0.0f, position, 0.0f);
-		glm::mat4 objectModel = glm::mat4(1.0f);
-		objectModel = glm::translate(objectModel, objectPos);
-
-		shaderProgram.activate();
-		glUniformMatrix4fv(glGetUniformLocation(shaderProgram.m_ID, "model"), 1, GL_FALSE, glm::value_ptr(objectModel));
-		glUniform4f(glGetUniformLocation(shaderProgram.m_ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-		glUniform3f(glGetUniformLocation(shaderProgram.m_ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-
-
-
-
-
-
-
-		//-----
-
+		// camera 
         camera.Inputs(window);
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
+		// meshes
+		for (Mesh mesh : meshes) {
+			mesh.Draw(camera , 0.0f, i*  position, 0.0f);
+			i = -i;
+		}
 
-		// Draws different meshes
-		floor.Draw(shaderProgram, camera);
-
-
+		// moteur 
         my_MoteurPhysique.display();
     }
 
-
-    
-    shaderProgram.terminate();
+	// terminate mesh (shader)
+	for (Mesh mesh : meshes) {
+		mesh.terminate();
+	}
     my_MoteurPhysique.terminate();
 
     return 0;

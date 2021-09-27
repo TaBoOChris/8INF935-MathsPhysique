@@ -19,10 +19,16 @@ public :
 	// Store VAO in public so it can be used in the Draw function
 	VAO VAO;
 
+
+	// store shader program
+	Shader* shaderProgram; // ("default.vert", "default.frag");
+
 	// Initializes the mesh
 	Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::vector <Texture>& textures);
 
 	// Draws the mesh
-	void Draw(Shader& shader, Camera& camera);
+	void Draw(Camera& camera, float posX, float posY, float posZ);
+
+	void terminate();
 };
 
