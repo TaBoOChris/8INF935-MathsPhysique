@@ -3,6 +3,13 @@
 CubeMesh::CubeMesh()
 {
 
+	m_particule = new Particule (Vector3D(-0.5f, 1.0f, 0.0f), Vector3D(0.003f, 0.0f, 0.0f), Vector3D(0.0f, 0.0f, 0.0f));
+	m_particule->appliedForce = Vector3D(0.0f, -0.01f, 0.0f);
+	m_particule->setInverseMasse(0.001f);
+
+
+	//----
+
 	Vertex vertices_tmp[] =
 	{ //               COORDINATES           /            COLORS          /           TexCoord         /       NORMALS         //
 		Vertex{glm::vec3(-1.0f, -1.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f),	glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)}, // 0 gauche devant	bas
@@ -51,4 +58,17 @@ CubeMesh::CubeMesh()
 	Mesh::textures = tex;
 
 
+}
+
+CubeMesh::CubeMesh(float bornTime) : CubeMesh()
+{
+	this->bornTime = bornTime;
+}
+
+void CubeMesh::update(double time)
+{
+	m_particule->integrer((float)time-bornTime);
+	std::cout<< "Particul position : \n " << m_particule->getPosition() << std::endl;
+	this->position = m_particule->getPosition();
+	std::cout <<"Cube position : \n"<<  this->position << std::endl;
 }

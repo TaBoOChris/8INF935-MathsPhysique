@@ -64,12 +64,11 @@ void Mesh::bind()
 }
 
 
-void Mesh::Draw(Camera& camera, float posX, float posY, float posZ, float scale)
+void Mesh::Draw(Camera& camera, float scale)
 {
 	glm::vec4 lightColor = glm::vec4(1.0f, 0.5f, 0.0f, 1.0f);
 
-
-	glm::vec3 objectPos = glm::vec3(posX, posY, posZ);
+	glm::vec3 objectPos = glm::vec3(this->position.x, this->position.y, this->position.z);
 	glm::vec3 objectScale = glm::vec3(scale);
 	glm::mat4 objectModel = glm::mat4(1.0f);
 	objectModel = glm::translate(objectModel, objectPos);

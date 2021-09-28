@@ -36,6 +36,8 @@ public :
 
 	void setFrottement(float frott);
 
+	void setVitesse(Vector3D vitesse);
+
 	void updateAcceleration();
 
 	//dans les trois fonctions suivantes, le temps est le delta temps avec l'instant précédent, permet une approximation du calcul

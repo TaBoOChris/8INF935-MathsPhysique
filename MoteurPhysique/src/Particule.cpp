@@ -50,6 +50,11 @@ void Particule::setFrottement(float frott)
 	this->frottement = frott;
 }
 
+void Particule::setVitesse(Vector3D vitesse)
+{
+	this->vitesse = vitesse;
+}
+
 //pour accélération, position et vitesse, on applique les formules physiques vues en cours
 void Particule::updateAcceleration()
 {

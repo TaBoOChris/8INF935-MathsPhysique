@@ -27,21 +27,15 @@ int main(void)
     MoteurPhysique my_MoteurPhysique; 
     GLFWwindow* window = my_MoteurPhysique.initWindow(800, 800);
     
+
+	std::vector<Mesh> meshes;
 	// Create floor mesh
 	Mesh floor;	
 	floor.bind();
-
-
-	std::vector<Mesh> meshes;
 	meshes.push_back(floor);
 
-
-
-
 	std::vector<CubeMesh> allCubes;
-	CubeMesh newCube0;
-	newCube0.bind();
-	allCubes.push_back(newCube0);
+
 
 	//----
 
@@ -64,12 +58,7 @@ int main(void)
 
 	//---
 
-	Particule my_particule(Vector3D(-0.5f,1.0f,0.0f) , Vector3D(0.005f, 0.0f, 0.0f), Vector3D(0.0f, 0.0f, 0.0f));
-	my_particule.appliedForce = Vector3D(0.0f, -0.1f, 0.0f);
-	my_particule.setInverseMasse(0.001f);
-	std::cout << my_particule.getPosition() << std::endl;
 
-	//-
 	double prevTime = 0.0f;
 	double crntTime = 0.0f;
 	double timeDiff;
@@ -93,14 +82,7 @@ int main(void)
 			counter = 0;
 
 			//----
-			std::cout << "t = " << glfwGetTime() << std::endl;
-			my_particule.integrer(glfwGetTime());
-			std::cout << my_particule.getPosition() << std::endl;
-			if (my_particule.getPosition().y <= 0) {
-				my_particule.appliedForce = Vector3D(0.0f);
-				my_particule.setFrottement(0.0f);
-
-			}
+			
 		}
 
 
@@ -120,17 +102,13 @@ int main(void)
 
 		// meshes
 		for (Mesh mesh : meshes) {
-			mesh.Draw(camera , 0.0f, 0.0f, 0.0f ,1.0f);
+			mesh.Draw(camera , 1.0f);
 		}
 
 		// cubes
 		for (CubeMesh cube : allCubes) {
-			
-			cube.Draw(camera, 
-				my_particule.getPosition().x , 
-				my_particule.getPosition().y,
-				my_particule.getPosition().z,
-				0.05f);
+			cube.update(glfwGetTime());
+			cube.Draw(camera,0.05f);
 		}
 
 
@@ -139,7 +117,33 @@ int main(void)
 		ImGui::Begin("I'm Window, ImGui Window");
 		ImGui::Text("Let's play with particle");
 		if (ImGui::Button("Balle")) {			// Buttons return true when clicked (most widgets return true when edited/activated)
-			CubeMesh newCube;
+			CubeMesh newCube((float)glfwGetTime());
+			newCube.m_particule->setInverseMasse(0.5f);
+			newCube.m_particule->setVitesse(Vector3D(0.05f, 0.0f, 0.0f));
+			newCube.bind();
+			allCubes.push_back(newCube);
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Boulets")) {			// Buttons return true when clicked (most widgets return true when edited/activated)
+			CubeMesh newCube((float)glfwGetTime());
+			newCube.m_particule->setInverseMasse(0.8f);
+			newCube.m_particule->setVitesse(Vector3D(0.1f, 0.1f, 0.0f));
+			newCube.bind();
+			allCubes.push_back(newCube);
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Laser")) {			// Buttons return true when clicked (most widgets return true when edited/activated)
+			CubeMesh newCube((float)glfwGetTime());
+			newCube.m_particule->setInverseMasse(0.01f);
+			newCube.m_particule->setVitesse(Vector3D(0.1f, 0.0f, 0.0f));
+			newCube.bind();
+			allCubes.push_back(newCube);
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Boule de feu")) {			// Buttons return true when clicked (most widgets return true when edited/activated)
+			CubeMesh newCube((float)glfwGetTime());
+			newCube.m_particule->setInverseMasse(0.6f);
+			newCube.m_particule->setVitesse(Vector3D(0.2f, 0.02f, 0.0f));
 			newCube.bind();
 			allCubes.push_back(newCube);
 		}
