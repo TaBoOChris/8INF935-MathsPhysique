@@ -2,13 +2,9 @@
 
 Particule::Particule()
 {
-<<<<<<< HEAD
 	this->inverseMasse = 1.0f;
 	this->frottement = 1.0f;
-=======
-	this->inverseMasse = 100000000000000.0f;
-	this->frottement = 0.0f;
->>>>>>> c6e230d2b582d105b0911cebbd8878cabe6d4928
+
 }
 
 Particule::Particule(float invMasse)
@@ -23,7 +19,7 @@ Particule::Particule(float invMasse, float frott)
 	this->frottement = frott;
 }
 
-<<<<<<< HEAD
+
 Particule::Particule(Vector3D initialPosition, Vector3D initialVitesse, Vector3D initialAcceleration)
 {
 	this->position = initialPosition;
@@ -33,8 +29,7 @@ Particule::Particule(Vector3D initialPosition, Vector3D initialVitesse, Vector3D
 	this->frottement = 1.0f;
 }
 
-=======
->>>>>>> c6e230d2b582d105b0911cebbd8878cabe6d4928
+
 float Particule::getInverseMasse()
 {
 	return this->inverseMasse;
@@ -56,12 +51,10 @@ void Particule::setFrottement(float frott)
 }
 
 //pour accélération, position et vitesse, on applique les formules physiques vues en cours
+void Particule::updateAcceleration()
 {
-<<<<<<< HEAD
 	this->acceleration =  this->appliedForce * this->inverseMasse;
-=======
-	this->acceleration = this->appliedForce * this->inverseMasse;
->>>>>>> c6e230d2b582d105b0911cebbd8878cabe6d4928
+
 }
 
 

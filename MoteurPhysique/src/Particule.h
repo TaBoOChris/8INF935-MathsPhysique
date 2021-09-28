@@ -22,6 +22,9 @@ public :
 
 	Particule(float invMasse, float frottement);
 
+	Particule(Vector3D initialPosition, Vector3D initialVitesse, Vector3D initialAcceleration);
+
+
 	//avec position, vitesse et accélération, suffisant à décrire la particule et son évolution
 	Vector3D appliedForce;
 
