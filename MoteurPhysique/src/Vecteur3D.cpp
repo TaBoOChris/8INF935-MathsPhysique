@@ -55,6 +55,11 @@ Vector3D operator*(Vector3D const& u, float const& a)
     return Vector3D(u.x*a, u.y*a,u.z*a);
 }
 
+Vector3D operator*(float const& a, Vector3D const& u)
+{
+    return Vector3D(u.x * a, u.y * a, u.z * a);
+}
+
 float operator*(Vector3D const& u, Vector3D const& v) 
 {
     return ( u.x * v.x + u.y * v.y + u.z * v.z );

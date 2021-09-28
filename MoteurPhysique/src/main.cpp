@@ -25,32 +25,30 @@ int main(void)
     //------------------------------
 
     MoteurPhysique my_MoteurPhysique; 
-
     GLFWwindow* window = my_MoteurPhysique.initWindow(800, 800);
     
-    
-
 	// Create floor mesh
 	Mesh floor;	
-
-
 	floor.bind();
 
 
 	std::vector<Mesh> meshes;
 	meshes.push_back(floor);
 
+
+
+
 	std::vector<CubeMesh> allCubes;
+	CubeMesh newCube0;
+	newCube0.bind();
+	allCubes.push_back(newCube0);
 
 	//----
-
-	
-
 
 
 	glEnable(GL_DEPTH_TEST);
 
-    Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT,glm::vec3(2.0f,2.0f,2.0f));
+    Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT,glm::vec3(0.0f,1.0f,4.0f));
 
 	// IMGUI
 	IMGUI_CHECKVERSION();
@@ -66,15 +64,46 @@ int main(void)
 
 	//---
 
-	Particule my_particule(Vector3D(0.0f,50.0f,0.0f) , Vector3D(0.0f, 0.0f, 0.0f), Vector3D(0.0f, -0.1f, 0.0f));
+	Particule my_particule(Vector3D(-0.5f,1.0f,0.0f) , Vector3D(0.005f, 0.0f, 0.0f), Vector3D(0.0f, 0.0f, 0.0f));
+	my_particule.appliedForce = Vector3D(0.0f, -0.1f, 0.0f);
+	my_particule.setInverseMasse(0.001f);
 	std::cout << my_particule.getPosition() << std::endl;
 
 	//-
-	float position = 0.0f;
-	double prevTime = glfwGetTime();
+	double prevTime = 0.0f;
+	double crntTime = 0.0f;
+	double timeDiff;
+	unsigned int counter = 0;
+
+	//glfwSwapInterval(60);
 
     while (!glfwWindowShouldClose(window))
     {
+
+		crntTime = glfwGetTime();
+		timeDiff = crntTime - prevTime;
+		counter++;
+		if (timeDiff >= 1.0 / 30.0) {
+			// fps and ms calcul
+			std::string FPS = std::to_string((1.0 / timeDiff) * counter);
+			std::string ms = std::to_string((timeDiff / counter) * 1000);
+			std::string newTitle = "MoteurPhysique ( " + FPS + "fps, " + ms + "ms)";
+			glfwSetWindowTitle(window, newTitle.c_str());
+			prevTime = crntTime;
+			counter = 0;
+
+			//----
+			std::cout << "t = " << glfwGetTime() << std::endl;
+			my_particule.integrer(glfwGetTime());
+			std::cout << my_particule.getPosition() << std::endl;
+			if (my_particule.getPosition().y <= 0) {
+				my_particule.appliedForce = Vector3D(0.0f);
+				my_particule.setFrottement(0.0f);
+
+			}
+		}
+
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// ImGUI Frame Creation
@@ -83,19 +112,6 @@ int main(void)
 		ImGui::NewFrame();
 		if (!io.WantCaptureMouse) {
 			io.MouseClicked[ImGuiMouseButton_Right] = GLFW_MOUSE_BUTTON_RIGHT;
-		}
-
-		// Time boucle
-		double crntTime = glfwGetTime();
-		if (crntTime-prevTime >= 1)
-		{	
-			std::cout << "t = " << glfwGetTime() << std::endl;
-			my_particule.integrer(glfwGetTime());
-			std::cout << my_particule.getPosition() << std::endl;
-
-
-			position += 0.000005f;
-			prevTime = crntTime;
 		}
 
 		// camera 
@@ -110,7 +126,11 @@ int main(void)
 		// cubes
 		for (CubeMesh cube : allCubes) {
 			
-			cube.Draw(camera, 0.0f, 1.0f, 0.0f, 0.1f); 
+			cube.Draw(camera, 
+				my_particule.getPosition().x , 
+				my_particule.getPosition().y,
+				my_particule.getPosition().z,
+				0.05f);
 		}
 
 
