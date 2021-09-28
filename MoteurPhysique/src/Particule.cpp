@@ -38,8 +38,7 @@ void Particule::setFrottement(float frott)
 	this->frottement = frott;
 }
 
-//pour accélération, position et vitesse, on applique les formules physiques en se contentant d'approximation des dérivées
-void Particule::updateAcceleration()
+//pour accélération, position et vitesse, on applique les formules physiques vues en cours
 {
 	this->acceleration = this->appliedForce * this->inverseMasse;
 }
