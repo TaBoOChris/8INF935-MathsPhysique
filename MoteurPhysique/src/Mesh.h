@@ -23,11 +23,13 @@ public :
 	// store shader program
 	Shader* shaderProgram; // ("default.vert", "default.frag");
 
+	Mesh();
+
 	// Initializes the mesh
-	Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::vector <Texture>& textures);
+	void bind();
 
 	// Draws the mesh
-	void Draw(Camera& camera, float posX, float posY, float posZ);
+	void Draw(Camera& camera, float posX, float posY, float posZ, float scale);
 
 	void terminate();
 };

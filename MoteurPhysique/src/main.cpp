@@ -1,27 +1,11 @@
 #include "Vecteur3D.h"
 #include "MoteurPhysique.h"
 #include"Mesh.h"
-
+#include "CubeMesh.h"
 using namespace std;
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 800
-
-// Vertices coordinates
-Vertex vertices[] =
-{ //               COORDINATES           /            COLORS          /           TexCoord         /       NORMALS         //
-	Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
-	Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
-	Vertex{glm::vec3(1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
-	Vertex{glm::vec3(1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
-};
-
-// Indices for vertices order
-GLuint indices[] =
-{
-	0, 1, 2,
-	0, 2, 3
-};
 
 
 
@@ -36,31 +20,28 @@ int main(void)
 
     MoteurPhysique my_MoteurPhysique; 
 
-    GLFWwindow* window = my_MoteurPhysique.initWindow(WINDOW_WIDTH, WINDOW_HEIGHT);
+    GLFWwindow* window = my_MoteurPhysique.initWindow(800, 800);
     
     
 
-	// Texture data
-	Texture textures[]
-	{
-		Texture("planks.png", "diffuse", 0, GL_RGBA, GL_UNSIGNED_BYTE),
-		Texture("planksSpec.png", "specular", 1, GL_RED, GL_UNSIGNED_BYTE) 
-	};
-
-
-	// Store mesh data in vectors for the mesh
-	std::vector <Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
-	std::vector <GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
-	std::vector <Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
 	// Create floor mesh
-	Mesh floor(verts, ind, tex);	
-	Mesh floor2(verts, ind, tex);
+	Mesh floor;	
+	Mesh floor2;
+
+	CubeMesh cube;
+
+	cube.bind();
+
+	floor.bind();
+	floor2.bind();
 
 
 	std::vector<Mesh> meshes;
 	meshes.push_back(floor);
 	meshes.push_back(floor2);
 	//----
+
+	
 
 
 
@@ -91,9 +72,11 @@ int main(void)
 
 		// meshes
 		for (Mesh mesh : meshes) {
-			mesh.Draw(camera , 0.0f, i*  position, 0.0f);
+			mesh.Draw(camera , 0.0f, i*  position, 0.0f ,1.0f);
 			i = -i;
 		}
+
+		cube.Draw(camera, 0.0f, 1.0f, 0.0f, 0.1f); 
 
 		// moteur 
         my_MoteurPhysique.display();
@@ -103,6 +86,8 @@ int main(void)
 	for (Mesh mesh : meshes) {
 		mesh.terminate();
 	}
+
+	cube.terminate();
     my_MoteurPhysique.terminate();
 
     return 0;
