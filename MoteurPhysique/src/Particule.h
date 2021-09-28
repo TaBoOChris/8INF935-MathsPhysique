@@ -20,9 +20,13 @@ public :
 
 	Particule(float invMasse, float frottement);
 
+	Particule(Vector3D initialPosition, Vector3D initialVitesse, Vector3D initialAcceleration);
+
 	Vector3D appliedForce;
 
 	float getInverseMasse();
+
+	Vector3D getPosition();
 
 	void setInverseMasse(float invM);
 

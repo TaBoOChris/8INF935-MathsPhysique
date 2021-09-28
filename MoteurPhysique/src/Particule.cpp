@@ -2,7 +2,7 @@
 
 Particule::Particule()
 {
-	this->inverseMasse = 100000000000000.0f;
+	this->inverseMasse = 100000.0f;
 	this->frottement = 0.0f;
 }
 
@@ -18,9 +18,23 @@ Particule::Particule(float invMasse, float frott)
 	this->frottement = frott;
 }
 
+Particule::Particule(Vector3D initialPosition, Vector3D initialVitesse, Vector3D initialAcceleration)
+{
+	this->position = initialPosition;
+	this->vitesse = initialVitesse;
+	this->acceleration = initialAcceleration;
+	this->inverseMasse = 100000.0f;
+	this->frottement = 0.0f;
+}
+
 float Particule::getInverseMasse()
 {
 	return this->inverseMasse;
+}
+
+Vector3D Particule::getPosition()
+{
+	return position;
 }
 
 void Particule::setInverseMasse(float invM)
