@@ -1,47 +1,10 @@
 #include "Mesh.h"
-#include "VBO.h"
-#include "VAO.h"
-#include "Shader.h"
 
-Mesh::Mesh()
+Mesh::Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::vector <Texture>& textures)
 {
-	Vertex vertices_tmp[] =
-	{ //               COORDINATES           /            COLORS          /           TexCoord         /       NORMALS         //
-		Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
-		Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
-		Vertex{glm::vec3(1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
-		Vertex{glm::vec3(1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
-	};
-
-	// Indices for vertices order
-	GLuint indices_tmp[] =
-	{
-		0, 1, 2,
-		0, 2, 3
-	};
-
-	// Texture data
-	Texture textures_tmp[]
-	{
-		Texture("planks.png", "diffuse", 0, GL_RGBA, GL_UNSIGNED_BYTE),
-		Texture("planksSpec.png", "specular", 1, GL_RED, GL_UNSIGNED_BYTE)
-	};
-
-
-	// Store mesh data in vectors for the mesh
-	std::vector <Vertex> verts(vertices_tmp, vertices_tmp + sizeof(vertices_tmp) / sizeof(Vertex));
-	std::vector <GLuint> ind(indices_tmp, indices_tmp + sizeof(indices_tmp) / sizeof(GLuint));
-	std::vector <Texture> tex(textures_tmp, textures_tmp + sizeof(textures_tmp) / sizeof(Texture));
-
-
-	Mesh::vertices = verts;
-	Mesh::indices = ind;
-	Mesh::textures = tex;
-}
-
-void Mesh::bind()
-{
-
+	Mesh::vertices = vertices;
+	Mesh::indices = indices;
+	Mesh::textures = textures;
 
 	VAO.bind();
 	// Generates Vertex Buffer Object and links it to vertices
@@ -57,30 +20,21 @@ void Mesh::bind()
 	VAO.unBind();
 	VBO.unBind();
 	EBO.unBind();
-
-
-
-	shaderProgram = new Shader("default.vert", "default.frag");
 }
 
 
-void Mesh::Draw(Camera& camera, float scale)
+void Mesh::Draw
+(
+	Shader& shader,
+	Camera& camera,
+	glm::mat4 matrix,
+	glm::vec3 translation,
+	glm::quat rotation,
+	glm::vec3 scale
+)
 {
-	glm::vec4 lightColor = glm::vec4(1.0f, 0.5f, 0.0f, 1.0f);
-
-	glm::vec3 objectPos = glm::vec3(this->position.x, this->position.y, this->position.z);
-	glm::vec3 objectScale = glm::vec3(scale);
-	glm::mat4 objectModel = glm::mat4(1.0f);
-	objectModel = glm::translate(objectModel, objectPos);
-	objectModel = glm::scale(objectModel, objectScale);
-
-	shaderProgram->activate();
-	glUniformMatrix4fv(glGetUniformLocation(shaderProgram->m_ID, "model"), 1, GL_FALSE, glm::value_ptr(objectModel));
-	glUniform4f(glGetUniformLocation(shaderProgram->m_ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
-
-
 	// Bind shader to be able to access uniforms
-	shaderProgram->activate();
+	shader.activate();
 	VAO.bind();
 
 	// Keep track of how many of each type of textures we have
@@ -99,18 +53,29 @@ void Mesh::Draw(Camera& camera, float scale)
 		{
 			num = std::to_string(numSpecular++);
 		}
-		textures[i].texUnit(*shaderProgram, (type + num).c_str(), i);
+		textures[i].texUnit(shader, (type + num).c_str(), i);
 		textures[i].bind();
 	}
 	// Take care of the camera Matrix
-	glUniform3f(glGetUniformLocation(shaderProgram->m_ID, "camPos"), camera.position.x, camera.position.y, camera.position.z);
-	camera.Matrix(*shaderProgram, "camMatrix");
+	glUniform3f(glGetUniformLocation(shader.m_ID, "camPos"), camera.position.x, camera.position.y, camera.position.z);
+	camera.Matrix(shader, "camMatrix");
+
+	// Initialize matrices
+	glm::mat4 trans = glm::mat4(1.0f);
+	glm::mat4 rot = glm::mat4(1.0f);
+	glm::mat4 sca = glm::mat4(1.0f);
+
+	// Transform the matrices to their correct form
+	trans = glm::translate(trans, translation);
+	rot = glm::mat4_cast(rotation);
+	sca = glm::scale(sca, scale);
+
+	// Push the matrices to the vertex shader
+	glUniformMatrix4fv(glGetUniformLocation(shader.m_ID, "translation"), 1, GL_FALSE, glm::value_ptr(trans));
+	glUniformMatrix4fv(glGetUniformLocation(shader.m_ID, "rotation"), 1, GL_FALSE, glm::value_ptr(rot));
+	glUniformMatrix4fv(glGetUniformLocation(shader.m_ID, "scale"), 1, GL_FALSE, glm::value_ptr(sca));
+	glUniformMatrix4fv(glGetUniformLocation(shader.m_ID, "model"), 1, GL_FALSE, glm::value_ptr(matrix));
 
 	// Draw the actual mesh
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-}
-
-void Mesh::terminate()
-{
-	this->shaderProgram->terminate();
 }

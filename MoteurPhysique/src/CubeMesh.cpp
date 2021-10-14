@@ -1,5 +1,5 @@
 #include "CubeMesh.h"
-
+/*
 CubeMesh::CubeMesh()
 {
 
@@ -69,6 +69,7 @@ void CubeMesh::update(double time)
 {
 	m_particule->integrer((float)time-bornTime);
 	std::cout<< "Particul position : \n " << m_particule->getPosition() << std::endl;
-	this->position = m_particule->getPosition();
-	std::cout <<"Cube position : \n"<<  this->position << std::endl;
+	//this->position = m_particule->getPosition();
+	//std::cout <<"Cube position : \n"<<  this->position << std::endl;
 }
+*/

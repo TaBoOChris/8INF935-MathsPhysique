@@ -1,45 +1,34 @@
-#pragma once
+#ifndef MESH_CLASS_H
+#define MESH_CLASS_H
 
 #include<string>
-#include <iostream>
-#include <vector>
-#include "VAO.h"
-#include "EBO.h"
-#include "Camera.h"
-#include "Texture.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include "Vecteur3D.h"
+
+#include"VAO.h"
+#include"EBO.h"
+#include"Camera.h"
+#include"Texture.h"
 
 class Mesh
 {
-
-protected:
-
-	Vector3D position;
-
-public :
-
-	void test() { std::cout << "parent : \n" << position << std::endl; }
-
+public:
 	std::vector <Vertex> vertices;
 	std::vector <GLuint> indices;
 	std::vector <Texture> textures;
 	// Store VAO in public so it can be used in the Draw function
 	VAO VAO;
 
-
-	// store shader program
-	Shader* shaderProgram; // ("default.vert", "default.frag");
-
-	Mesh();
-
 	// Initializes the mesh
-	void bind();
+	Mesh(std::vector <Vertex>& vertices, std::vector <GLuint>& indices, std::vector <Texture>& textures);
 
 	// Draws the mesh
-	void Draw(Camera& camera, float scale);
-
-	void terminate();
+	void Draw
+	(
+		Shader& shader,
+		Camera& camera,
+		glm::mat4 matrix = glm::mat4(1.0f),
+		glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::quat rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
+		glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f)
+	);
 };
-
+#endif

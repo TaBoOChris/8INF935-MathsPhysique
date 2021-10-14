@@ -1,7 +1,7 @@
+/*
 #pragma once
 #include "Mesh.h"
 #include "Particule.h"
-
 class CubeMesh :
     public Mesh
 {
@@ -18,3 +18,4 @@ private:
     float bornTime = 0.0f;
 };
 
+*/
