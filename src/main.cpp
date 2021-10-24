@@ -61,7 +61,7 @@ int main(void)
 
 	// Model Creation
 	std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
-	std::string modelPath = "/MoteurPhysiqueDeJeux/ressources/Blob/blob_gltf.gltf";
+	std::string modelPath = "/8INF935-MathsPhysique/ressources/Blob/blob.gltf";
 	std::cout << parentDir + modelPath << std::endl;
 	Model model((parentDir + modelPath).c_str());
 
