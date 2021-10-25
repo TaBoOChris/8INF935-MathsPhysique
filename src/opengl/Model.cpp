@@ -34,16 +34,16 @@ void Model::Inputs(GLFWwindow* window)
 {
 	float translateSpeed = 0.5f;
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		matricesMeshes[0] = glm::translate( matricesMeshes[0], glm::vec3(-translateSpeed, 0.0f, 0.0f) );
+		matricesMeshes[0] = glm::translate( matricesMeshes[0], glm::vec3(0.0f, 0.0f, -translateSpeed) );
 		
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(0.0f, -translateSpeed, 0.0f));
+		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(0.0f, translateSpeed, 0.0f));
 
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(translateSpeed, 0.0f, 0.0f));
+		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(0.0f, 0.0f, translateSpeed));
 
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(0.0f, translateSpeed, 0.0f));
+		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(0.0f, -translateSpeed, 0.0f));
 
 	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
 		std::cout << matricesMeshes[0] << "\n";
@@ -294,7 +294,7 @@ std::vector<Texture> Model::getTextures()
 		if (!skip)
 		{
 			// Load diffuse texture
-			if (texPath.find("baseColor") != std::string::npos)
+			if (texPath.find("baseColor") != std::string::npos || texPath.find("diffuse") != std::string::npos)
 			{
 				Texture diffuse = Texture((fileDirectory + texPath).c_str(), "diffuse", loadedTex.size());
 				textures.push_back(diffuse);
@@ -302,7 +302,7 @@ std::vector<Texture> Model::getTextures()
 				loadedTexName.push_back(texPath);
 			}
 			// Load specular texture
-			else if (texPath.find("metallicRoughness") != std::string::npos)
+			else if (texPath.find("metallicRoughness") != std::string::npos || texPath.find("specular") != std::string::npos)
 			{
 				Texture specular = Texture((fileDirectory + texPath).c_str(), "specular", loadedTex.size());
 				textures.push_back(specular);

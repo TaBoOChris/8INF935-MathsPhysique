@@ -46,7 +46,7 @@ int main(void)
 
 	glEnable(GL_DEPTH_TEST);
 
-	Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(0.0f, 1.0f, 4.0f));
+	Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(0.0f, 0.0f, 2.0f));
 
 	UserInterface my_UI(window);
 
@@ -89,12 +89,14 @@ int main(void)
 			model.Inputs(window);
 		}
 
+		// Specify the color of the background
+		glClearColor(0.85f, 0.85f, 0.90f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// ImGUI Frame Creation
 		my_UI.frameCreation();
 
-		// camera 
+		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
 		// draw model
