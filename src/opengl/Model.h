@@ -3,6 +3,7 @@
 #include "Json/json.hpp"
 #include "Mesh.h"
 #include <glm/vec3.hpp>
+#include "../maths/Vecteur3D.h"
 
 using json = nlohmann::json;
 
@@ -16,6 +17,9 @@ public:
 	void Draw(Shader& shader, Camera& camera);
 
 	void Inputs(GLFWwindow* window);
+
+	Vector3D getPosition();
+
 
 private:
 	// Variables for easy access

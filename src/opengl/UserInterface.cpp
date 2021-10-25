@@ -29,11 +29,12 @@ void UserInterface::frameCreation()
 
 }
 
-void UserInterface::frameOption()
+void UserInterface::frameOption(Vector3D blobPosition)
 {
 
 	ImGui::Begin("I'm Window, ImGui Window");
 	ImGui::Text("Let's play with particle");
+	/*
 	if (ImGui::Button("Balle")) {			// Buttons return true when clicked (most widgets return true when edited/activated)
 
 	}
@@ -49,6 +50,8 @@ void UserInterface::frameOption()
 	if (ImGui::Button("Boule de feu")) {			// Buttons return true when clicked (most widgets return true when edited/activated)
 
 	}
+	*/
+	ImGui::Text("x : %.2f  y : %.2f  z:%.2f", blobPosition.x, blobPosition.y, blobPosition.z);
 
 	ImGui::End();
 	ImGui::Render();

@@ -45,8 +45,19 @@ void Model::Inputs(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(0.0f, translateSpeed, 0.0f));
 
+	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
+		std::cout << matricesMeshes[0] << "\n";
+		std::cout << matricesMeshes[0][0][0] << matricesMeshes[0][0][1] << matricesMeshes[0][0][2] << matricesMeshes[0][0][3] << "\n";
+	}
 
 
+}
+
+Vector3D Model::getPosition()
+{
+
+	//matricesMeshes[0][1];
+	return Vector3D(matricesMeshes[0][3][0], matricesMeshes[0][3][1], matricesMeshes[0][3][2]);
 }
 
 void Model::loadMesh(unsigned int indMesh)

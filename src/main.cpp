@@ -101,7 +101,7 @@ int main(void)
 		model.Draw(shaderProgram, camera);
 		floor.Draw(shaderProgram, camera);
 		
-		my_UI.frameOption(); //ImGui Frame option
+		my_UI.frameOption(model.getPosition()); //ImGui Frame option
 
 		// moteur 
 		my_MoteurPhysique.display();
