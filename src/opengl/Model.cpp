@@ -1,10 +1,11 @@
-#include<string>
+#include <iostream>
+#include <string>
 #include <fstream>
 #include "Model.h"
 #include "Mesh.h"
 #include "Shader.h"
-
-
+#include <glm/glm.hpp>
+#include <glm/gtx/io.hpp>
 
 Model::Model(const char* file)
 {
@@ -27,6 +28,25 @@ void Model::Draw(Shader& shader, Camera& camera)
 	{
 		meshes[i].Mesh::Draw(shader, camera, matricesMeshes[i]);
 	}
+}
+
+void Model::Inputs(GLFWwindow* window)
+{
+	float translateSpeed = 0.5f;
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		matricesMeshes[0] = glm::translate( matricesMeshes[0], glm::vec3(-translateSpeed, 0.0f, 0.0f) );
+		
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(0.0f, -translateSpeed, 0.0f));
+
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(translateSpeed, 0.0f, 0.0f));
+
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(0.0f, translateSpeed, 0.0f));
+
+
+
 }
 
 void Model::loadMesh(unsigned int indMesh)

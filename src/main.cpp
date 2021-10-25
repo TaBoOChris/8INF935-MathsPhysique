@@ -83,6 +83,7 @@ int main(void)
 
 			//----
 
+			model.Inputs(window);
 		}
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -96,6 +97,7 @@ int main(void)
 
 		// draw model
 		model.Draw(shaderProgram, camera);
+
 		
 		my_UI.frameOption(); //ImGui Frame option
 

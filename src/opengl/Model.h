@@ -2,6 +2,7 @@
 
 #include "Json/json.hpp"
 #include "Mesh.h"
+#include <glm/vec3.hpp>
 
 using json = nlohmann::json;
 
@@ -13,6 +14,8 @@ public:
 	Model(const char* file);
 
 	void Draw(Shader& shader, Camera& camera);
+
+	void Inputs(GLFWwindow* window);
 
 private:
 	// Variables for easy access
