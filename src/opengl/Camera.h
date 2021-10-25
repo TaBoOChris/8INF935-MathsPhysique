@@ -19,8 +19,8 @@ public :
 	int width;
 	int height;
 
-	float defaultSpeed =	0.0005f;
-	float maxSpeed =		0.0015f;
+	float defaultSpeed =	0.05f;
+	float maxSpeed = defaultSpeed * 4.0f;
 	float speed = defaultSpeed;
 	float sensitivity = 100.0f;
 

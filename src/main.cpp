@@ -62,8 +62,10 @@ int main(void)
 	// Model Creation
 	std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
 	std::string modelPath = "/8INF935-MathsPhysique/ressources/Blob/blob.gltf";
-	std::cout << parentDir + modelPath << std::endl;
+	std::string floorPath = "/8INF935-MathsPhysique/ressources/floor/floor.gltf";
+
 	Model model((parentDir + modelPath).c_str());
+	Model floor((parentDir + floorPath).c_str());
 
 	// Main While
 	while (!glfwWindowShouldClose(window))
@@ -82,7 +84,8 @@ int main(void)
 			counter = 0;
 
 			//----
-
+			// mange input
+			camera.Inputs(window);
 			model.Inputs(window);
 		}
 
@@ -92,12 +95,11 @@ int main(void)
 		my_UI.frameCreation();
 
 		// camera 
-		camera.Inputs(window);
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
 		// draw model
 		model.Draw(shaderProgram, camera);
-
+		floor.Draw(shaderProgram, camera);
 		
 		my_UI.frameOption(); //ImGui Frame option
 
