@@ -47,7 +47,7 @@ public :
 
 	void integrer(float temps);
 
-
+	void addForce(Vector3D force);
 };
 
 

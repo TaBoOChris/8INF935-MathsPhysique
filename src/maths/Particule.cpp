@@ -80,3 +80,7 @@ void Particule::integrer(float temps)
 	updateVitesse(temps);
 	updateAcceleration();
 }
+
+void Particule::addForce(Vector3D force) {
+	this->accumForce = this->accumForce + force;
+}
