@@ -99,7 +99,7 @@ int main(void)
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
 		// particules update
-		model.updateParticule(timeDiff);
+		model.updateParticules(timeDiff);
 
 		// draw model
 		model.Draw(shaderProgram, camera);

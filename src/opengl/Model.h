@@ -4,7 +4,7 @@
 #include "Mesh.h"
 #include <glm/vec3.hpp>
 #include <vector>
-#include "Particule.h"
+#include "..\maths\Particule.h"
 
 using json = nlohmann::json;
 
@@ -18,6 +18,9 @@ public:
 	void Draw(Shader& shader, Camera& camera);
 
 	void Inputs(GLFWwindow* window);
+
+	// Calls integrate on all particules in the model
+	void updateParticules(float timeDiff);
 
 private:
 	std::vector<Particule> vectorParticules;
@@ -62,9 +65,6 @@ private:
 	std::vector<glm::vec2> groupFloatsVec2(std::vector<float> floatVec);
 	std::vector<glm::vec3> groupFloatsVec3(std::vector<float> floatVec);
 	std::vector<glm::vec4> groupFloatsVec4(std::vector<float> floatVec);
-
-	// Calls integrate on all particules in the model
-	void Model::updateParticules();
 };
 
 

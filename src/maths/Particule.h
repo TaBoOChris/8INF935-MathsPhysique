@@ -39,6 +39,8 @@ public :
 
 	void setInverseMasse(float invM);
 
+	void setMasse(float masse);
+
 	void setFrottement(float frott);
 
 	void setVitesse(Vector3D vitesse);

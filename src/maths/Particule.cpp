@@ -56,7 +56,7 @@ void Particule::setInverseMasse(float invM)
 	this->masse = (invM == 0) ? -1.0f : 1 / invM;
 }
 
-void Particule::setInverseMasse(float masse) {
+void Particule::setMasse(float masse) {
 	this->masse = masse;
 	this->inverseMasse = (masse == 0) ? this->inverseMasse = -1.0f : this->inverseMasse = 1 / masse;
 }
@@ -75,7 +75,7 @@ void Particule::setVitesse(Vector3D vitesse)
 void Particule::updateAcceleration()
 {
 	this->acceleration =  this->accumForce * this->inverseMasse;
-	this->accumForce = new Vector3D(0, 0, 0);
+	this->accumForce = Vector3D(1);
 }
 
 
