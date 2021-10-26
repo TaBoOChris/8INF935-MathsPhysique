@@ -12,6 +12,6 @@ GravityGenerator::~GravityGenerator()
 {
 }
 
-GravityGenerator::updateForce(Particule* particule, float duration) {
-	particule->appliedForce = particule->appliedForce + ((1 / particule->getInverseMasse) * this->gravite);
+void GravityGenerator::updateForce(Particule* particule, float duration) {
+	particule->addForce(particule->getMasse * this->gravite);
 }

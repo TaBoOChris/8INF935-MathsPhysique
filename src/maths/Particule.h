@@ -6,6 +6,7 @@ class Particule
 private :
 
 	//inverse masse et frottement sont des constantes nécessaires au calcul de vitesse et accélération en physique
+	float masse;
 	float inverseMasse;
 	float frottement;
 
@@ -29,6 +30,8 @@ public :
 	Vector3D accumForce;
 
 	float getInverseMasse();
+
+	float getMasse();
 
 	Vector3D getPosition();
 
