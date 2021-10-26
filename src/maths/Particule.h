@@ -35,6 +35,8 @@ public :
 
 	Vector3D getPosition();
 
+	Vector3D getVitesse();
+
 	void setInverseMasse(float invM);
 
 	void setFrottement(float frott);
