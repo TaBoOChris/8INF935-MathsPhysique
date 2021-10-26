@@ -3,8 +3,7 @@
 #include "Json/json.hpp"
 #include "Mesh.h"
 #include <glm/vec3.hpp>
-#include <vector>
-#include "..\maths\Particule.h"
+#include "../maths/Vecteur3D.h"
 
 using json = nlohmann::json;
 
@@ -19,8 +18,8 @@ public:
 
 	void Inputs(GLFWwindow* window);
 
-	// Calls integrate on all particules in the model
-	void updateParticules(float timeDiff);
+	Vector3D getPosition();
+
 
 private:
 	std::vector<Particule> vectorParticules;
