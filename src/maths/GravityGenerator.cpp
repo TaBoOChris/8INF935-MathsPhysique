@@ -2,7 +2,7 @@
 
 GravityGenerator::GravityGenerator()
 {
-	this->gravite = new Vector3D(0, 0, -9.81f);
+	this->gravite = Vector3D(0, 0, -9.81f);
 }
 
 GravityGenerator::GravityGenerator(Vector3D new_gravity) {

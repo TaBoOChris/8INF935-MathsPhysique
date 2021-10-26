@@ -4,6 +4,7 @@
 #include "Mesh.h"
 #include <glm/vec3.hpp>
 #include "../maths/Vecteur3D.h"
+#include "../maths/Particule.h"
 
 using json = nlohmann::json;
 
@@ -20,9 +21,11 @@ public:
 
 	Vector3D getPosition();
 
+	void updateParticule(float timeDiff);
+
 
 private:
-	std::vector<Particule> vectorParticules;
+	Particule particule;
 	// Variables for easy access
 	const char* file;
 	std::vector<unsigned char> data;
