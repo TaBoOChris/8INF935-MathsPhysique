@@ -26,7 +26,7 @@ public :
 
 
 	//avec position, vitesse et accélération, suffisant à décrire la particule et son évolution
-	Vector3D appliedForce;
+	Vector3D accumForce;
 
 	float getInverseMasse();
 

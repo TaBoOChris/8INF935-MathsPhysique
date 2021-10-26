@@ -58,8 +58,8 @@ void Particule::setVitesse(Vector3D vitesse)
 //pour accélération, position et vitesse, on applique les formules physiques vues en cours
 void Particule::updateAcceleration()
 {
-	this->acceleration =  this->appliedForce * this->inverseMasse;
-
+	this->acceleration =  this->accumForce * this->inverseMasse;
+	this->accumForce = new Vector3D(0, 0, 0);
 }
 
 

@@ -9,6 +9,7 @@ namespace fs = std::filesystem;
 
 #include "maths/Vecteur3D.h"
 #include "maths/Particule.h"
+#include "maths/RegistreForces.h"
 
 #include "opengl/Model.h"
 #include "opengl/UserInterface.h"
@@ -96,6 +97,9 @@ int main(void)
 
 		// camera 
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
+
+		// particules update
+		model.updateParticule(timeDiff);
 
 		// draw model
 		model.Draw(shaderProgram, camera);

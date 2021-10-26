@@ -9,6 +9,9 @@
 
 Model::Model(const char* file)
 {
+	// Create a Particule
+	this->particule = new Particule();
+
 	// Make a JSON object
 	std::string text = get_file_contents(file);
 	JSON = json::parse(text);
@@ -356,4 +359,8 @@ std::vector<glm::vec4> Model::groupFloatsVec4(std::vector<float> floatVec)
 		vectors.push_back(glm::vec4(floatVec[i++], floatVec[i++], floatVec[i++], floatVec[i++]));
 	}
 	return vectors;
+}
+
+void Model::updateParticule(float timeDiff) {
+	this->particule.integrer(timeDiff);
 }

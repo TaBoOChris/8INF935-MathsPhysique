@@ -3,6 +3,7 @@
 #include "Json/json.hpp"
 #include "Mesh.h"
 #include <glm/vec3.hpp>
+#include "Particule.h"
 
 using json = nlohmann::json;
 
@@ -18,6 +19,7 @@ public:
 	void Inputs(GLFWwindow* window);
 
 private:
+	Particule particule;
 	// Variables for easy access
 	const char* file;
 	std::vector<unsigned char> data;
@@ -59,6 +61,8 @@ private:
 	std::vector<glm::vec2> groupFloatsVec2(std::vector<float> floatVec);
 	std::vector<glm::vec3> groupFloatsVec3(std::vector<float> floatVec);
 	std::vector<glm::vec4> groupFloatsVec4(std::vector<float> floatVec);
+
+	void Model::updateParticule();
 };
 
 
