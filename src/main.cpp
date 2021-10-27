@@ -92,7 +92,7 @@ int main(void)
 		// force creation
 		registre.add(
 			models[i]->getParticule(), 
-			new GravityGenerator(Vector3D (0,-9.81, 0))
+			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-8) , 0))
 			);
 	}
 	
@@ -135,11 +135,11 @@ int main(void)
 
 
 		// Apply force of the registre
-		//registre.updateAllForces(timeDiff);
+		registre.updateAllForces(timeDiff);
 
 		for (Model *my_model : models)
 		{
-			my_model->updateParticule(crntTime);
+			my_model->updateParticule(timeDiff);
 			my_model->updatePosition();
 
 			//std::cout << my_model.getParticule()->getPosition()<<std::endl;

@@ -6,9 +6,6 @@ Particule::Particule()
 	this->inverseMasse = 1.0f;
 	this->frottement = 1.0f;
 
-	this->position = Vector3D(0, -2, 0);
-	this->vitesse = Vector3D(0, 0, 0);
-	this->acceleration = Vector3D(0, 0, 0);
 
 }
 
@@ -88,9 +85,9 @@ void Particule::setPosition(Vector3D position)
 //pour accélération, position et vitesse, on applique les formules physiques vues en cours
 void Particule::updateAcceleration()
 {
-	//this->acceleration = this->accumForce * this->inverseMasse;
+	this->acceleration = this->accumForce * this->inverseMasse;
 
-	this->acceleration = Vector3D(0, -0.02, 0);
+	//this->acceleration = Vector3D(0, -0.02, 0);
 	//this->accumForce = Vector3D(0.0f);
 
 	//std::cout << acceleration;
