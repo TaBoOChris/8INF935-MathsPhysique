@@ -95,12 +95,26 @@ int main(void)
 			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-5) , 0))
 			);*/
 
-		// Elastic
+		registre.add(
+			models[i]->getParticule(),
+			new DragGenerator( 0.05f, 0.05f)
+		);
+		
+		//// Elastic de Bungee
+		//if(i > 0)
+		//	registre.add(
+		//		models[i]->getParticule(),
+		//		new BungeeString(models[0]->getParticule(),0.01f,2)
+		//	);
+
+		// simple elastic
 		if(i > 0)
 			registre.add(
 				models[i]->getParticule(),
-				new BungeeString(models[0]->getParticule(),0.01f,2)
+				new ParticleSpring(models[0]->getParticule(),0.05f,2.5f)
 			);
+
+
 	}
 
 	// AnchoredSpring

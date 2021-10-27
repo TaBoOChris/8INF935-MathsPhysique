@@ -2,6 +2,11 @@
 #include "Vecteur3D.h"
 #include "ParticuleForceGenerator.h"
 
+/// <summary>
+///  force de traînée /  force de frottement
+/// </summary>
+
+
 class DragGenerator : public ParticuleForceGenerator
 {
 public:
