@@ -85,15 +85,24 @@ int main(void)
 	{
 		// model and particule creation
 		Model* newModel = new Model((parentDir + modelPath).c_str());
-		newModel->getParticule()->setPosition(Vector3D(0.0f, 5.0f, 0.0f));
+		newModel->getParticule()->setPosition(Vector3D(0.0f,i, 0.0f));
 		models.push_back(newModel);
 		
 
-		// force creation
+		// Gravity force creation
 		registre.add(
 			models[i]->getParticule(), 
-			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-8) , 0))
+			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-5) , 0))
 			);
+
+		// Elastic
+		if(i > 0)
+			registre.add(
+				models[i]->getParticule(),
+				new BungeeString(models[0]->getParticule(),0.001f,3)
+			);
+		
+
 	}
 	
 	std::cout << "Il y a " << registre.getSize() << " forces \n";

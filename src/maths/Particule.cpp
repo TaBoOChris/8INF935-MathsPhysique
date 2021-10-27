@@ -86,9 +86,9 @@ void Particule::setPosition(Vector3D position)
 void Particule::updateAcceleration()
 {
 	this->acceleration = this->accumForce * this->inverseMasse;
+	this->accumForce = Vector3D(0.0f);
 
 	//this->acceleration = Vector3D(0, -0.02, 0);
-	//this->accumForce = Vector3D(0.0f);
 
 	//std::cout << acceleration;
 }

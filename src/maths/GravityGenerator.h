@@ -4,6 +4,7 @@
 
 class GravityGenerator : public ParticuleForceGenerator
 {
+
 public:
 
 	GravityGenerator();
