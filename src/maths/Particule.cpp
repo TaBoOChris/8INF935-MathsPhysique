@@ -71,6 +71,11 @@ void Particule::setVitesse(Vector3D vitesse)
 	this->vitesse = vitesse;
 }
 
+void Particule::setPosition(Vector3D position)
+{
+	this->position = position;
+}
+
 //pour accélération, position et vitesse, on applique les formules physiques vues en cours
 void Particule::updateAcceleration()
 {

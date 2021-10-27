@@ -161,7 +161,14 @@
   <ItemGroup>
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\maths\BungeeString.cpp" />
+    <ClCompile Include="src\maths\DragGenerator.cpp" />
+    <ClCompile Include="src\maths\GravityGenerator.cpp" />
+    <ClCompile Include="src\maths\ParticleAnchoredSpring.cpp" />
+    <ClCompile Include="src\maths\ParticleBuoyancy.cpp" />
+    <ClCompile Include="src\maths\ParticleSpring.cpp" />
     <ClCompile Include="src\maths\Particule.cpp" />
+    <ClCompile Include="src\maths\RegistreForces.cpp" />
     <ClCompile Include="src\maths\Vecteur3D.cpp" />
     <ClCompile Include="src\opengl\Camera.cpp" />
     <ClCompile Include="src\opengl\EBO.cpp" />
@@ -183,7 +190,15 @@
     <ClCompile Include="src\opengl\VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\maths\BungeeString.h" />
+    <ClInclude Include="src\maths\DragGenerator.h" />
+    <ClInclude Include="src\maths\GravityGenerator.h" />
+    <ClInclude Include="src\maths\ParticleAnchoredSpring.h" />
+    <ClInclude Include="src\maths\ParticleBuoyancy.h" />
+    <ClInclude Include="src\maths\ParticleSpring.h" />
     <ClInclude Include="src\maths\Particule.h" />
+    <ClInclude Include="src\maths\ParticuleForceGenerator.h" />
+    <ClInclude Include="src\maths\RegistreForces.h" />
     <ClInclude Include="src\maths\Vecteur3D.h" />
     <ClInclude Include="src\opengl\Camera.h" />
     <ClInclude Include="src\opengl\EBO.h" />

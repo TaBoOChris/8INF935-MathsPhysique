@@ -36,17 +36,26 @@ void Model::Draw(Shader& shader, Camera& camera)
 void Model::Inputs(GLFWwindow* window)
 {
 	float translateSpeed = 0.5f;
-	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		matricesMeshes[0] = glm::translate( matricesMeshes[0], glm::vec3(0.0f, 0.0f, -translateSpeed) );
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+		this->particule.setPosition(this->particule.getPosition() + Vector3D(0.0f, 0.0f, -translateSpeed));
+		this->setPosition();
+	}
 		
-	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(0.0f, translateSpeed, 0.0f));
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+		this->particule.setPosition(this->particule.getPosition() + Vector3D(0.0f, translateSpeed, 0.0f));
+		this->setPosition();
+	}
 
-	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(0.0f, 0.0f, translateSpeed));
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+		this->particule.setPosition(this->particule.getPosition() + Vector3D(0.0f, 0.0f, translateSpeed));
+		this->setPosition();
+	}
 
-	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		matricesMeshes[0] = glm::translate(matricesMeshes[0], glm::vec3(0.0f, -translateSpeed, 0.0f));
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+		this->particule.setPosition(this->particule.getPosition() + Vector3D(0.0f, -translateSpeed, 0.0f));
+		this->setPosition();
+
+	}
 
 	if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
 		std::cout << matricesMeshes[0] << "\n";
@@ -58,9 +67,15 @@ void Model::Inputs(GLFWwindow* window)
 
 Vector3D Model::getPosition()
 {
-
 	//matricesMeshes[0][1];
-	return Vector3D(matricesMeshes[0][3][0], matricesMeshes[0][3][1], matricesMeshes[0][3][2]);
+	return this->particule.getPosition();
+}
+
+void Model::updatePosition()
+{
+	matricesMeshes[0][3][0] = this->particule.getPosition().x;
+	matricesMeshes[0][3][1] = this->particule.getPosition().y;
+	matricesMeshes[0][3][2] = this->particule.getPosition().z;
 }
 
 void Model::loadMesh(unsigned int indMesh)

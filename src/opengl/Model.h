@@ -21,6 +21,8 @@ public:
 
 	Vector3D getPosition();
 
+	void updatePosition();
+
 	void updateParticule(float timeDiff);
 
 

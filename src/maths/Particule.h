@@ -45,6 +45,8 @@ public :
 
 	void setVitesse(Vector3D vitesse);
 
+	void setPosition(Vector3D position);
+
 	void updateAcceleration();
 
 	//dans les trois fonctions suivantes, le temps est le delta temps avec l'instant précédent, permet une approximation du calcul
