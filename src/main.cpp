@@ -55,7 +55,7 @@ int main(void)
 
 	glEnable(GL_DEPTH_TEST);
 
-	Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(0.0f, 0.0f, 2.0f));
+	Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(12.0f, 5.0f, 0.0f));
 
 	UserInterface my_UI(window);
 
@@ -92,7 +92,7 @@ int main(void)
 		// Gravity force creation
 		registre.add(
 			models[i]->getParticule(), 
-			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-5) , 0))
+			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-4) , 0))
 			);
 
 		registre.add(
@@ -100,34 +100,56 @@ int main(void)
 			new DragGenerator( 0.05f, 0.05f)
 		);
 		
-		//// Elastic de Bungee
-		//if(i > 0)
-		//	registre.add(
-		//		models[i]->getParticule(),
-		//		new BungeeString(models[0]->getParticule(),0.01f,2)
-		//	);
 
 		// simple elastic
-		if(i > 0)
+		if (i > 0) {
 			registre.add(
 				models[i]->getParticule(),
-				new ParticleSpring(models[0]->getParticule(),0.05f,2.5f)
+				new ParticleSpring(models[0]->getParticule(),0.05f, 2.5f)
 			);
-
-
+		}
 	}
+
+	for (size_t i = 1; i < nombre_particules; i++)
+	{
+		for (size_t j = 1; j < nombre_particules; j++)
+		{
+			if (i != j) {
+				registre.add(
+					models[i]->getParticule(),
+					new ParticleSpring(models[j]->getParticule(), 0.05f, 2.5f)
+				);
+			}
+		}
+	}
+	// Elastic de Bungee
+	Model* newModel = new Model((parentDir + modelPath).c_str());
+	Model* Accroche = new Model((parentDir + modelPath).c_str());
+	newModel->getParticule()->setPosition(Vector3D(0.0f, -5.0f, 10.0f));
+	Accroche->getParticule()->setPosition(Vector3D(0.0f, 0.0f, 10.0f));
+	models.push_back(newModel);
+	registre.add(
+		newModel->getParticule(),
+		new BungeeString(Accroche->getParticule(),9.81f*pow(10,-3),5)
+	);
+	registre.add(
+		newModel->getParticule(),
+		new GravityGenerator(Vector3D(0,9.81 * pow(10,-3), 0))
+	);
 
 	// AnchoredSpring
 	if (true) {
 
 		Model* newModel = new Model((parentDir + modelPath).c_str());
-		newModel->getParticule()->setPosition(Vector3D(0.0f, 8, -10.0f));
+		newModel->getParticule()->setPosition(Vector3D(0.0f, -2.0f, -10.0f));
 		models.push_back(newModel);
-
-
 		registre.add(
 			newModel->getParticule(),
-			new ParticleAnchoredSpring(Vector3D(0.0f, 4.0f , -10.0f), 0.01f, 2)
+			new ParticleAnchoredSpring(Vector3D(0.0f, 0.0f , -10.0f), 0.1f, 2)
+		);
+		registre.add(
+			newModel->getParticule(),
+			new GravityGenerator(Vector3D(0.0f, -9.81f * pow(10,-2), 0))
 		);
 	}
 

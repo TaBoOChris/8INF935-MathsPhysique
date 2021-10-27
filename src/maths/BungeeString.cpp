@@ -21,7 +21,9 @@ BungeeString::~BungeeString()
 void BungeeString::updateForce(Particule* particule, float duration)
 {
 	float longueur = (particule->getPosition() - anchorParticle->getPosition()).norme();	// distance entre deux particule
-	if (longueur <= l0 ) return;																// si longueur repos < longeur, rien
+	if (longueur <= l0) {											// si longueur repos < longeur, rien
+		return;
+	}
 	Vector3D force = ( particule->getPosition() - anchorParticle->getPosition()).normalisation() *   K * (l0 - longueur);
 	particule->addForce(force);
 }
