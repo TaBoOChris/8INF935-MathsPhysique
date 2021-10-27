@@ -90,20 +90,33 @@ int main(void)
 		
 
 		// Gravity force creation
-		registre.add(
+		/*registre.add(
 			models[i]->getParticule(), 
 			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-5) , 0))
-			);
+			);*/
 
 		// Elastic
 		if(i > 0)
 			registre.add(
 				models[i]->getParticule(),
-				new BungeeString(models[0]->getParticule(),0.001f,3)
+				new BungeeString(models[0]->getParticule(),0.01f,2)
 			);
-		
-
 	}
+
+	// AnchoredSpring
+	if (true) {
+
+		Model* newModel = new Model((parentDir + modelPath).c_str());
+		newModel->getParticule()->setPosition(Vector3D(0.0f, 8, -10.0f));
+		models.push_back(newModel);
+
+
+		registre.add(
+			newModel->getParticule(),
+			new ParticleAnchoredSpring(Vector3D(0.0f, 4.0f , -10.0f), 0.01f, 2)
+		);
+	}
+
 	
 	std::cout << "Il y a " << registre.getSize() << " forces \n";
 

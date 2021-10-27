@@ -114,6 +114,7 @@ void Particule::integrer(float temps)
 	updateAcceleration();
 	updateVitesse(temps);
 	updatePosition(temps);
+	//acceleration = Vector3D(0.0f);
 }
 
 void Particule::addForce(Vector3D force) {
