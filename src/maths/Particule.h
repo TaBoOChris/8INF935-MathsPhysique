@@ -6,6 +6,7 @@ class Particule
 private :
 
 	//inverse masse et frottement sont des constantes nécessaires au calcul de vitesse et accélération en physique
+	float masse;
 	float inverseMasse;
 	float frottement;
 
@@ -26,17 +27,25 @@ public :
 
 
 	//avec position, vitesse et accélération, suffisant à décrire la particule et son évolution
-	Vector3D appliedForce;
+	Vector3D accumForce;
 
 	float getInverseMasse();
 
+	float getMasse();
+
 	Vector3D getPosition();
 
+	Vector3D getVitesse();
+
 	void setInverseMasse(float invM);
+
+	void setMasse(float masse);
 
 	void setFrottement(float frott);
 
 	void setVitesse(Vector3D vitesse);
+
+	void setPosition(Vector3D position);
 
 	void updateAcceleration();
 
@@ -47,7 +56,7 @@ public :
 
 	void integrer(float temps);
 
-
+	void addForce(Vector3D force);
 };
 
 

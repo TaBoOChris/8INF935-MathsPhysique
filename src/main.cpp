@@ -5,10 +5,12 @@
 
 #include <iostream>	
 #include <filesystem>
+#include <vector>
 namespace fs = std::filesystem;
 
 #include "maths/Vecteur3D.h"
 #include "maths/Particule.h"
+#include "maths/RegistreForces.h"
 
 #include "opengl/Model.h"
 #include "opengl/UserInterface.h"
@@ -64,7 +66,13 @@ int main(void)
 	std::string modelPath = "/8INF935-MathsPhysique/ressources/Blob/blob.gltf";
 	std::string floorPath = "/8INF935-MathsPhysique/ressources/floor/floor.gltf";
 
-	Model model((parentDir + modelPath).c_str());
+	std::vector<Model> models;
+	
+	for (size_t i = 0; i < 4; i++)
+	{
+		models.push_back(Model((parentDir + modelPath).c_str()));
+	}
+	
 	Model floor((parentDir + floorPath).c_str());
 
 	// Main While
@@ -86,7 +94,7 @@ int main(void)
 			//----
 			// mange input
 			camera.Inputs(window);
-			model.Inputs(window);
+			models[0].Inputs(window);
 		}
 
 		// Specify the color of the background
@@ -99,11 +107,18 @@ int main(void)
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
-		// draw model
-		model.Draw(shaderProgram, camera);
+		for (Model my_model : models)
+		{
+			my_model.updateParticule(timeDiff);
+
+			// draw model
+			my_model.Draw(shaderProgram, camera);
+		}
+
+		// draw floor
 		floor.Draw(shaderProgram, camera);
 		
-		my_UI.frameOption(model.getPosition()); //ImGui Frame option
+		my_UI.frameOption(models[0].getPosition()); //ImGui Frame option
 
 		// moteur 
 		my_MoteurPhysique.display();
