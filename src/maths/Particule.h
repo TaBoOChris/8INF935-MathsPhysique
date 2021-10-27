@@ -33,9 +33,12 @@ public :
 
 	float getMasse();
 
+
 	Vector3D getPosition();
 
 	Vector3D getVitesse();
+
+	Vector3D getAcceleration();
 
 	void setInverseMasse(float invM);
 

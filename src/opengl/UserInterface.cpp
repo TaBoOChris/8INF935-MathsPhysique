@@ -29,11 +29,13 @@ void UserInterface::frameCreation()
 
 }
 
-void UserInterface::frameOption(Vector3D blobPosition)
+void UserInterface::frameOption(std::vector<Model*> models, float time)
 {
 
 	ImGui::Begin("I'm Window, ImGui Window");
 	ImGui::Text("Let's play with particle");
+	ImGui::Text("Time = %.3f",time);
+
 	/*
 	if (ImGui::Button("Balle")) {			// Buttons return true when clicked (most widgets return true when edited/activated)
 
@@ -51,7 +53,37 @@ void UserInterface::frameOption(Vector3D blobPosition)
 
 	}
 	*/
-	ImGui::Text("x : %.2f  y : %.2f  z:%.2f", blobPosition.x, blobPosition.y, blobPosition.z);
+
+	int index = 1;
+	for (Model *myModel : models)
+	{
+
+		ImGui::Text("Particule %i  position    (x : %.2f  y : %.2f  z:%.2f ) ", index,
+			myModel->getParticule()->getPosition().x, 
+			myModel->getParticule()->getPosition().y,
+			myModel->getParticule()->getPosition().z);
+
+
+		ImGui::Text("Particule %i  vitesse     (x : %.2f  y : %.2f  z:%.2f ) ", index,
+			myModel->getParticule()->getVitesse().x,
+			myModel->getParticule()->getVitesse().y,
+			myModel->getParticule()->getVitesse().z);
+
+		ImGui::Text("Particule %i  acc         (x : %.2f  y : %.2f  z:%.2f ) ", index,
+			myModel->getParticule()->getAcceleration().x,
+			myModel->getParticule()->getAcceleration().y,
+			myModel->getParticule()->getAcceleration().z);
+
+
+		ImGui::Text("Particule %i  accumForce  (x : %.2f  y : %.2f  z:%.2f )", index,
+			myModel->getParticule()->accumForce.x,
+			myModel->getParticule()->accumForce.y,
+			myModel->getParticule()->accumForce.z);
+
+		ImGui::NewLine();
+
+		index++;
+	}
 
 	ImGui::End();
 	ImGui::Render();

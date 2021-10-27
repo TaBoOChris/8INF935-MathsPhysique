@@ -6,6 +6,10 @@ Particule::Particule()
 	this->inverseMasse = 1.0f;
 	this->frottement = 1.0f;
 
+	this->position = Vector3D(0, -2, 0);
+	this->vitesse = Vector3D(0, 0, 0);
+	this->acceleration = Vector3D(0, 0, 0);
+
 }
 
 Particule::Particule(float invMasse)
@@ -50,6 +54,11 @@ Vector3D Particule::getVitesse() {
 	return this->vitesse;
 }
 
+Vector3D Particule::getAcceleration()
+{
+	return this->acceleration;
+}
+
 void Particule::setInverseMasse(float invM)
 {
 	this->inverseMasse = invM;
@@ -81,20 +90,25 @@ void Particule::updateAcceleration()
 {
 	//this->acceleration = this->accumForce * this->inverseMasse;
 
-	this->acceleration = Vector3D(2, 2, 2);
-	this->accumForce = Vector3D(0.0f);
+	this->acceleration = Vector3D(0, -0.02, 0);
+	//this->accumForce = Vector3D(0.0f);
+
+	//std::cout << acceleration;
 }
 
 
 void Particule::updateVitesse(float temps)
 {
 	this->vitesse = this->vitesse + this->acceleration * temps;
+	//std::cout << vitesse << std::endl;
 
 }
 
 void Particule::updatePosition(float temps)
 {
 	this->position = this->position + this->vitesse * temps + this->acceleration * pow(temps, 2) * 0.5f;
+	//std::cout << "Position "<< position << std::endl;
+
 }
 
 //on update chaque vecteur en fonction des vecteurs de l'instant précédent

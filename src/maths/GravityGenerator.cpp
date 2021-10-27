@@ -14,7 +14,9 @@ GravityGenerator::~GravityGenerator()
 }
 
 void GravityGenerator::updateForce(Particule* particule, float duration) {
+	
+	// if particle has mass, 
 	if (particule->getMasse() > 0) {
-		particule->addForce(particule->getMasse() * this->gravite);
+		particule->addForce(particule->getMasse() * this->gravite);		// we add the force on particle
 	}
 }

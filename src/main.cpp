@@ -25,12 +25,12 @@ namespace fs = std::filesystem;
 
 
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 800
+#define WINDOW_WIDTH 1600
+#define WINDOW_HEIGHT 900
 
 int main(void)
 {
-	int nombre_particules = 1;
+	int nombre_particules = 5;
 
 	//Load GLAD so it configures OpenGL
 	gladLoadGL();
@@ -68,33 +68,43 @@ int main(void)
 
 	//glfwSwapInterval(60);
 
+	//----------------------------------------------------------------------------------------------------------
+
 	// Model Creation
 	std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
 	std::string modelPath = "/8INF935-MathsPhysique/ressources/Blob/blob.gltf";
 	std::string floorPath = "/8INF935-MathsPhysique/ressources/floor/floor.gltf";
 
 	//création du vecteur de models
-	std::vector<Model> models;
+	std::vector<Model*> models;
 
-	RegistreForces *registre = new RegistreForces;
-	GravityGenerator g = GravityGenerator(Vector3D(0,-9.81f,0));
-	GravityGenerator* pg;
-	Particule* pp;
-	
+	RegistreForces registre;					// On cree les forces
+
+
 	for (size_t i = 0; i < nombre_particules; i++)
 	{
-		models.push_back(Model((parentDir + modelPath).c_str()));
-		pp = models[i].getParticule();
-		pg = &g;
-		registre->add(pp, pg);
+		// model and particule creation
+		Model* newModel = new Model((parentDir + modelPath).c_str());
+		newModel->getParticule()->setPosition(Vector3D(0.0f, 5.0f, 0.0f));
+		models.push_back(newModel);
+		
+
+		// force creation
+		registre.add(
+			models[i]->getParticule(), 
+			new GravityGenerator(Vector3D (0,-9.81, 0))
+			);
 	}
 	
+	std::cout << "Il y a " << registre.getSize() << " forces \n";
+
+	// floor creation
 	Model floor((parentDir + floorPath).c_str());
 
 	// Main While
 	while (!glfwWindowShouldClose(window))
 	{
-
+		// handle 60fps
 		crntTime = glfwGetTime();
 		timeDiff = crntTime - prevTime;
 		counter++;
@@ -110,7 +120,7 @@ int main(void)
 			//----
 			// mange input
 			camera.Inputs(window);
-			models[0].Inputs(window);
+			models[0]->Inputs(window);
 		}
 
 		// Specify the color of the background
@@ -123,20 +133,28 @@ int main(void)
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
-		registre->updateAllForces(timeDiff);
 
-		for (Model my_model : models)
+		// Apply force of the registre
+		//registre.updateAllForces(timeDiff);
+
+		for (Model *my_model : models)
 		{
-			my_model.updateParticule(timeDiff);
+			my_model->updateParticule(crntTime);
+			my_model->updatePosition();
+
+			//std::cout << my_model.getParticule()->getPosition()<<std::endl;
 
 			// draw model
-			my_model.Draw(shaderProgram, camera);
+			my_model->Draw(shaderProgram, camera);
+
+			//std::cout << models.begin()->getParticule()->getPosition()<<std::endl;
+			
 		}
 
 		// draw floor
 		floor.Draw(shaderProgram, camera);
 		
-		my_UI.frameOption(models[0].getPosition()); //ImGui Frame option
+		my_UI.frameOption(models,crntTime); //ImGui Frame option
 
 		// moteur 
 		my_MoteurPhysique.display();

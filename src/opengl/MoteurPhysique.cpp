@@ -20,7 +20,7 @@ GLFWwindow* MoteurPhysique::initWindow(int windowWidth, int windowHeight)
 
 
     /* Create a windowed mode window and its OpenGL context */
-    this->m_window = glfwCreateWindow(800, 800, "Moteur Physique OpenGL", NULL, NULL);
+    this->m_window = glfwCreateWindow(windowWidth, windowHeight, "Moteur Physique OpenGL", NULL, NULL);
     if (!this->m_window)
     {
         std::cout << "fail to create Window" << std::endl;

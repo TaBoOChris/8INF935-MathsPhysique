@@ -387,6 +387,9 @@ std::vector<glm::vec4> Model::groupFloatsVec4(std::vector<float> floatVec)
 	return vectors;
 }
 
+
+// for math 
+
 void Model::updateParticule(float timeDiff) {
 	this->particule.integrer(timeDiff);
 }

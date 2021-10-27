@@ -27,9 +27,15 @@ void RegistreForces::remove(Particule *particule, ParticuleForceGenerator *fg) {
 }
 
 void RegistreForces::updateAllForces(float duration) {
-	for (auto it = registre.begin(); it != registre.end(); )
+
+	// we get all force register and we update them
+	for (EnregistrementForce force : registre)
 	{
-		it->fg->updateForce(it->particule, duration);
-		it++;
+		force.fg->updateForce(force.particule, duration);
 	}
+}
+
+int RegistreForces::getSize()
+{
+	return this->registre.size();
 }

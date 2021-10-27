@@ -27,9 +27,12 @@ class Vector3D{
         friend bool operator==(Vector3D const& u, Vector3D const& v);
         friend Vector3D operator+(Vector3D const& u, Vector3D const& v);
         friend Vector3D operator-(Vector3D const& u, Vector3D const& v);
+
         friend Vector3D operator*(Vector3D const& u, float const& a);
         friend Vector3D operator*(float const& a, Vector3D const& u);
+
         friend float operator*(Vector3D const& u, Vector3D const& v);
+        
         Vector3D & operator=(Vector3D const& u);
 
         float norme() const;

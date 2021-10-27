@@ -27,7 +27,7 @@ public:
 	UserInterface(GLFWwindow* window);
 
 	void frameCreation();
-	void frameOption(Vector3D blobPosition);
+	void frameOption(std::vector<Model*> models, float time);
 
 	void terminate();
 };
