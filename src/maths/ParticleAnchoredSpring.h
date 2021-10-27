@@ -1,12 +1,13 @@
-#include "ParticuleForceGenerator.h"
+#pragma once
 #include "Vecteur3D.h"
+#include "ParticuleForceGenerator.h"
 
-class ParticleAnchoredSpring
+class ParticleAnchoredSpring : public ParticuleForceGenerator
 {
 public:
 	ParticleAnchoredSpring(Vector3D anchor, float constElast, float lenRepos);
 	~ParticleAnchoredSpring();
-	void updateForce(Particule* particule);
+	virtual void updateForce(Particule* particule);
 
 private:
 	Vector3D anchor;

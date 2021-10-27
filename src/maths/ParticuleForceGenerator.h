@@ -1,3 +1,4 @@
+#pragma once
 #include "Particule.h"
 
 class ParticuleForceGenerator

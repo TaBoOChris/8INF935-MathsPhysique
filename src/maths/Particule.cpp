@@ -79,14 +79,17 @@ void Particule::setPosition(Vector3D position)
 //pour accélération, position et vitesse, on applique les formules physiques vues en cours
 void Particule::updateAcceleration()
 {
-	this->acceleration =  this->accumForce * this->inverseMasse;
-	this->accumForce = Vector3D(1);
+	//this->acceleration = this->accumForce * this->inverseMasse;
+
+	this->acceleration = Vector3D(2, 2, 2);
+	this->accumForce = Vector3D(0.0f);
 }
 
 
 void Particule::updateVitesse(float temps)
 {
-	this->vitesse = this->vitesse * pow(this->frottement, temps) + this->acceleration * temps;
+	this->vitesse = this->vitesse + this->acceleration * temps;
+
 }
 
 void Particule::updatePosition(float temps)
@@ -97,9 +100,9 @@ void Particule::updatePosition(float temps)
 //on update chaque vecteur en fonction des vecteurs de l'instant précédent
 void Particule::integrer(float temps)
 {
-	updatePosition(temps);
-	updateVitesse(temps);
 	updateAcceleration();
+	updateVitesse(temps);
+	updatePosition(temps);
 }
 
 void Particule::addForce(Vector3D force) {

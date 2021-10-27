@@ -6,9 +6,9 @@
 
 Vector3D::Vector3D() 
 {
-    this->x = 0;
-    this->y = 0;
-    this->z = 0;
+    this->x = 0.0f;
+    this->y = 0.0f;
+    this->z = 0.0f;
 
 }
 

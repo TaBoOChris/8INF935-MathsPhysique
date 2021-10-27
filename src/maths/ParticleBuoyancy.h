@@ -1,12 +1,13 @@
-#include "ParticuleForceGenerator.h"
+#pragma once
 #include "Vecteur3D.h"
+#include "ParticuleForceGenerator.h"
 
-class ParticleBuoyancy
+class ParticleBuoyancy : public ParticuleForceGenerator
 {
 public:
 	ParticleBuoyancy(float maxDepth, float objVolume, float hauteurLiquide, float density);
 	~ParticleBuoyancy();
-	void updateForce(Particule* particule);
+	virtual void updateForce(Particule* particule);
 
 private:
 	float maxDepth;

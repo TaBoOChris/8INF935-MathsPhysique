@@ -1,7 +1,6 @@
 #include "RegistreForces.h"
 
 RegistreForces::RegistreForces(){
-	
 }
 
 RegistreForces::~RegistreForces() {
@@ -9,9 +8,7 @@ RegistreForces::~RegistreForces() {
 }
 
 void RegistreForces::add(Particule *particule, ParticuleForceGenerator *fg) {
-	EnregistrementForce tmp;
-	tmp.particule = particule;
-	tmp.fg = fg;
+	EnregistrementForce tmp = { particule , fg };
 	this->registre.push_back(tmp);
 	return;
 }
@@ -30,9 +27,9 @@ void RegistreForces::remove(Particule *particule, ParticuleForceGenerator *fg) {
 }
 
 void RegistreForces::updateAllForces(float duration) {
-	for (size_t i = 0; i < this->registre.size(); i++)
+	for (auto it = registre.begin(); it != registre.end(); )
 	{
-		EnregistrementForce ef = (EnregistrementForce) *(this->registre.begin() + i);
-		ef.fg->updateForce(ef.particule, duration);
+		it->fg->updateForce(it->particule, duration);
+		it++;
 	}
 }

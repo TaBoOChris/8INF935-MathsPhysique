@@ -7,7 +7,7 @@ public:
 	RegistreForces();
 	~RegistreForces();
 	void add(Particule *particule, ParticuleForceGenerator *fg);
-	void remove(Particule* particule, ParticuleForceGenerator* fg);
+	void remove(Particule *particule, ParticuleForceGenerator *fg);
 	void updateAllForces(float duration);
 
 

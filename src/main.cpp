@@ -12,9 +12,17 @@ namespace fs = std::filesystem;
 #include "maths/Particule.h"
 #include "maths/RegistreForces.h"
 
+#include "maths/BungeeString.h"
+#include "maths/DragGenerator.h"
+#include "maths/GravityGenerator.h"
+#include "maths/ParticleAnchoredSpring.h"
+#include "maths/ParticleBuoyancy.h"
+#include "maths/ParticleSpring.h"
+
 #include "opengl/Model.h"
 #include "opengl/UserInterface.h"
 #include "opengl/MoteurPhysique.h"
+
 
 
 #define WINDOW_WIDTH 800
@@ -22,6 +30,7 @@ namespace fs = std::filesystem;
 
 int main(void)
 {
+	int nombre_particules = 1;
 
 	//Load GLAD so it configures OpenGL
 	gladLoadGL();
@@ -29,9 +38,7 @@ int main(void)
 	MoteurPhysique my_MoteurPhysique;
 	GLFWwindow* window = my_MoteurPhysique.initWindow(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-
 	// Generates Shader object using shaders default.vert and default.frag
-
 	Shader shaderProgram("src/opengl/default.vert", "src/opengl/default.frag");
 
 	// Take care of all the light related things
@@ -66,11 +73,20 @@ int main(void)
 	std::string modelPath = "/8INF935-MathsPhysique/ressources/Blob/blob.gltf";
 	std::string floorPath = "/8INF935-MathsPhysique/ressources/floor/floor.gltf";
 
+	//création du vecteur de models
 	std::vector<Model> models;
+
+	RegistreForces *registre = new RegistreForces;
+	GravityGenerator g = GravityGenerator(Vector3D(0,-9.81f,0));
+	GravityGenerator* pg;
+	Particule* pp;
 	
-	for (size_t i = 0; i < 4; i++)
+	for (size_t i = 0; i < nombre_particules; i++)
 	{
 		models.push_back(Model((parentDir + modelPath).c_str()));
+		pp = models[i].getParticule();
+		pg = &g;
+		registre->add(pp, pg);
 	}
 	
 	Model floor((parentDir + floorPath).c_str());
@@ -106,6 +122,8 @@ int main(void)
 
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
+
+		registre->updateAllForces(timeDiff);
 
 		for (Model my_model : models)
 		{

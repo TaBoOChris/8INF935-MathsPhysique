@@ -1,5 +1,6 @@
-#include "ParticuleForceGenerator.h"
+#pragma once
 #include "Vecteur3D.h"
+#include "ParticuleForceGenerator.h"
 
 class GravityGenerator : public ParticuleForceGenerator
 {

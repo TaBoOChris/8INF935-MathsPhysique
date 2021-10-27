@@ -1,12 +1,13 @@
-#include "ParticuleForceGenerator.h"
+#pragma once
 #include "Vecteur3D.h"
+#include "ParticuleForceGenerator.h"
 
-class BungeeString
+class BungeeString : public ParticuleForceGenerator
 {
 public:
 	BungeeString(Particule anchorParticle, float constElast, float lenRepos);
 	~BungeeString();
-	void updateForce(Particule* particule);
+	virtual void updateForce(Particule* particule);
 
 private:
 	Particule anchorParticle;

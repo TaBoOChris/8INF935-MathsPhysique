@@ -390,3 +390,8 @@ std::vector<glm::vec4> Model::groupFloatsVec4(std::vector<float> floatVec)
 void Model::updateParticule(float timeDiff) {
 	this->particule.integrer(timeDiff);
 }
+
+Particule* Model::getParticule()
+{
+	return &(this->particule);
+}

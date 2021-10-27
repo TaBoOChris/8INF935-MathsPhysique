@@ -25,7 +25,7 @@ public:
 
 	void updateParticule(float timeDiff);
 
-
+	Particule* getParticule();
 private:
 	Particule particule;
 	// Variables for easy access
