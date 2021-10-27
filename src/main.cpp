@@ -90,10 +90,10 @@ int main(void)
 		
 
 		// Gravity force creation
-		/*registre.add(
+		registre.add(
 			models[i]->getParticule(), 
 			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-5) , 0))
-			);*/
+			);
 
 		registre.add(
 			models[i]->getParticule(),
