@@ -19,6 +19,8 @@ namespace fs = std::filesystem;
 #include "maths/ParticleBuoyancy.h"
 #include "maths/ParticleSpring.h"
 
+#include "maths/contact/ParticleContactResolver.h"
+
 #include "opengl/Model.h"
 #include "opengl/UserInterface.h"
 #include "opengl/MoteurPhysique.h"
@@ -69,6 +71,11 @@ int main(void)
 	//glfwSwapInterval(60);
 
 	//----------------------------------------------------------------------------------------------------------
+	
+	// Contact --------------
+	ParticleContactResolver particleContactResolver;
+	std::vector<ParticleContact*> particleContacts;
+
 
 	// Model Creation
 	std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
@@ -85,34 +92,41 @@ int main(void)
 	{
 		// model and particule creation
 		Model* newModel = new Model((parentDir + modelPath).c_str());
-		newModel->getParticule()->setPosition(Vector3D(0.0f,i, 0.0f));
-		models.push_back(newModel);
+		newModel->getParticule()->setPosition(Vector3D(0.0f,5+i, 2*i));
 		
+		// contact
+		for (Model* loadModel : models) {
+			particleContacts.push_back(new ParticleContact(loadModel->getParticule(), newModel->getParticule(), 0.5f));
+		}
+		
+		
+		models.push_back(newModel);
 
 		// Gravity force creation
-		registre.add(
+		/*registre.add(
 			models[i]->getParticule(), 
 			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-5) , 0))
-			);
+			);*/
 
 		registre.add(
 			models[i]->getParticule(),
 			new DragGenerator( 0.05f, 0.05f)
 		);
 		
-		//// Elastic de Bungee
-		//if(i > 0)
-		//	registre.add(
-		//		models[i]->getParticule(),
-		//		new BungeeString(models[0]->getParticule(),0.01f,2)
-		//	);
-
-		// simple elastic
+		// Elastic de Bungee
 		if(i > 0)
 			registre.add(
 				models[i]->getParticule(),
-				new ParticleSpring(models[0]->getParticule(),0.05f,2.5f)
+				new BungeeString(models[0]->getParticule(),0.01f,2)
 			);
+
+		// simple elastic
+		/*if(i > 0)
+			registre.add(
+				models[i]->getParticule(),
+				new ParticleSpring(models[0]->getParticule(),0.05f,2.5f)
+			);*/
+
 
 
 	}
@@ -136,6 +150,11 @@ int main(void)
 
 	// floor creation
 	Model floor((parentDir + floorPath).c_str());
+
+
+
+
+	std::cout << "il y a " << particleContacts.size() << " contact possible \n";
 
 	// Main While
 	while (!glfwWindowShouldClose(window))
@@ -172,6 +191,8 @@ int main(void)
 
 		// Apply force of the registre
 		registre.updateAllForces(timeDiff);
+
+		//particleContactResolver.resolveContact(particleContacts, timeDiff);
 
 		for (Model *my_model : models)
 		{
