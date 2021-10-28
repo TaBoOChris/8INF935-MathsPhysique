@@ -159,7 +159,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\maths\ParticleContact.cpp" />
+    <ClCompile Include="src\maths\contact\ParticleContactResolver.cpp" />
+    <ClCompile Include="src\maths\contact\ParticleContact.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\maths\BungeeString.cpp" />
@@ -191,7 +192,8 @@
     <ClCompile Include="src\opengl\VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\maths\ParticleContact.h" />
+    <ClInclude Include="src\maths\contact\ParticleContactResolver.h" />
+    <ClInclude Include="src\maths\contact\ParticleContact.h" />
     <ClInclude Include="src\maths\BungeeString.h" />
     <ClInclude Include="src\maths\DragGenerator.h" />
     <ClInclude Include="src\maths\GravityGenerator.h" />
