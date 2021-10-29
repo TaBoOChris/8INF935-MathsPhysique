@@ -10,6 +10,6 @@ private:
 public:
     ParticleRod(Particule* partA, Particule* partB, float len);
 
-    void addContact();
+    void ajouterContact();
 };
 

@@ -5,7 +5,7 @@ ParticleRod::ParticleRod(Particule* partA, Particule* partB, float len) : Partic
 	this->len = len;
 }
 
-void ParticleRod::addContact()
+void ParticleRod::ajouterContact()
 {
 	Particule* partA = this->particules[0];
 	Particule* partB = this->particules[1];

@@ -7,9 +7,9 @@ class ParticleLink :
 
 protected:
     Particule* particules[2];
-    float currentLen() const;
 
 public:
+    float currentLen() const;
     ParticleLink(Particule* partA, Particule* partB);
 };
 
