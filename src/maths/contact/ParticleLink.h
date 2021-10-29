@@ -13,6 +13,6 @@ public:
     float currentLen() const;
     ParticleLink(Particule* partA, Particule* partB);
 
-    virtual void ajouterContact(std::vector<ParticleContact*> particleContacts);
+    void ajouterContact(std::vector<ParticleContact*> &particleContacts);
 };
 

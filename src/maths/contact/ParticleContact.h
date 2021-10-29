@@ -1,3 +1,5 @@
+#pragma once 
+
 #include "../Particule.h"
 #include "../Vecteur3D.h"
 

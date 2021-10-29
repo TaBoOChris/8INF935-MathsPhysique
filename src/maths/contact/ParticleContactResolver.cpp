@@ -24,13 +24,13 @@ void ParticleContactResolver::resolveContact(std::vector<ParticleContact*> conta
 			vsIndex++;
 		}
 
+		contacts[vsFinalIndex]->resolve(duree);
 
 		if (minVs >= 0) { return; }
 
-		contacts[vsFinalIndex]->resolve(duree);
 
 		this->iteration++;
 	}
 
-	this->iteration = 0;
+	//this->iteration = 0;
 }

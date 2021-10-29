@@ -19,6 +19,8 @@ void ParticleContact::resolve(float duree)
 	std::cout << "start Resolve \n";
 	std::cout << "vs = " << calculVs() << "\n";
 
+	calculNormal();
+
 	resolveVelocity(duree);
 	//resolveInterpenetration();
 }
@@ -39,11 +41,11 @@ void ParticleContact::resolveVelocity(float duree)
 	Vector3D impulsionB = -Vsp * this->contactNormal;
 
 	Vector3D vitA = partA->getVitesse() + partA->getInverseMasse() * impulsionA;
-	std::cout << "vitesseA : " << vitA << "\n";
+	std::cout << "vitesseA : " << vitA << " Impulsion : " << impulsionA << "\n";
 	this->particules[0]->setVitesse(vitA);
 
 	Vector3D vitB = partB->getVitesse() + partB->getInverseMasse() * impulsionB;
-	std::cout << "vitesseA : " << vitB << "\n";
+	std::cout << "vitesseB : " << vitB <<" Impulsion : " << impulsionB<< "\n";
 
 	this->particules[1]->setVitesse(vitB);
 }

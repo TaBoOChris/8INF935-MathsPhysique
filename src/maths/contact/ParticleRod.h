@@ -11,6 +11,6 @@ private:
 public:
     ParticleRod(Particule* partA, Particule* partB, float len);
 
-    void ajouterContact(std::vector<ParticleContact*> particleContacts) override;
+    void ajouterContact(std::vector<ParticleContact*> &particleContacts);
 };
 

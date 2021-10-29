@@ -20,12 +20,12 @@ namespace fs = std::filesystem;
 #include "maths/ParticleSpring.h"
 
 #include "maths/contact/ParticleContactResolver.h"
+#include "maths/contact/ParticleLink.h"
+#include "maths/contact/ParticleRod.h"
 
 #include "opengl/Model.h"
 #include "opengl/UserInterface.h"
 #include "opengl/MoteurPhysique.h"
-#include "maths/contact/ParticleLink.h"
-#include "maths/contact/ParticleRod.h"
 
 
 
@@ -75,7 +75,6 @@ int main(void)
 	//----------------------------------------------------------------------------------------------------------
 	
 	// Contact --------------
-	ParticleContactResolver particleContactResolver;
 	std::vector<ParticleContactGenerator*> particleContactGens;
 
 	// Model Creation
@@ -103,6 +102,7 @@ int main(void)
 		//Link
 		for (Model* loadModel : models) {
 			ParticleRod* rod = new ParticleRod(newModel->getParticule(), loadModel->getParticule(), 3.0f);
+			particleContactGens.push_back(rod);
 		}
 		
 		models.push_back(newModel);
@@ -119,11 +119,11 @@ int main(void)
 		);
 		
 		// Elastic de Bungee
-		if(i > 0)
+		/*if(i > 0)
 			registre.add(
 				models[i]->getParticule(),
 				new BungeeString(models[0]->getParticule(),0.01f,6)
-			);
+			);*/
 
 		// simple elastic
 		/*if(i > 0)
@@ -137,7 +137,7 @@ int main(void)
 	}
 
 	// AnchoredSpring
-	if (true) {
+	/*if (true) {
 
 		Model* newModel = new Model((parentDir + modelPath).c_str());
 		newModel->getParticule()->setPosition(Vector3D(0.0f, 8, -10.0f));
@@ -148,10 +148,13 @@ int main(void)
 			newModel->getParticule(),
 			new ParticleAnchoredSpring(Vector3D(0.0f, 4.0f , -10.0f), 0.01f, 2)
 		);
-	}
+	}*/
 
 	
 	std::cout << "Il y a " << registre.getSize() << " forces \n";
+
+
+	std::cout << "Il y a " << particleContactGens.size() << " generator contact \n";
 
 	// floor creation
 	Model floor((parentDir + floorPath).c_str());
@@ -188,6 +191,20 @@ int main(void)
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
+		
+
+		// Apply force of the registre
+		registre.updateAllForces(timeDiff);
+
+		for (Model* my_model : models)
+		{
+			my_model->updateParticule(timeDiff);
+			my_model->updatePosition();
+
+			//std::cout << my_model.getParticule()->getPosition()<<std::endl;
+		}
+
+
 		// create contacts vector and resolve calling contact resolver
 		std::vector<ParticleContact*> particleContacts;
 
@@ -195,20 +212,14 @@ int main(void)
 			my_gen->ajouterContact(particleContacts);
 		}
 
-		std::cout << particleContacts.size();
+		//std::cout << particleContacts.size();
 
+		ParticleContactResolver particleContactResolver;
 		particleContactResolver.resolveContact(particleContacts, timeDiff);
 
-		// Apply force of the registre
-		registre.updateAllForces(timeDiff);
 
-		for (Model *my_model : models)
-		{
-			my_model->updateParticule(timeDiff);
-			my_model->updatePosition();
-
-			//std::cout << my_model.getParticule()->getPosition()<<std::endl;
-
+		for (Model* my_model : models)
+			{
 			// draw model
 			my_model->Draw(shaderProgram, camera);
 
