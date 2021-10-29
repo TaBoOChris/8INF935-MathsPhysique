@@ -19,6 +19,10 @@ namespace fs = std::filesystem;
 #include "maths/ParticleBuoyancy.h"
 #include "maths/ParticleSpring.h"
 
+#include "maths/contact/ParticleContactResolver.h"
+#include "maths/contact/ParticleLink.h"
+#include "maths/contact/ParticleRod.h"
+
 #include "opengl/Model.h"
 #include "opengl/UserInterface.h"
 #include "opengl/MoteurPhysique.h"
@@ -30,7 +34,7 @@ namespace fs = std::filesystem;
 
 int main(void)
 {
-	int nombre_particules = 5;
+
 
 	//Load GLAD so it configures OpenGL
 	gladLoadGL();
@@ -55,7 +59,7 @@ int main(void)
 
 	glEnable(GL_DEPTH_TEST);
 
-	Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(12.0f, 5.0f, 0.0f));
+	Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(30.0f, 10.0f, 0.0f));
 
 	UserInterface my_UI(window);
 
@@ -69,6 +73,10 @@ int main(void)
 	//glfwSwapInterval(60);
 
 	//----------------------------------------------------------------------------------------------------------
+	
+	// Contact --------------
+	ParticleContactResolver particleContactResolver;
+	std::vector<ParticleContactGenerator*> particleContactGens;
 
 	// Model Creation
 	std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
@@ -80,76 +88,65 @@ int main(void)
 
 	RegistreForces registre;					// On cree les forces
 
-
+	int nombre_particules = 2;
 	for (size_t i = 0; i < nombre_particules; i++)
 	{
 		// model and particule creation
 		Model* newModel = new Model((parentDir + modelPath).c_str());
-		newModel->getParticule()->setPosition(Vector3D(0.0f,i, 0.0f));
-		models.push_back(newModel);
+		newModel->getParticule()->setPosition(  Vector3D(0.0f,5, 4*i )   );
 		
+		// contact
+		/*for (Model* loadModel : models) {
+			particleContacts.push_back(new ParticleContact(loadModel->getParticule(), newModel->getParticule(), 0.5f));
+		}*/
+		
+		//Link
+		for (Model* loadModel : models) {
+			ParticleRod* rod = new ParticleRod(newModel->getParticule(), loadModel->getParticule(), 3.0f);
+		}
+		
+		models.push_back(newModel);
 
 		// Gravity force creation
-		registre.add(
+		/*registre.add(
 			models[i]->getParticule(), 
-			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-4) , 0))
-			);
+			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-5) , 0))
+			);*/
 
 		registre.add(
 			models[i]->getParticule(),
 			new DragGenerator( 0.05f, 0.05f)
 		);
 		
-
-		// simple elastic
-		if (i > 0) {
+		// Elastic de Bungee
+		if(i > 0)
 			registre.add(
 				models[i]->getParticule(),
-				new ParticleSpring(models[0]->getParticule(),0.05f, 2.5f)
+				new BungeeString(models[0]->getParticule(),0.01f,6)
 			);
-		}
-	}
 
-	for (size_t i = 1; i < nombre_particules; i++)
-	{
-		for (size_t j = 1; j < nombre_particules; j++)
-		{
-			if (i != j) {
-				registre.add(
-					models[i]->getParticule(),
-					new ParticleSpring(models[j]->getParticule(), 0.05f, 2.5f)
-				);
-			}
-		}
+		// simple elastic
+		/*if(i > 0)
+			registre.add(
+				models[i]->getParticule(),
+				new ParticleSpring(models[0]->getParticule(),0.05f,2.5f)
+			);*/
+
+
+
 	}
-	// Elastic de Bungee
-	Model* newModel = new Model((parentDir + modelPath).c_str());
-	Model* Accroche = new Model((parentDir + modelPath).c_str());
-	newModel->getParticule()->setPosition(Vector3D(0.0f, -5.0f, 10.0f));
-	Accroche->getParticule()->setPosition(Vector3D(0.0f, 0.0f, 10.0f));
-	models.push_back(newModel);
-	registre.add(
-		newModel->getParticule(),
-		new BungeeString(Accroche->getParticule(),9.81f*pow(10,-3),5)
-	);
-	registre.add(
-		newModel->getParticule(),
-		new GravityGenerator(Vector3D(0,9.81 * pow(10,-3), 0))
-	);
 
 	// AnchoredSpring
 	if (true) {
 
 		Model* newModel = new Model((parentDir + modelPath).c_str());
-		newModel->getParticule()->setPosition(Vector3D(0.0f, -2.0f, -10.0f));
+		newModel->getParticule()->setPosition(Vector3D(0.0f, 8, -10.0f));
 		models.push_back(newModel);
+
+
 		registre.add(
 			newModel->getParticule(),
-			new ParticleAnchoredSpring(Vector3D(0.0f, 0.0f , -10.0f), 0.1f, 2)
-		);
-		registre.add(
-			newModel->getParticule(),
-			new GravityGenerator(Vector3D(0.0f, -9.81f * pow(10,-2), 0))
+			new ParticleAnchoredSpring(Vector3D(0.0f, 4.0f , -10.0f), 0.01f, 2)
 		);
 	}
 
@@ -191,6 +188,16 @@ int main(void)
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
+		// create contacts vector and resolve calling contact resolver
+		std::vector<ParticleContact*> particleContacts;
+
+		for (ParticleContactGenerator* my_gen : particleContactGens) {
+			my_gen->ajouterContact(particleContacts);
+		}
+
+		std::cout << particleContacts.size();
+
+		particleContactResolver.resolveContact(particleContacts, timeDiff);
 
 		// Apply force of the registre
 		registre.updateAllForces(timeDiff);
