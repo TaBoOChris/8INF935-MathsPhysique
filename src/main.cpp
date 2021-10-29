@@ -32,7 +32,7 @@ namespace fs = std::filesystem;
 
 int main(void)
 {
-	int nombre_particules = 5;
+
 
 	//Load GLAD so it configures OpenGL
 	gladLoadGL();
@@ -57,7 +57,7 @@ int main(void)
 
 	glEnable(GL_DEPTH_TEST);
 
-	Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(0.0f, 0.0f, 2.0f));
+	Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(30.0f, 10.0f, 0.0f));
 
 	UserInterface my_UI(window);
 
@@ -87,17 +87,17 @@ int main(void)
 
 	RegistreForces registre;					// On cree les forces
 
-
+	int nombre_particules = 2;
 	for (size_t i = 0; i < nombre_particules; i++)
 	{
 		// model and particule creation
 		Model* newModel = new Model((parentDir + modelPath).c_str());
-		newModel->getParticule()->setPosition(Vector3D(0.0f,5+i, 2*i));
+		newModel->getParticule()->setPosition(  Vector3D(0.0f,5, 4*i )   );
 		
 		// contact
-		for (Model* loadModel : models) {
+		/*for (Model* loadModel : models) {
 			particleContacts.push_back(new ParticleContact(loadModel->getParticule(), newModel->getParticule(), 0.5f));
-		}
+		}*/
 		
 		
 		models.push_back(newModel);
@@ -117,7 +117,7 @@ int main(void)
 		if(i > 0)
 			registre.add(
 				models[i]->getParticule(),
-				new BungeeString(models[0]->getParticule(),0.01f,2)
+				new BungeeString(models[0]->getParticule(),0.01f,6)
 			);
 
 		// simple elastic
@@ -192,7 +192,7 @@ int main(void)
 		// Apply force of the registre
 		registre.updateAllForces(timeDiff);
 
-		//particleContactResolver.resolveContact(particleContacts, timeDiff);
+		particleContactResolver.resolveContact(particleContacts, timeDiff);
 
 		for (Model *my_model : models)
 		{

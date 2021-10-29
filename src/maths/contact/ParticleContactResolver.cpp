@@ -13,7 +13,7 @@ void ParticleContactResolver::resolveContact(std::vector<ParticleContact*> conta
 		int vsIndex = 0;
 
 		for (ParticleContact* contact : contacts) {
-			float newVs = contact->getVelociteEloignement();
+			float newVs = contact->calculVs();
 
 			if (newVs < minVs) {
 
@@ -24,6 +24,7 @@ void ParticleContactResolver::resolveContact(std::vector<ParticleContact*> conta
 			vsIndex++;
 		}
 
+
 		if (minVs >= 0) { return; }
 
 		contacts[vsFinalIndex]->resolve(duree);
@@ -31,4 +32,5 @@ void ParticleContactResolver::resolveContact(std::vector<ParticleContact*> conta
 		this->iteration++;
 	}
 
+	this->iteration = 0;
 }

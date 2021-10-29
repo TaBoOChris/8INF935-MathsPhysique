@@ -1,5 +1,5 @@
-#include "Particule.h"
-#include "Vecteur3D.h"
+#include "../Particule.h"
+#include "../Vecteur3D.h"
 
 class ParticleContact
 {
@@ -10,10 +10,11 @@ private:
 	float penetration;
 
 public:
-	ParticleContact(Particule* partA, Particule* partB, float restCoeff, Vector3D normal);
+	ParticleContact(Particule* partA, Particule* partB, float restCoeff);
 
+	void calculNormal();
 	void resolve(float duree);
-	float caculVs() const;
+	float calculVs();
 	void resolveVelocity(float duree);
 	void resolveInterpenetration();
 };
