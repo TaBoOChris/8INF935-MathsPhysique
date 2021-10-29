@@ -6,6 +6,6 @@
 class ParticleContactGenerator
 {
 public:
-	virtual void ajouterContact(std::vector<ParticleContact*> particleContacts) = 0;
+	virtual void ajouterContact(std::vector<ParticleContact*> &particleContacts) = 0;
 };
 

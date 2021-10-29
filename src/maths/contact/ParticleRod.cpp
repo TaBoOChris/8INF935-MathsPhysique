@@ -5,7 +5,7 @@ ParticleRod::ParticleRod(Particule* partA, Particule* partB, float len) : Partic
 	this->len = len;
 }
 
-void ParticleRod::ajouterContact(std::vector<ParticleContact*> particleContacts) 
+void ParticleRod::ajouterContact(std::vector<ParticleContact*> &particleContacts) 
 {
 	Particule* partA = this->particules[0];
 	Particule* partB = this->particules[1];

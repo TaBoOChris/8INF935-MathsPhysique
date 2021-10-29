@@ -37,22 +37,26 @@ void Model::Inputs(GLFWwindow* window)
 {
 	float translateSpeed = 0.5f;
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-		this->particule.setPosition(this->particule.getPosition() + Vector3D(0.0f, 0.0f, -translateSpeed));
+		//this->particule.setPosition(this->particule.getPosition() + Vector3D(0.0f, 0.0f, -translateSpeed));
+		this->particule.addForce(Vector3D(0.0f, 0.0f, -translateSpeed));
 		this->updatePosition();
 	}
 		
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-		this->particule.setPosition(this->particule.getPosition() + Vector3D(0.0f, translateSpeed, 0.0f));
+		//this->particule.setPosition(this->particule.getPosition() + Vector3D(0.0f, translateSpeed, 0.0f));
+		this->particule.addForce(Vector3D(0.0f, translateSpeed, 0.0f));
 		this->updatePosition();
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-		this->particule.setPosition(this->particule.getPosition() + Vector3D(0.0f, 0.0f, translateSpeed));
+		//this->particule.setPosition(this->particule.getPosition() + Vector3D(0.0f, 0.0f, translateSpeed));
+		this->particule.addForce(Vector3D(0.0f, 0.0f, translateSpeed));
 		this->updatePosition();
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-		this->particule.setPosition(this->particule.getPosition() + Vector3D(0.0f, -translateSpeed, 0.0f));
+		//this->particule.setPosition(this->particule.getPosition() + Vector3D(0.0f, -translateSpeed, 0.0f));
+		this->particule.addForce(Vector3D(0.0f, -translateSpeed, 0.0f));
 		this->updatePosition();
 
 	}
