@@ -10,10 +10,11 @@ private:
 	float penetration;
 
 public:
-	ParticleContact(Particule* partA, Particule* partB, float restCoeff, Vector3D normal);
+	ParticleContact(Particule* partA, Particule* partB, float restCoeff);
 
+	void calculNormal();
 	void resolve(float duree);
-	float caculVs() const;
+	float calculVs();
 	void resolveVelocity(float duree);
 	void resolveInterpenetration();
 };

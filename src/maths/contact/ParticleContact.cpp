@@ -1,20 +1,29 @@
 #include "ParticleContact.h"
 
-ParticleContact::ParticleContact(Particule* partA, Particule* partB, float restCoeff, Vector3D normal)
+ParticleContact::ParticleContact(Particule* partA, Particule* partB, float restCoeff)
 {
 	this->particules[0] = partA;
 	this->particules[1] = partB;
 	this->restitution = restCoeff;
-	this->contactNormal = normal;
+	this->calculNormal();
+}
+
+void ParticleContact::calculNormal()
+{
+	this->contactNormal = (particules[0]->getPosition() - particules[1]->getPosition()).normalisation();
+
 }
 
 void ParticleContact::resolve(float duree)
 {
-	resolveInterpenetration();
+	std::cout << "start Resolve \n";
+	std::cout << "vs = " << calculVs() << "\n";
+
 	resolveVelocity(duree);
+	//resolveInterpenetration();
 }
 
-float ParticleContact::caculVs() const
+float ParticleContact::calculVs()
 {
 	return (particules[0]->getVitesse() - particules[1]->getVitesse())*contactNormal;
 }
@@ -24,15 +33,18 @@ void ParticleContact::resolveVelocity(float duree)
 	Particule* partA = this->particules[0];
 	Particule* partB = this->particules[1];
 
-	float Vs = caculVs();
+	float Vs = calculVs();
 	float Vsp = -this->restitution * Vs;
 	Vector3D impulsionA = Vsp * this->contactNormal;
 	Vector3D impulsionB = -Vsp * this->contactNormal;
 
 	Vector3D vitA = partA->getVitesse() + partA->getInverseMasse() * impulsionA;
+	std::cout << "vitesseA : " << vitA << "\n";
 	this->particules[0]->setVitesse(vitA);
 
 	Vector3D vitB = partB->getVitesse() + partB->getInverseMasse() * impulsionB;
+	std::cout << "vitesseA : " << vitB << "\n";
+
 	this->particules[1]->setVitesse(vitB);
 }
 
