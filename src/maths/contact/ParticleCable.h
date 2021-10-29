@@ -1,5 +1,7 @@
 #pragma once
 #include "ParticleLink.h"
+#include <vector>
+
 class ParticleCable :
     public ParticleLink
 {
@@ -10,6 +12,6 @@ private:
 public:
     ParticleCable(Particule* partA, Particule* partB, float maxLen, float rest);
 
-    void ajouterContact();
+    void ajouterContact(std::vector<ParticleContact*> particleContacts);
 };
 

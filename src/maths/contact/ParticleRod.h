@@ -1,5 +1,6 @@
 #pragma once
 #include "ParticleLink.h"
+#include <vector>
 
 class ParticleRod :
     public ParticleLink
@@ -10,6 +11,6 @@ private:
 public:
     ParticleRod(Particule* partA, Particule* partB, float len);
 
-    void ajouterContact();
+    void ajouterContact(std::vector<ParticleContact*> particleContacts) override;
 };
 

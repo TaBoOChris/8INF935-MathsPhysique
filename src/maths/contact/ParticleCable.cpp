@@ -6,10 +6,9 @@ ParticleCable::ParticleCable(Particule* partA, Particule* partB, float maxLen, f
 	this->restitution = rest;
 }
 
-void ParticleCable::ajouterContact()
+void ParticleCable::ajouterContact(std::vector<ParticleContact*> particleContacts)
 {
 	Particule* partA = this->particules[0];
 	Particule* partB = this->particules[1];
-	Vector3D contactNormal = (partA->getPosition() - partB->getPosition()).normalisation();
-	new ParticleContact(partA, partB, this->restitution, contactNormal);
+	if ((partA->getPosition()-partB->getPosition()).norme() >= maxLen) particleContacts.push_back(new ParticleContact(partA, partB, this->restitution));
 }

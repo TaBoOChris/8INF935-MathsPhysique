@@ -5,10 +5,9 @@ ParticleRod::ParticleRod(Particule* partA, Particule* partB, float len) : Partic
 	this->len = len;
 }
 
-void ParticleRod::ajouterContact()
+void ParticleRod::ajouterContact(std::vector<ParticleContact*> particleContacts) override
 {
 	Particule* partA = this->particules[0];
 	Particule* partB = this->particules[1];
-	Vector3D contactNormal = (partA->getPosition() - partB->getPosition()).normalisation();
-	new ParticleContact(partA, partB, 0, contactNormal);
+	particleContacts.push_back(new ParticleContact(partA, partB, 0));
 }

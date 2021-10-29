@@ -24,6 +24,8 @@ namespace fs = std::filesystem;
 #include "opengl/Model.h"
 #include "opengl/UserInterface.h"
 #include "opengl/MoteurPhysique.h"
+#include "maths/contact/ParticleLink.h"
+#include "maths/contact/ParticleRod.h"
 
 
 
@@ -74,8 +76,7 @@ int main(void)
 	
 	// Contact --------------
 	ParticleContactResolver particleContactResolver;
-	std::vector<ParticleContact*> particleContacts;
-
+	std::vector<ParticleContactGenerator*> particleContactGens;
 
 	// Model Creation
 	std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
@@ -99,6 +100,10 @@ int main(void)
 			particleContacts.push_back(new ParticleContact(loadModel->getParticule(), newModel->getParticule(), 0.5f));
 		}*/
 		
+		//Link
+		for (Model* loadModel : models) {
+			ParticleRod* rod = new ParticleRod(newModel->getParticule(), loadModel->getParticule(), 3.0f);
+		}
 		
 		models.push_back(newModel);
 
@@ -151,11 +156,6 @@ int main(void)
 	// floor creation
 	Model floor((parentDir + floorPath).c_str());
 
-
-
-
-	std::cout << "il y a " << particleContacts.size() << " contact possible \n";
-
 	// Main While
 	while (!glfwWindowShouldClose(window))
 	{
@@ -188,11 +188,19 @@ int main(void)
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
+		// create contacts vector and resolve calling contact resolver
+		std::vector<ParticleContact*> particleContacts;
+
+		for (ParticleContactGenerator* my_gen : particleContactGens) {
+			my_gen->ajouterContact(particleContacts);
+		}
+
+		std::cout << particleContacts.size();
+
+		particleContactResolver.resolveContact(particleContacts, timeDiff);
 
 		// Apply force of the registre
 		registre.updateAllForces(timeDiff);
-
-		particleContactResolver.resolveContact(particleContacts, timeDiff);
 
 		for (Model *my_model : models)
 		{

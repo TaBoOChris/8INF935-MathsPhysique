@@ -10,3 +10,7 @@ ParticleLink::ParticleLink(Particule* partA, Particule* partB)
     this->particules[0] = partA;
     this->particules[1] = partB;
 }
+
+void ParticleLink::ajouterContact(std::vector<ParticleContact*> particleContacts)
+{
+}
