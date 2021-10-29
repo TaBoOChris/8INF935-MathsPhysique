@@ -159,6 +159,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\maths\contact\ParticleContact.cpp" />
+    <ClCompile Include="src\maths\contact\ParticleContactResolver.cpp" />
     <ClCompile Include="src\maths\ParticleCable.cpp" />
     <ClCompile Include="src\maths\ParticleRod.cpp" />
     <ClCompile Include="src\maths\ParticleLink.cpp" />
@@ -194,6 +196,8 @@
     <ClCompile Include="src\opengl\VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\maths\contact\ParticleContact.h" />
+    <ClInclude Include="src\maths\contact\ParticleContactResolver.h" />
     <ClInclude Include="src\maths\ParticleCable.h" />
     <ClInclude Include="src\maths\ParticleRod.h" />
     <ClInclude Include="src\maths\ParticleLink.h" />
