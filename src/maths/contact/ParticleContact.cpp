@@ -55,7 +55,7 @@ void ParticleContact::resolveInterpenetration()
 	float invMasseA = this->particules[0]->getInverseMasse();
 	float invMasseB = this->particules[1]->getInverseMasse();
 
-	// on isole les cas nuls, dans tout les autres on inverse invMasse pour obtenir la masse utilisée dans la formule
+	// on isole les cas nuls, dans tout les autres on inverse invMasse pour obtenir la masse utilisï¿½e dans la formule
 
 	if (invMasseA == 0) {
 		this->particules[1]->setPosition(this->particules[1]->getPosition() - this->penetration * this->contactNormal);
@@ -64,8 +64,8 @@ void ParticleContact::resolveInterpenetration()
 		this->particules[0]->setPosition(this->particules[0]->getPosition() + this->penetration * this->contactNormal);
 	}
 	else {
-		float masseA = 1 / invMasseA;
-		float masseB = 1 / invMasseB;
+		float masseA = (this->particules[0]->getMasse() == -1.0f) ? 1 / invMasseA : this->particules[0]->getMasse();
+		float masseB = (this->particules[0]->getMasse() == -1.0f) ? 1 / invMasseB : this->particules[1]->getMasse();
 
 		float deltapA = masseA / (masseA + masseB) * penetration;
 		float deltapB = masseB / (masseA + masseB) * penetration;
