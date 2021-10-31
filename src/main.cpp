@@ -124,7 +124,17 @@ int main(void)
 			registre.add(
 				models[i]->getParticule(),
 				new ParticleSpring(models[0]->getParticule(),0.05f,2.5f, 5.0f)
-			);*/
+			);
+		for (size_t i = 1; i < nombre_particules; i++) {
+			for (size_t j = 1; j < nombre_particules; j++) {
+				if (i != j) {
+					registre.add(
+						models[i]->getParticule(),
+						new ParticleSpring(models[j]->getParticule(), 0.05f, 2.5f)
+					);
+				}
+			}
+		}*/
 
 		// AnchoredSpring
 		/*Vector3D vec = models[i]->getPosition();
