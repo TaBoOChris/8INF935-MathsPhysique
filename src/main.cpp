@@ -101,10 +101,10 @@ int main(void)
 		}*/
 		
 		//Link
-		for (Model* loadModel : models) {
+		/*for (Model* loadModel : models) {
 			ParticleCable* rod = new ParticleCable(newModel->getParticule(), loadModel->getParticule(), 6.0f, 0.5f);
 			particleContactGens.push_back(rod);
-		}
+		}*/
 		
 		models.push_back(newModel);
 
@@ -127,11 +127,11 @@ int main(void)
 			);*/
 
 		// simple elastic
-		/*if(i > 0)
+		if(i > 0)
 			registre.add(
 				models[i]->getParticule(),
-				new ParticleSpring(models[0]->getParticule(),0.05f,2.5f)
-			);*/
+				new ParticleSpring(models[0]->getParticule(),0.05f,2.5f, 5.0f)
+			);
 
 
 
