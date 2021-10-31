@@ -9,7 +9,7 @@ private :
 	int iteration = 0;
 
 public :
-
+	// Determine l'ordre de resolutions des contacts dans le vecteur en fonction de leurs vitesse d'eloignement
 	void resolveContact(std::vector<ParticleContact*> contacts, float duree);
 };
 

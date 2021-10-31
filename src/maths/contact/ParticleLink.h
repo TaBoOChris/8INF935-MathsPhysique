@@ -2,6 +2,8 @@
 #include "ParticleContactGenerator.h"
 #include <vector>
 
+
+//Class mere de ParticleRod et ParticleCable
 class ParticleLink :
     public ParticleContactGenerator
 {
