@@ -94,31 +94,46 @@ int main(void)
 		// model and particule creation
 		Model* newModel = new Model((parentDir + modelPath).c_str());
 		newModel->getParticule()->setPosition(  Vector3D(0.0f,5, 4*i )   );
+		models.push_back(newModel);
 		
-		// contact
+		// Rod
 		/*for (Model* loadModel : models) {
-			particleContacts.push_back(new ParticleContact(loadModel->getParticule(), newModel->getParticule(), 0.5f));
+			ParticleRod* rod = new ParticleRod(newModel->getParticule(), loadModel->getParticule(), 6.0f, 0.5f);
+			particleContactGens.push_back(rod);
 		}*/
-		
-		//Link
-		for (Model* loadModel : models) {
+		// Cable
+		/*for (Model* loadModel : models) {
 			ParticleCable* rod = new ParticleCable(newModel->getParticule(), loadModel->getParticule(), 6.0f, 0.5f);
 			particleContactGens.push_back(rod);
-		}
+		}*/
 		
-		models.push_back(newModel);
 
 		// Gravity force creation
-		/*registre.add(
+		registre.add(
 			models[i]->getParticule(), 
-			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-5) , 0))
-			);*/
+			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-2) , 0))
+		);
 
 		registre.add(
 			models[i]->getParticule(),
 			new DragGenerator( 0.05f, 0.05f)
 		);
 		
+		// Simple elastic
+		/*if (i > 0)
+			registre.add(
+				models[i]->getParticule(),
+				new ParticleSpring(models[0]->getParticule(),0.05f,2.5f, 5.0f)
+			);*/
+
+		// AnchoredSpring
+		/*Vector3D vec = models[i]->getPosition();
+		vec.y += 1;
+		registre.add(
+			models[i]->getParticule(),
+			new ParticleAnchoredSpring(vec, 0.01f, 2)
+		);*/
+
 		// Elastic de Bungee
 		/*if(i > 0)
 			registre.add(
@@ -126,34 +141,14 @@ int main(void)
 				new BungeeString(models[0]->getParticule(),0.01f,6)
 			);*/
 
-		// simple elastic
-		/*if (i > 0)
-			registre.add(
-				models[i]->getParticule(),
-				new ParticleSpring(models[0]->getParticule(),0.05f,2.5f, 5.0f)
-			);*/
-
-		// buoyancy
-		registre.add(
+		// Buoyancy
+		/*registre.add(
 			models[i]->getParticule(),
 			new ParticleBuoyancy(-3.0f, models[i]->getParticule()->getRayon() * 4.0f * 3.14f * 3.14f, 0.0f, 1.1f)
-		);
+		);*/
+
 
 	}
-
-	// AnchoredSpring
-	/*if (true) {
-
-		Model* newModel = new Model((parentDir + modelPath).c_str());
-		newModel->getParticule()->setPosition(Vector3D(0.0f, 8, -10.0f));
-		models.push_back(newModel);
-
-
-		registre.add(
-			newModel->getParticule(),
-			new ParticleAnchoredSpring(Vector3D(0.0f, 4.0f , -10.0f), 0.01f, 2)
-		);
-	}*/
 
 	
 	std::cout << "Il y a " << registre.getSize() << " forces \n";
