@@ -6,7 +6,6 @@ class ParticleAnchoredSpring : public ParticuleForceGenerator
 {
 public:
 	ParticleAnchoredSpring(Vector3D anchor, float constElast, float lenRepos);
-	~ParticleAnchoredSpring();
 	virtual void updateForce(Particule* particule, float duration);
 
 private:

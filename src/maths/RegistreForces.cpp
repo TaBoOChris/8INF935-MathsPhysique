@@ -3,10 +3,6 @@
 RegistreForces::RegistreForces(){
 }
 
-RegistreForces::~RegistreForces() {
-
-}
-
 void RegistreForces::add(Particule *particule, ParticuleForceGenerator *fg) {
 	EnregistrementForce tmp = { particule , fg };
 	this->registre.push_back(tmp);

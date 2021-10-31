@@ -8,10 +8,6 @@ ParticleBuoyancy::ParticleBuoyancy(float maxDepth, float objVolume, float hauteu
 	this->density = density;
 }
 
-ParticleBuoyancy::~ParticleBuoyancy()
-{
-}
-
 void ParticleBuoyancy::updateForce(Particule* particule)
 {
 	float particleDepth = particule->getPosition().y;

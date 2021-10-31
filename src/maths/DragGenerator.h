@@ -12,7 +12,6 @@ class DragGenerator : public ParticuleForceGenerator
 public:
 	DragGenerator();
 	DragGenerator(float k1, float k2);
-	~DragGenerator();
 	virtual void updateForce(Particule* particule, float duration);
 
 private:

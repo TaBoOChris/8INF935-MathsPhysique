@@ -19,7 +19,6 @@ class Vector3D{
         Vector3D();
         Vector3D(float val);
         Vector3D(float new_X, float new_Y, float new_Z);
-        ~Vector3D();
 
         
 

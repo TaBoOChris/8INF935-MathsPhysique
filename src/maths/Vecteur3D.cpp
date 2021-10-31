@@ -26,14 +26,6 @@ Vector3D::Vector3D(float new_X, float new_Y, float new_Z)
     this->z = new_Z;
 }
 
-Vector3D::~Vector3D() 
-{
-    
-}
-
-
-
-
 
 bool operator==(Vector3D const& u, Vector3D const& v) 
 {

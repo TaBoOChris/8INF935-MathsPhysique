@@ -9,7 +9,6 @@ class ParticleSpring : public ParticuleForceGenerator
 {
 public:
 	ParticleSpring(Particule* anchorParticle, float constElast, float lenRepos);
-	~ParticleSpring();
 	virtual void updateForce(Particule* particule, float duration);
 
 private:

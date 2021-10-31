@@ -8,10 +8,6 @@ ParticleSpring::ParticleSpring(Particule* anchorParticle, float constElast, floa
 	this->l0 = lenRepos;
 }
 
-ParticleSpring::~ParticleSpring()
-{
-}
-
 void ParticleSpring::updateForce(Particule* particule, float duration)
 {
 	float longueur = (particule->getPosition() - anchorParticle->getPosition()).norme();	// distance entre deux particule

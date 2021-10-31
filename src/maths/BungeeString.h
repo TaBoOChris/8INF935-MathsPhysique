@@ -15,7 +15,6 @@ class BungeeString : public ParticuleForceGenerator
 public:
 	BungeeString();
 	BungeeString(Particule* anchorParticle, float constElast, float lenRepos);
-	~BungeeString();
 
 	void updateForce(Particule* particule, float duration);	// update the force
 	

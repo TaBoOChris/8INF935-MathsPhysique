@@ -9,10 +9,6 @@ GravityGenerator::GravityGenerator(Vector3D new_gravity) {
 	this->gravite = new_gravity;
 }
 
-GravityGenerator::~GravityGenerator()
-{
-}
-
 void GravityGenerator::updateForce(Particule* particule, float duration) {
 	
 	// if particle has mass, 

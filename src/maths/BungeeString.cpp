@@ -14,10 +14,6 @@ BungeeString::BungeeString(Particule* anchorParticle, float constElast, float le
 	this->l0 = lenRepos;
 }
 
-BungeeString::~BungeeString()
-{
-}
-
 void BungeeString::updateForce(Particule* particule, float duration)
 {
 	float longueur = (particule->getPosition() - anchorParticle->getPosition()).norme();	// distance entre deux particule
