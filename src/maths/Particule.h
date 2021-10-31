@@ -9,6 +9,7 @@ private :
 	float masse;
 	float inverseMasse;
 	float frottement;
+	float rayon;
 
 	//trois vecteurs des nécessaire à décrire l'état d'une particule et prévoir son évolution
 	Vector3D position;
@@ -33,12 +34,13 @@ public :
 
 	float getMasse();
 
-
 	Vector3D getPosition();
 
 	Vector3D getVitesse();
 
 	Vector3D getAcceleration();
+
+	float getRayon();
 
 	void setInverseMasse(float invM);
 

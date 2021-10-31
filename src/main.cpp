@@ -22,6 +22,7 @@ namespace fs = std::filesystem;
 #include "maths/contact/ParticleContactResolver.h"
 #include "maths/contact/ParticleLink.h"
 #include "maths/contact/ParticleRod.h"
+#include "maths/contact/ParticleCable.h"
 
 #include "opengl/Model.h"
 #include "opengl/UserInterface.h"
@@ -101,7 +102,7 @@ int main(void)
 		
 		//Link
 		for (Model* loadModel : models) {
-			ParticleRod* rod = new ParticleRod(newModel->getParticule(), loadModel->getParticule(), 3.0f);
+			ParticleCable* rod = new ParticleCable(newModel->getParticule(), loadModel->getParticule(), 6.0f, 0.5f);
 			particleContactGens.push_back(rod);
 		}
 		
@@ -204,13 +205,34 @@ int main(void)
 			//std::cout << my_model.getParticule()->getPosition()<<std::endl;
 		}
 
-
 		// create contacts vector and resolve calling contact resolver
 		std::vector<ParticleContact*> particleContacts;
+
+		for (Model* modelA : models) {
+			for (Model* modelB : models)
+			{
+				Vector3D modelA_pos = modelA->getPosition();
+				if (modelA != modelB) {
+					Vector3D modelB_pos = modelB->getPosition();
+					float distance = (modelA_pos - modelB_pos).norme();
+					if (distance < modelA->getParticule()->getRayon() + modelB->getParticule()->getRayon()) {
+						//crée un particuleContact
+						ParticleContact* tmp;
+						tmp = new ParticleContact(modelA->getParticule(), modelB->getParticule(), 1.0f);
+						tmp->setPenetration(modelA->getParticule()->getRayon() + modelB->getParticule()->getRayon() - distance);
+						particleContacts.push_back(tmp);
+					}
+				}
+				else {
+					break;
+				}
+			}
+		}
 
 		for (ParticleContactGenerator* my_gen : particleContactGens) {
 			my_gen->ajouterContact(particleContacts);
 		}
+
 
 		//std::cout << particleContacts.size();
 

@@ -12,6 +12,6 @@ private:
 public:
     ParticleCable(Particule* partA, Particule* partB, float maxLen, float rest);
 
-    void ajouterContact(std::vector<ParticleContact*> particleContacts);
+    void ajouterContact(std::vector<ParticleContact*> &particleContacts);
 };
 

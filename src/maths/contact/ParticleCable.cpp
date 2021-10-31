@@ -6,7 +6,7 @@ ParticleCable::ParticleCable(Particule* partA, Particule* partB, float maxLen, f
 	this->restitution = rest;
 }
 
-void ParticleCable::ajouterContact(std::vector<ParticleContact*> particleContacts)
+void ParticleCable::ajouterContact(std::vector<ParticleContact*> &particleContacts)
 {
 	Particule* partA = this->particules[0];
 	Particule* partB = this->particules[1];

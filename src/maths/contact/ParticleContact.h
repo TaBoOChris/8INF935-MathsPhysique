@@ -27,6 +27,8 @@ public:
 	/* Calcul le vecteur normal a la collision */
 	void calculNormal();
 
+	void setPenetration(float newpenetration);
+
 	/* Appelle les fonctions resolveVelocity et resolveInterpenetration */
 	void resolve(float duree);
 	/* Calcul la vitesse d'eloignement de la collision 
