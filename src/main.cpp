@@ -91,50 +91,32 @@ int main(void)
 	int nombre_particules = 2;
 	for (size_t i = 0; i < nombre_particules; i++)
 	{
-		// model and particule creation
+		// Model and particule creation
 		Model* newModel = new Model((parentDir + modelPath).c_str());
-		newModel->getParticule()->setPosition(  Vector3D(0.0f,5, 4*i )   );
+		newModel->getParticule()->setPosition(  Vector3D(0.0f,5, -(nombre_particules/2.0f) + i*2.0f )   );
 		models.push_back(newModel);
-		
-		// Rod
-		/*for (Model* loadModel : models) {
-			ParticleRod* rod = new ParticleRod(newModel->getParticule(), loadModel->getParticule(), 6.0f, 0.5f);
-			particleContactGens.push_back(rod);
-		}*/
-		// Cable
-		/*for (Model* loadModel : models) {
-			ParticleCable* rod = new ParticleCable(newModel->getParticule(), loadModel->getParticule(), 6.0f, 0.5f);
-			particleContactGens.push_back(rod);
-		}*/
-		
 
+		//////////////// Création des Forces ////////////////
+		
 		// Gravity force creation
 		registre.add(
 			models[i]->getParticule(), 
-			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-2) , 0))
+			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-5) , 0))
 		);
 
+		//Drag generator
 		registre.add(
 			models[i]->getParticule(),
 			new DragGenerator( 0.05f, 0.05f)
 		);
 		
-		// Simple elastic
+		// Simple elastic on lie les particules avec la particule centrale (1/2)
 		/*if (i > 0)
 			registre.add(
 				models[i]->getParticule(),
-				new ParticleSpring(models[0]->getParticule(),0.05f,2.5f, 5.0f)
+				new ParticleSpring(models[0]->getParticule(),0.05f,2.5f, 4.0f)
 			);
-		for (size_t i = 1; i < nombre_particules; i++) {
-			for (size_t j = 1; j < nombre_particules; j++) {
-				if (i != j) {
-					registre.add(
-						models[i]->getParticule(),
-						new ParticleSpring(models[j]->getParticule(), 0.05f, 2.5f)
-					);
-				}
-			}
-		}*/
+		*/
 
 		// AnchoredSpring
 		/*Vector3D vec = models[i]->getPosition();
@@ -157,19 +139,35 @@ int main(void)
 			new ParticleBuoyancy(-3.0f, models[i]->getParticule()->getRayon() * 4.0f * 3.14f * 3.14f, 0.0f, 1.1f)
 		);*/
 
+		//////////////// Création des ParticleLink ////////////////
 
+		// Rod
+		/*for (Model* loadModel : models) {
+			ParticleRod* rod = new ParticleRod(newModel->getParticule(), loadModel->getParticule(), 6.0f);
+			particleContactGens.push_back(rod);
+		}*/
+		// Cable
+		for (Model* loadModel : models) {
+			ParticleCable* rod = new ParticleCable(newModel->getParticule(), loadModel->getParticule(), 6.0f, 0.5f);
+			particleContactGens.push_back(rod);
+		}
 	}
-
-	
-	std::cout << "Il y a " << registre.getSize() << " forces \n";
-
-
-	std::cout << "Il y a " << particleContactGens.size() << " generator contact \n";
+	// Simple elastic On met un elastic entre toutes les particules (2/2)
+	/*for (size_t i = 1; i < nombre_particules; i++) {
+		for (size_t j = 1; j < nombre_particules; j++) {
+			if (i != j) {
+				registre.add(
+					models[i]->getParticule(),
+					new ParticleSpring(models[j]->getParticule(), 0.05f, 2.5f)
+				);
+			}
+		}
+	}*/
 
 	// floor creation
 	Model floor((parentDir + floorPath).c_str());
 
-	// Main While
+	// Boucle de Rendu
 	while (!glfwWindowShouldClose(window))
 	{
 		// handle 60fps
@@ -186,7 +184,7 @@ int main(void)
 			counter = 0;
 
 			//----
-			// mange input
+			// Gestion des inputs
 			camera.Inputs(window);
 			models[0]->Inputs(window);
 		}
@@ -201,7 +199,6 @@ int main(void)
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
-		
 
 		// Apply force of the registre
 		registre.updateAllForces(timeDiff);
@@ -210,13 +207,12 @@ int main(void)
 		{
 			my_model->updateParticule(timeDiff);
 			my_model->updatePosition();
-
-			//std::cout << my_model.getParticule()->getPosition()<<std::endl;
 		}
 
-		// create contacts vector and resolve calling contact resolver
+		//////////////// Gestion des contacts ////////////////
 		std::vector<ParticleContact*> particleContacts;
 
+		// Ajoute un contact entre les particules qui sont entrées en collision
 		for (Model* modelA : models) {
 			for (Model* modelB : models)
 			{
@@ -225,7 +221,7 @@ int main(void)
 					Vector3D modelB_pos = modelB->getPosition();
 					float distance = (modelA_pos - modelB_pos).norme();
 					if (distance < modelA->getParticule()->getRayon() + modelB->getParticule()->getRayon()) {
-						//crée un particuleContact
+						// Crée un particuleContact si la distance entre deux particules est inférieure à la somme de leurs rayons
 						ParticleContact* tmp;
 						tmp = new ParticleContact(modelA->getParticule(), modelB->getParticule(), 1.0f);
 						tmp->setPenetration(modelA->getParticule()->getRayon() + modelB->getParticule()->getRayon() - distance);
@@ -238,24 +234,19 @@ int main(void)
 			}
 		}
 
+		// Ajoute un contact pour les particules liees avec un lien
 		for (ParticleContactGenerator* my_gen : particleContactGens) {
 			my_gen->ajouterContact(particleContacts);
 		}
 
-
-		//std::cout << particleContacts.size();
-
+		// Resoud tous les contacts dans le vecteur avec ParticuleContactResolver
 		ParticleContactResolver particleContactResolver;
 		particleContactResolver.resolveContact(particleContacts, timeDiff);
 
-
-		for (Model* my_model : models)
-			{
+		// Dessine les particules
+		for (Model* my_model : models) {
 			// draw model
-			my_model->Draw(shaderProgram, camera);
-
-			//std::cout << models.begin()->getParticule()->getPosition()<<std::endl;
-			
+			my_model->Draw(shaderProgram, camera);			
 		}
 
 		// draw floor

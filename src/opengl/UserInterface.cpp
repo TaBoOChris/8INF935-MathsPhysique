@@ -84,6 +84,10 @@ void UserInterface::frameOption(std::vector<Model*> models, float time)
 
 		index++;
 	}
+	if (models.size() >= 2) {
+		float distance = (models[0]->getPosition() - models[1]->getPosition()).norme();
+		ImGui::Text("Distance entre les particules 0 et 1 : % f", distance);
+	}
 
 	ImGui::End();
 	ImGui::Render();
