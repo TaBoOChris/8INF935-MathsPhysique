@@ -147,10 +147,10 @@ int main(void)
 			particleContactGens.push_back(rod);
 		}*/
 		// Cable
-		for (Model* loadModel : models) {
-			ParticleCable* rod = new ParticleCable(newModel->getParticule(), loadModel->getParticule(), 6.0f, 0.5f);
-			particleContactGens.push_back(rod);
-		}
+		/*for (Model* loadModel : models) {
+			ParticleCable* cable = new ParticleCable(newModel->getParticule(), loadModel->getParticule(), 6.0f, 0.5f);
+			particleContactGens.push_back(cable);
+		}*/
 	}
 	// Simple elastic On met un elastic entre toutes les particules (2/2)
 	/*for (size_t i = 1; i < nombre_particules; i++) {
