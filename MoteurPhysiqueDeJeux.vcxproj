@@ -159,6 +159,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\maths\Quaternion.cpp" />
+    <ClCompile Include="src\maths\Matrix4.cpp" />
+    <ClCompile Include="src\maths\Matrix3.cpp" />
+    <ClCompile Include="src\maths\CorpsRigide.cpp" />
     <ClCompile Include="src\maths\contact\ParticleCable.cpp" />
     <ClCompile Include="src\maths\contact\ParticleContact.cpp" />
     <ClCompile Include="src\glad.c" />
@@ -195,6 +199,10 @@
     <ClCompile Include="src\opengl\VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\maths\Quaternion.h" />
+    <ClInclude Include="src\maths\Matrix4.h" />
+    <ClInclude Include="src\maths\Matrix3.h" />
+    <ClInclude Include="src\maths\CorpsRigide.h" />
     <ClInclude Include="src\maths\contact\ParticleCable.h" />
     <ClInclude Include="src\maths\contact\ParticleContact.h" />
     <ClInclude Include="src\maths\force\BungeeString.h" />

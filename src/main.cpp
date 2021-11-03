@@ -10,8 +10,9 @@ namespace fs = std::filesystem;
 
 #include "maths/Vecteur3D.h"
 #include "maths/Particule.h"
-#include "maths/force/RegistreForces.h"
+#include "maths/Matrix3.h"
 
+#include "maths/force/RegistreForces.h"
 #include "maths/force/BungeeString.h"
 #include "maths/force/DragGenerator.h"
 #include "maths/force/GravityGenerator.h"
@@ -35,6 +36,14 @@ namespace fs = std::filesystem;
 
 int main(void)
 {
+
+	Matrix3 mat3(
+		1, 0, 5, 
+		2, 1, 6, 
+		3, 4, 0);
+
+
+	std::cout << mat3.getInverse();
 
 
 	//Load GLAD so it configures OpenGL
