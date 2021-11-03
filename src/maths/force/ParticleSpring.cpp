@@ -1,7 +1,8 @@
 #pragma once
-#include "ParticleSpring.h"
-#include "contact/ParticleContact.h"
 #include <vector>
+
+#include "ParticleSpring.h"
+#include "../contact/ParticleContact.h"
 
 
 ParticleSpring::ParticleSpring(Particule* anchorParticle, float constElast, float lenRepos)

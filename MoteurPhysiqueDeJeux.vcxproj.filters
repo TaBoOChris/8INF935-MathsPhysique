@@ -81,25 +81,25 @@
     <ClCompile Include="src\opengl\ImGui\imgui_widgets.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\maths\DragGenerator.cpp">
+    <ClCompile Include="src\maths\force\DragGenerator.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\maths\GravityGenerator.cpp">
+    <ClCompile Include="src\maths\force\GravityGenerator.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\maths\RegistreForces.cpp">
+    <ClCompile Include="src\maths\force\RegistreForces.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\maths\BungeeString.cpp">
+    <ClCompile Include="src\maths\force\BungeeString.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\maths\ParticleAnchoredSpring.cpp">
+    <ClCompile Include="src\maths\force\ParticleAnchoredSpring.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\maths\ParticleBuoyancy.cpp">
+    <ClCompile Include="src\maths\force\ParticleBuoyancy.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="src\maths\ParticleSpring.cpp">
+    <ClCompile Include="src\maths\force\ParticleSpring.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\maths\contact\ParticleContact.cpp">
@@ -188,28 +188,28 @@
     <ClInclude Include="src\opengl\ImGui\imstb_truetype.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\maths\DragGenerator.h">
+    <ClInclude Include="src\maths\force\DragGenerator.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\maths\GravityGenerator.h">
+    <ClInclude Include="src\maths\force\GravityGenerator.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\maths\ParticuleForceGenerator.h">
+    <ClInclude Include="src\maths\force\ParticuleForceGenerator.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\maths\RegistreForces.h">
+    <ClInclude Include="src\maths\force\RegistreForces.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\maths\BungeeString.h">
+    <ClInclude Include="src\maths\force\BungeeString.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\maths\ParticleAnchoredSpring.h">
+    <ClInclude Include="src\maths\force\ParticleAnchoredSpring.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\maths\ParticleBuoyancy.h">
+    <ClInclude Include="src\maths\force\ParticleBuoyancy.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\maths\ParticleSpring.h">
+    <ClInclude Include="src\maths\force\ParticleSpring.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="src\maths\contact\ParticleContact.h">

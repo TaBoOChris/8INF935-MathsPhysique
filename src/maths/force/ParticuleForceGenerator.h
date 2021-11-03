@@ -1,5 +1,6 @@
 #pragma once
-#include "Particule.h"
+#include "../Particule.h"
+#include "../Vecteur3D.h"
 
 /// <summary>
 /// Interface des classes de generateurs de forces

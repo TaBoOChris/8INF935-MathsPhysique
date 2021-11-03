@@ -10,14 +10,14 @@ namespace fs = std::filesystem;
 
 #include "maths/Vecteur3D.h"
 #include "maths/Particule.h"
-#include "maths/RegistreForces.h"
+#include "maths/force/RegistreForces.h"
 
-#include "maths/BungeeString.h"
-#include "maths/DragGenerator.h"
-#include "maths/GravityGenerator.h"
-#include "maths/ParticleAnchoredSpring.h"
-#include "maths/ParticleBuoyancy.h"
-#include "maths/ParticleSpring.h"
+#include "maths/force/BungeeString.h"
+#include "maths/force/DragGenerator.h"
+#include "maths/force/GravityGenerator.h"
+#include "maths/force/ParticleAnchoredSpring.h"
+#include "maths/force/ParticleBuoyancy.h"
+#include "maths/force/ParticleSpring.h"
 
 #include "maths/contact/ParticleContactResolver.h"
 #include "maths/contact/ParticleLink.h"
