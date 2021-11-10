@@ -22,8 +22,8 @@ void ParticleContact::calculNormal()
 
 void ParticleContact::resolve(float duree)
 {
-	std::cout << "start Resolve \n";
-	std::cout << "vs = " << calculVs() << "\n";
+	/*std::cout << "start Resolve \n";
+	std::cout << "vs = " << calculVs() << "\n";*/
 
 	calculNormal();
 
@@ -49,11 +49,11 @@ void ParticleContact::resolveVelocity(float duree)
 	Vector3D impulsionB = -Vsp * this->contactNormal;
 
 	Vector3D vitA = partA->getVitesse() + partA->getInverseMasse() * impulsionA;
-	std::cout << "vitesseA : " << vitA << " Impulsion : " << impulsionA << "\n";
+	//std::cout << "vitesseA : " << vitA << " Impulsion : " << impulsionA << "\n";
 	this->particules[0]->setVitesse(vitA);
 
 	Vector3D vitB = partB->getVitesse() + partB->getInverseMasse() * impulsionB;
-	std::cout << "vitesseB : " << vitB <<" Impulsion : " << impulsionB<< "\n";
+	//std::cout << "vitesseB : " << vitB <<" Impulsion : " << impulsionB<< "\n";
 
 	this->particules[1]->setVitesse(vitB);
 }
