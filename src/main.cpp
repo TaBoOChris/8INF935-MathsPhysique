@@ -102,16 +102,16 @@ int main(void)
 	{
 		// Model and particule creation
 		Model* newModel = new Model((parentDir + modelPath).c_str());
-		newModel->getParticule()->setPosition(  Vector3D(0.0f,5, -(nombre_particules/2.0f) + i*2.0f )   );
+		newModel->getParticule()->setPosition(  Vector3D(0.0f,5, -(3.0f*nombre_particules)/2.0f + i*3.0f )   );
 		models.push_back(newModel);
 
 		//////////////// Création des Forces ////////////////
 		
 		// Gravity force creation
-		registre.add(
+		/*registre.add(
 			models[i]->getParticule(), 
 			new GravityGenerator(Vector3D (0,-9.81 * pow(10,-5) , 0))
-		);
+		);*/
 
 		//Drag generator
 		registre.add(
@@ -151,10 +151,10 @@ int main(void)
 		//////////////// Création des ParticleLink ////////////////
 
 		// Rod
-		/*for (Model* loadModel : models) {
-			ParticleRod* rod = new ParticleRod(newModel->getParticule(), loadModel->getParticule(), 6.0f);
+		if (i == 1) {
+			ParticleRod* rod = new ParticleRod(newModel->getParticule(), models[0]->getParticule(), 3.0f);
 			particleContactGens.push_back(rod);
-		}*/
+		}
 		// Cable
 		/*for (Model* loadModel : models) {
 			ParticleCable* cable = new ParticleCable(newModel->getParticule(), loadModel->getParticule(), 6.0f, 0.5f);

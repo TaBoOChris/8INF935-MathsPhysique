@@ -6,7 +6,7 @@ ParticleContact::ParticleContact(Particule* partA, Particule* partB, float restC
 	this->particules[1] = partB;
 	this->restitution = restCoeff;
 	this->calculNormal();
-	this->penetration = -1.0f;
+	this->penetration = 0.0f;
 }
 
 void ParticleContact::setPenetration(float newpenetration) {
@@ -27,9 +27,9 @@ void ParticleContact::resolve(float duree)
 
 	calculNormal();
 
-	if (this->penetration != -1.0f) {
-		resolveInterpenetration();
-	}
+	/*if (this->penetration > 0.0f) {
+	}*/
+	resolveInterpenetration();
 	resolveVelocity(duree);
 }
 
