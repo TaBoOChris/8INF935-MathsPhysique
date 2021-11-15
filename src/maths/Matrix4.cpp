@@ -22,6 +22,45 @@ Matrix4::Matrix4(
 	this->a23 = a23;
 }
 
+Matrix4::Matrix4(Matrix3 mat3, Vector3D vec)
+{
+	this->a00 = mat3.a00;
+	this->a01 = mat3.a01;
+	this->a02 = mat3.a02;
+	this->a03 = vec.x;
+				
+	this->a10 = mat3.a10;
+	this->a11 = mat3.a11;
+	this->a12 = mat3.a12;
+	this->a13 = vec.y;
+				
+	this->a20 = mat3.a20;
+	this->a21 = mat3.a21;
+	this->a22 = mat3.a22;
+	this->a23 = vec.z;
+}
+
+Matrix3 Matrix4::getMatrix3()
+{
+	return Matrix3(
+		 a00,  a01,  a02,
+		 a10,  a11,  a12,
+		 a20,  a21,  a22);
+}
+
+Vector3D Matrix4::getVector3D()
+{
+	return Vector3D(a03,a13,a23);
+}
+
+Matrix4 Matrix4::getInverse()
+{
+	Matrix3 matrixInv = this->getMatrix3().getInverse();
+	Vector3D vector = -1 * matrixInv * this->getVector3D();
+
+	return Matrix4(matrixInv, vector);
+}
+
 Matrix4 operator+(Matrix4 const& A, Matrix4 const& B)
 {
 	return Matrix4(
@@ -50,3 +89,28 @@ Matrix4 operator*(float const& a, Matrix4 const& M)
 {
 	return Matrix4(M * a);
 }
+
+Vector3D operator*(Vector3D const& v, Matrix4 const& M)
+{
+	return Vector3D(
+		M.a00 * v.x + M.a01* v.y + M.a02 *v.z + M.a03,
+		M.a10 * v.x + M.a11* v.y + M.a12 *v.z + M.a13,
+		M.a20 * v.x + M.a21* v.y + M.a22 *v.z + M.a23
+	);
+}
+
+Vector3D operator*(Matrix4 const& M, Vector3D const& v)
+{
+	return (v * M);
+}
+
+std::ostream& operator<<(std::ostream& os, Matrix4 const& M)
+{
+	os << " " << M.a00 << " " << M.a01 << " " << M.a02 << " " << M.a03 << std::endl;
+	os << " " << M.a10 << " " << M.a11 << " " << M.a12 << " " << M.a13 << std::endl;
+	os << " " << M.a20 << " " << M.a21 << " " << M.a22 << " " << M.a23 << std::endl;
+
+	return os;
+}
+
+

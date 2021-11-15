@@ -1,4 +1,13 @@
 #pragma once
+
+
+#include <iostream>
+#include <string>
+#include <stdio.h>
+#include "Matrix3.h"
+#include "Vecteur3D.h"
+
+
 class Matrix4
 {
 private: 
@@ -14,7 +23,7 @@ public:
 		float a10, float a11, float a12, float a13,
 		float a20, float a21, float a22, float a23) ;
 
-
+	Matrix4(Matrix3 mat3, Vector3D vec);
 
 	friend Matrix4 operator+(Matrix4 const& A, Matrix4 const& B);		// A + B
 	friend Matrix4 operator-(Matrix4 const& A, Matrix4 const& B);		// A - B
@@ -22,8 +31,14 @@ public:
 	friend Matrix4 operator*(Matrix4 const& M, float const& a);			// M * a
 	friend Matrix4 operator*(float const& a, Matrix4 const& M);			// a * M
 
-	friend Matrix4 operator/(Matrix4 const& M, float const& a);			// M / a
+	friend Vector3D operator*(Vector3D const& v, Matrix4 const& M);		// v * M
+	friend Vector3D operator*(Matrix4 const& M, Vector3D const& v);		// M * v
 
-	friend Matrix4 operator*(Matrix4 const& A, Matrix4 const& B);		// A*B
+	Matrix3 getMatrix3();
+	Vector3D getVector3D();
+
+	Matrix4 getInverse();
+
+	friend std::ostream& operator<<(std::ostream& os, Matrix4 const& M);
 };
 

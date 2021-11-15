@@ -3,15 +3,19 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
+#include "Vecteur3D.h"
 
 class Matrix3
 {
 private:
-	float  	a00, a01, a02 ;
-	float  	a10, a11, a12 ;
-	float  	a20, a21, a22 ;
+	
 
 public : 
+
+
+	float  	a00, a01, a02;
+	float  	a10, a11, a12;
+	float  	a20, a21, a22;
 
 	Matrix3(
 		float a00, float a01, float a02,
@@ -27,6 +31,10 @@ public :
 	friend Matrix3 operator/(Matrix3 const& M, float const& a);			// M / a
 
 	friend Matrix3 operator*(Matrix3 const& A, Matrix3 const& B);		// A*B
+
+
+	friend Vector3D operator*(Vector3D const& v, Matrix3 const& M);		// v * M
+	friend Vector3D operator*(Matrix3 const& M, Vector3D const& v);		// M * v
 
 
 	float getDeterminant();

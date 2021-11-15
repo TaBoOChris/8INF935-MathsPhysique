@@ -94,6 +94,20 @@ Matrix3 operator*(Matrix3 const& A, Matrix3 const& B)
 		A.a20 * B.a00 + A.a21 * B.a10 + A.a22 * B.a20,		A.a20 * B.a01 + A.a21 * B.a11 + A.a22 * B.a21,		A.a20 * B.a02 + A.a21 * B.a12 + A.a22 * B.a22  );
 }
 
+Vector3D operator*(Vector3D const& v, Matrix3 const& M)
+{
+	return Vector3D(
+		M.a00 * v.x + M.a01 * v.y + M.a02 * v.z ,
+		M.a10 * v.x + M.a11 * v.y + M.a12 * v.z ,
+		M.a20 * v.x + M.a21 * v.y + M.a22 * v.z 
+	);
+}
+
+Vector3D operator*(Matrix3 const& M, Vector3D const& v)
+{
+	return (v * M);
+}
+
 std::ostream& operator<<(std::ostream& os, Matrix3 const& M)
 {
 	os << " " << M.a00 << " " << M.a01 << " " << M.a02  << std::endl;
