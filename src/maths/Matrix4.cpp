@@ -91,6 +91,22 @@ Matrix4 Matrix4::getInverse()
 	return Matrix4(matrixInv, vector);
 }
 
+Matrix4 Matrix4::setOrientation(Quaternion const& q)
+{
+	float a00 = 1 - (2 * pow(q.y, 2) + pow(q.z, 2));
+	float a01 = 2 * (q.x * q.y + q.z * q.w);
+	float a02 = 2 * (q.x * q.z - q.y * q.w);
+	float a10 = 2 * (q.x * q.y - q.z * q.w);
+	float a11 = 1 - 2 * (pow(q.x, 2) + pow(q.z, 2));
+	float a12 = 2 * (q.y * q.z + q.x * q.w);
+	float a20 = 2 * (q.x * q.z + q.y * q.w);
+	float a21 = 2 * (q.y * q.z - q.x * q.w);
+	float a22 = 1 - 2 * (pow(q.x, 2) + pow(q.y, 2));
+	return Matrix4(a00, a01, a02, q.x,
+				a10, a11, a12, q.y,
+				a20, a21, a22, q.z);
+}
+
 float Matrix4::det()
 {
 	float res = 0;

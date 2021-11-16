@@ -39,6 +39,7 @@ public:
 	Vector3D getVector3D();
 
 	Matrix4 getInverse();
+	Matrix4 setOrientation(Quaternion const& q);
 
 	float det();
 
