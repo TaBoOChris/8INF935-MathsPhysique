@@ -34,10 +34,13 @@ public:
 	friend Vector3D operator*(Vector3D const& v, Matrix4 const& M);		// v * M
 	friend Vector3D operator*(Matrix4 const& M, Vector3D const& v);		// M * v
 
+	Matrix3 getAij(int i, int j);
 	Matrix3 getMatrix3();
 	Vector3D getVector3D();
 
 	Matrix4 getInverse();
+
+	float det();
 
 	friend std::ostream& operator<<(std::ostream& os, Matrix4 const& M);
 };

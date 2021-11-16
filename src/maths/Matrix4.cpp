@@ -40,6 +40,36 @@ Matrix4::Matrix4(Matrix3 mat3, Vector3D vec)
 	this->a23 = vec.z;
 }
 
+Matrix3 Matrix4::getAij(int i, int j)
+{
+	switch(i){
+	case 0: switch (j) {
+	case 0:	return Matrix3(a11, a12, a13, a21, a22, a23, 0, 0, 1);
+	case 1:	return Matrix3(a10, a12, a13, a20, a22, a23, 0, 0, 1);
+	case 2:	return Matrix3(a10, a11, a13, a20, a21, a23, 0, 0, 1);
+	case 3:	return Matrix3(a10, a11, a12, a20, a21, a22, 0, 0, 0);
+	}
+	case 1: switch (j) {
+	case 0:	return Matrix3(a01, a02, a03, a21, a22, a23, 0, 0, 1);
+	case 1:	return Matrix3(a00, a02, a03, a20, a22, a23, 0, 0, 1);
+	case 2:	return Matrix3(a00, a01, a03, a20, a21, a23, 0, 0, 1);
+	case 3:	return Matrix3(a00, a01, a02, a20, a21, a22, 0, 0, 0);
+	}
+	case 2: switch (j) {
+	case 0:	return Matrix3(a01, a02, a03, a11, a12, a13, 0, 0, 1);
+	case 1:	return Matrix3(a00, a02, a03, a10, a12, a13, 0, 0, 1);
+	case 2:	return Matrix3(a00, a01, a03, a10, a11, a13, 0, 0, 1);
+	case 3:	return Matrix3(a00, a01, a02, a10, a11, a12, 0, 0, 0);
+	}
+	case 3: switch (j) {
+	case 0:	return Matrix3(a01, a02, a03, a11, a12, a13, a21, a22, a23);
+	case 1:	return Matrix3(a00, a02, a03, a10, a12, a13, a20, a22, a23);
+	case 2:	return Matrix3(a00, a01, a03, a10, a11, a13, a20, a21, a23);
+	case 3:	return Matrix3(a00, a01, a02, a10, a11, a12, a20, a21, a22);
+	}
+	}
+}
+
 Matrix3 Matrix4::getMatrix3()
 {
 	return Matrix3(
@@ -59,6 +89,19 @@ Matrix4 Matrix4::getInverse()
 	Vector3D vector = -1 * matrixInv * this->getVector3D();
 
 	return Matrix4(matrixInv, vector);
+}
+
+float Matrix4::det()
+{
+	float res = 0;
+	float mat[16] = { a00, a01, a02, a03, a10, a11, a12, a13, a20, a21, a22, a23, 0.0f, 0.0f, 0.0f, 1.0f };
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			Matrix3 tmp = getAij(i, j);
+			res += pow((-1), (i + j)) * mat[i*4 + j] * tmp.getDeterminant();
+		}
+	}
+	return res;
 }
 
 Matrix4 operator+(Matrix4 const& A, Matrix4 const& B)
