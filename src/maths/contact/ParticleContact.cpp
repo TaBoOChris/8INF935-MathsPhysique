@@ -7,17 +7,16 @@ ParticleContact::ParticleContact(Particule* partA, Particule* partB, float restC
 	this->restitution = restCoeff;
 	this->calculNormal();
 	this->penetration = 0.0f;
+	this->isRod = false;
 }
 
 void ParticleContact::setPenetration(float newpenetration) {
 	this->penetration = newpenetration;
-
 }
 
 void ParticleContact::calculNormal()
 {
 	this->contactNormal = (particules[0]->getPosition() - particules[1]->getPosition()).normalisation();
-
 }
 
 void ParticleContact::resolve(float duree)
@@ -81,4 +80,14 @@ void ParticleContact::resolveInterpenetration()
 		this->particules[0]->setPosition(this->particules[0]->getPosition() + deltapA * this->contactNormal);
 		this->particules[1]->setPosition(this->particules[1]->getPosition() - deltapB * this->contactNormal);
 	}
+}
+
+void ParticleContact::setIsRod(bool isRod)
+{
+	this->isRod = isRod;
+}
+
+bool ParticleContact::getIsRod()
+{
+	return this->isRod;
 }

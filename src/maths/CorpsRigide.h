@@ -29,6 +29,12 @@ private:
 
 public:
 
+	CorpsRigide();
+
+	CorpsRigide(float inverseMasse);
+
+	CorpsRigide(Vector3D initialPosition, Vector3D initialVitesse, Vector3D initialAcceleration);
+
 	void calculDonneesDerivee();
 
 	void forceAccum();

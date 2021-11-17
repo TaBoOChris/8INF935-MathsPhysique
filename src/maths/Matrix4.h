@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include "Matrix3.h"
 #include "Vecteur3D.h"
+#include "Quaternion.h"
 
 
 class Matrix4

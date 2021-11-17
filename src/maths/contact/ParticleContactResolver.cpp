@@ -24,10 +24,11 @@ void ParticleContactResolver::resolveContact(std::vector<ParticleContact*> conta
 			vsIndex++;
 		}
 
+		if (minVs >= 0 && !(contacts[vsFinalIndex]->getIsRod())) { return; }
+
 		contacts[vsFinalIndex]->resolve(duree);
 
 		if (minVs >= 0) { return; }
-
 
 		this->iteration++;
 	}

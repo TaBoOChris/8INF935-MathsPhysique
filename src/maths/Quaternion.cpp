@@ -37,7 +37,7 @@ void Quaternion::rotateByVector(Vector3D const& v)
 
 void Quaternion::UpdateAngularVelocity(Vector3D const& w, float duration)
 {
-	(*this) = (*this) + (1/2) * (duration * Quaternion(w.x, w.y, w.z, 0.0f) * (*this))
+	(*this) = (*this) + (1 / 2) * (duration * Quaternion(w.x, w.y, w.z, 0.0f) * (*this));
 }
 
 Quaternion operator*(float f, Quaternion const& q)

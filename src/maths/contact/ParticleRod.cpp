@@ -10,14 +10,14 @@ void ParticleRod::ajouterContact(std::vector<ParticleContact*> &particleContacts
 {
 	Particule* partA = this->particules[0];
 	Particule* partB = this->particules[1];
+	float distance = (partA->getPosition() - partB->getPosition()).norme();
+	if (distance == this->len) {
+		return;
+	}
 	ParticleContact* tmp;
 	tmp = new ParticleContact(partA, partB, 0.0f);
-	float distance = (partA->getPosition() - partB->getPosition()).norme();
+	tmp->setIsRod(true);
 	tmp->setPenetration(this->len - distance);
 	particleContacts.push_back(tmp);
-	/*ParticleContact* tmp2;
-	tmp2 = new ParticleContact(partB, partA, 0.0f);
-	float distance2 = (partA->getPosition() - partB->getPosition()).norme();
-	tmp2->setPenetration(distance2 - this->len);
-	particleContacts.push_back(tmp2);*/
+
 }

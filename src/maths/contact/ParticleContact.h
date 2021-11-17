@@ -20,6 +20,9 @@ private:
 	/* Coefficiant d'interpenetration */
 	float penetration;
 
+	// Boolean qui est a true si le contact provient d'un rod, false sinon
+	bool isRod;
+
 public:
 	/* Constructeur de ParticuleContact */
 	ParticleContact(Particule* partA, Particule* partB, float restCoeff);
@@ -39,5 +42,8 @@ public:
 	void resolveVelocity(float duree);
 	/* Modifie la position des particules en fonction de leur interpenetration */
 	void resolveInterpenetration();
+
+	void setIsRod(bool isRod);
+	bool getIsRod();
 };
 
