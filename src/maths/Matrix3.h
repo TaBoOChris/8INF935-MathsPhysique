@@ -17,6 +17,8 @@ public :
 	float  	a10, a11, a12;
 	float  	a20, a21, a22;
 
+	Matrix3();
+
 	Matrix3(
 		float a00, float a01, float a02,
 		float a10, float a11, float a12,

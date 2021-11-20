@@ -10,6 +10,8 @@ class Quaternion
 public:
 	float x, y, z, w;
 
+	Quaternion();
+
 	Quaternion(float x, float y, float z, float w);
 	
 	friend Quaternion operator*(float f, Quaternion const& q);

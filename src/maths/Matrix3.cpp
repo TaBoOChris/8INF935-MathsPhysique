@@ -1,5 +1,19 @@
 #include "Matrix3.h"
 
+Matrix3::Matrix3() {
+	this->a00 = 0;
+	this->a01 = 0;
+	this->a02 = 0;
+
+	this->a10 = 0;
+	this->a11 = 0;
+	this->a12 = 0;
+
+	this->a20 = 0;
+	this->a21 = 0;
+	this->a22 = 0;
+}
+
 Matrix3::Matrix3(
 	float a00, float a01, float a02, 
 	float a10, float a11, float a12, 
