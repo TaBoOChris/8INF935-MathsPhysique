@@ -9,7 +9,7 @@ CorpsRigide::CorpsRigide() {
 	this->rotation;			//velicte angulaire
 	this->orientation;
 	this->angularDamping = 0.0f;
-	this->transformMatrix = Matrix3();
+	this->transformMatrix;
 	this->inverseInertiaTensor;
 
 }
@@ -40,15 +40,7 @@ CorpsRigide::CorpsRigide(Vector3D initialPosition, Vector3D initialVitesse, Vect
 }
 
 void CorpsRigide::calculDonneesDerivee() {
-	float x = orientation.x;
-	float y = orientation.y;
-	float z = orientation.z;
-	float w = orientation.w;
-	this->transformMatrix = Matrix3(
-		1.0f - 2.0f * (x * x + y * y), 2.0f * (x * y + z * w), 2.0f * (x * z - y * w),
-		2.0f * (x * y - z * w), 1.0f - 2.0f * (x * x + z * z), 2.0f * (y * z + x * w),
-		2.0f * (x * z + y * w), 2.0f * (y * z - x * w), 1.0f - 2.0f * (x * x + y * y)
-	);
+	this->transformMatrix = this->transformMatrix.setOrientation(this->orientation);
 }
 
 void CorpsRigide::addForce(Vector3D force)

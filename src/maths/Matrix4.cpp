@@ -1,5 +1,24 @@
 #include "Matrix4.h"
 
+Matrix4::Matrix4()
+{
+
+	this->a00 = 0.0f;
+	this->a01 = 0.0f;
+	this->a02 = 0.0f;
+	this->a03 = 0.0f;
+
+	this->a10 = 0.0f;
+	this->a11 = 0.0f;
+	this->a12 = 0.0f;
+	this->a13 = 0.0f;
+
+	this->a20 = 0.0f;
+	this->a21 = 0.0f;
+	this->a22 = 0.0f;
+	this->a23 = 0.0f;
+}
+
 Matrix4::Matrix4(
 	float a00, float a01, float a02, float a03, 
 	float a10, float a11, float a12, float a13, 

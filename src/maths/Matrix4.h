@@ -19,6 +19,8 @@ private:
 	float  	a20, a21, a22, a23;
 
 public:
+	Matrix4();
+
 	Matrix4(
 		float a00, float a01, float a02, float a03,
 		float a10, float a11, float a12, float a13,
