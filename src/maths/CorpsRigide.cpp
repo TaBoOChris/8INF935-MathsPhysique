@@ -1,42 +1,42 @@
 #include "CorpsRigide.h"
 
 CorpsRigide::CorpsRigide() {
-	float inverseMass = 1.0f;
-	float linearDamping = 0.0f;
-	Vector3D position;
-	Vector3D velocite;
-	Vector3D acceleration;
-	Vector3D rotation;			//velicte angulaire
-	Quaternion orientation;
-	float angularDamping = 0.0f;
-	Matrix3 transformMatrix;
-	Matrix3 inverseInertiaTensor;
+	this->inverseMass = 1.0f;
+	this->linearDamping = 0.0f;
+	this->position;
+	this->velocite;
+	this->acceleration;
+	this->rotation;			//velicte angulaire
+	this->orientation;
+	this->angularDamping = 0.0f;
+	this->transformMatrix;
+	this->inverseInertiaTensor;
 
 }
 
 CorpsRigide::CorpsRigide(float inverseMasse) {
-	float inverseMass = inverseMasse;
-	float linearDamping = (inverseMasse == 0) ? -1.0f : 1/inverseMasse;
-	Vector3D position;
-	Vector3D velocite;
-	Vector3D acceleration;
-	Vector3D rotation;			//velicte angulaire
-	Quaternion orientation;
-	float angularDamping;
-	Matrix3 transformMatrix;
-	Matrix3 inverseInertiaTensor;
+	this->inverseMass = inverseMasse;
+	this->linearDamping = (inverseMasse == 0) ? -1.0f : 1/inverseMasse;
+	this->position;
+	this->velocite;
+	this->acceleration;
+	this->rotation;			//velicte angulaire
+	this->orientation;
+	this->angularDamping;
+	this->transformMatrix;
+	this->inverseInertiaTensor;
 }
 CorpsRigide::CorpsRigide(Vector3D initialPosition, Vector3D initialVitesse, Vector3D initialAcceleration) {
-	float inverseMass = 1.0f;
-	float linearDamping = 0.0f;
-	Vector3D position = initialPosition;
-	Vector3D velocite = initialVitesse;
-	Vector3D acceleration = initialAcceleration;
-	Vector3D rotation;			//velicte angulaire
-	Quaternion orientation;
-	float angularDamping = 0.0f;
-	Matrix3 transformMatrix;
-	Matrix3 inverseInertiaTensor;
+	this->inverseMass = 1.0f;
+	this->linearDamping = 0.0f;
+	this->position = initialPosition;
+	this->velocite = initialVitesse;
+	this->acceleration = initialAcceleration;
+	this->rotation;			//velicte angulaire
+	this->orientation;
+	this->angularDamping = 0.0f;
+	this->transformMatrix;
+	this->inverseInertiaTensor;
 }
 
 void CorpsRigide::calculDonneesDerivee() {
