@@ -38,35 +38,37 @@ Matrix4::Matrix4(Matrix3 mat3, Vector3D vec)
 	this->a21 = mat3.a21;
 	this->a22 = mat3.a22;
 	this->a23 = vec.z;
+
+	
 }
 
 Matrix3 Matrix4::getAij(int i, int j)
 {
 	switch(i){
-	case 0: switch (j) {
-	case 0:	return Matrix3(a11, a12, a13, a21, a22, a23, 0, 0, 1);
-	case 1:	return Matrix3(a10, a12, a13, a20, a22, a23, 0, 0, 1);
-	case 2:	return Matrix3(a10, a11, a13, a20, a21, a23, 0, 0, 1);
-	case 3:	return Matrix3(a10, a11, a12, a20, a21, a22, 0, 0, 0);
-	}
-	case 1: switch (j) {
-	case 0:	return Matrix3(a01, a02, a03, a21, a22, a23, 0, 0, 1);
-	case 1:	return Matrix3(a00, a02, a03, a20, a22, a23, 0, 0, 1);
-	case 2:	return Matrix3(a00, a01, a03, a20, a21, a23, 0, 0, 1);
-	case 3:	return Matrix3(a00, a01, a02, a20, a21, a22, 0, 0, 0);
-	}
-	case 2: switch (j) {
-	case 0:	return Matrix3(a01, a02, a03, a11, a12, a13, 0, 0, 1);
-	case 1:	return Matrix3(a00, a02, a03, a10, a12, a13, 0, 0, 1);
-	case 2:	return Matrix3(a00, a01, a03, a10, a11, a13, 0, 0, 1);
-	case 3:	return Matrix3(a00, a01, a02, a10, a11, a12, 0, 0, 0);
-	}
-	case 3: switch (j) {
-	case 0:	return Matrix3(a01, a02, a03, a11, a12, a13, a21, a22, a23);
-	case 1:	return Matrix3(a00, a02, a03, a10, a12, a13, a20, a22, a23);
-	case 2:	return Matrix3(a00, a01, a03, a10, a11, a13, a20, a21, a23);
-	case 3:	return Matrix3(a00, a01, a02, a10, a11, a12, a20, a21, a22);
-	}
+		case 0: switch (j) {
+		case 0:	return Matrix3(a11, a12, a13, a21, a22, a23, 0, 0, 1);
+		case 1:	return Matrix3(a10, a12, a13, a20, a22, a23, 0, 0, 1);
+		case 2:	return Matrix3(a10, a11, a13, a20, a21, a23, 0, 0, 1);
+		case 3:	return Matrix3(a10, a11, a12, a20, a21, a22, 0, 0, 0);
+		}
+		case 1: switch (j) {
+		case 0:	return Matrix3(a01, a02, a03, a21, a22, a23, 0, 0, 1);
+		case 1:	return Matrix3(a00, a02, a03, a20, a22, a23, 0, 0, 1);
+		case 2:	return Matrix3(a00, a01, a03, a20, a21, a23, 0, 0, 1);
+		case 3:	return Matrix3(a00, a01, a02, a20, a21, a22, 0, 0, 0);
+		}
+		case 2: switch (j) {
+		case 0:	return Matrix3(a01, a02, a03, a11, a12, a13, 0, 0, 1);
+		case 1:	return Matrix3(a00, a02, a03, a10, a12, a13, 0, 0, 1);
+		case 2:	return Matrix3(a00, a01, a03, a10, a11, a13, 0, 0, 1);
+		case 3:	return Matrix3(a00, a01, a02, a10, a11, a12, 0, 0, 0);
+		}
+		case 3: switch (j) {
+		case 0:	return Matrix3(a01, a02, a03, a11, a12, a13, a21, a22, a23);
+		case 1:	return Matrix3(a00, a02, a03, a10, a12, a13, a20, a22, a23);
+		case 2:	return Matrix3(a00, a01, a03, a10, a11, a13, a20, a21, a23);
+		case 3:	return Matrix3(a00, a01, a02, a10, a11, a12, a20, a21, a22);
+		}
 	}
 }
 
@@ -118,6 +120,25 @@ float Matrix4::det()
 		}
 	}
 	return res;
+}
+
+
+Vector3D Matrix4::transformPosition(Vector3D vec)
+{
+	return *this * vec;
+}
+
+Vector3D Matrix4::transformInversePosition(Vector3D vec)
+{
+	Vector3D tmp = vec;
+	tmp.x -= a03 ;
+	tmp.y -= a13 ;
+	tmp.z -= a23 ;
+	return {
+		tmp.x * a00 + tmp.y * a03 + tmp.z *a12,
+		tmp.x * a01 + tmp.y * a10 + tmp.z * a13,
+		tmp.x * a02 + tmp.y * a11 + tmp.z * a20
+	};
 }
 
 Matrix4 operator+(Matrix4 const& A, Matrix4 const& B)

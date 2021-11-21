@@ -8,6 +8,7 @@
 #include "Vecteur3D.h"
 #include "Quaternion.h"
 #include "Matrix3.h"
+#include "Matrix4.h"
 
 class CorpsRigide
 {
@@ -20,11 +21,16 @@ private:
 	Quaternion orientation;
 	Vector3D rotation;			//velicte angulaire
 
-	Matrix3 transformMatrix;
+	Matrix4 transformMatrix;
 
 	Matrix3 inverseInertiaTensor;
 
 	float angularDamping;
+
+	// ------------- Force -------------
+
+	Vector3D m_forceAccum;
+	Vector3D m_torqueAccum;
 	
 
 public:
@@ -37,13 +43,16 @@ public:
 
 	void calculDonneesDerivee();
 
-	void forceAccum();
-	void torqueAccum();
+	void addForce(Vector3D force);
+	void addTorque(Vector3D torque);
 	void clearAccumulators();
 
 	void addForceAtPoint(Vector3D force, Vector3D point);
 	void addForceAtBodyPoint(Vector3D force, Vector3D point);
 
+	Vector3D GetPointInLocalSpace(const Vector3D point);
+
+	Vector3D GetPointInWorldSpace(const Vector3D point);
 	
 };
 

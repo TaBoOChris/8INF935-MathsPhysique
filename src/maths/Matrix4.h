@@ -13,10 +13,10 @@ class Matrix4
 {
 private: 
 
+
 	float  	a00, a01, a02, a03;
 	float  	a10, a11, a12, a13;
 	float  	a20, a21, a22, a23;
-
 
 public:
 	Matrix4(
@@ -43,6 +43,11 @@ public:
 	Matrix4 setOrientation(Quaternion const& q);
 
 	float det();
+
+
+	Vector3D transformPosition(Vector3D vec);
+
+	Vector3D transformInversePosition(Vector3D vec);
 
 	friend std::ostream& operator<<(std::ostream& os, Matrix4 const& M);
 };

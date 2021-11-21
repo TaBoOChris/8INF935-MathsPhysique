@@ -50,3 +50,38 @@ void CorpsRigide::calculDonneesDerivee() {
 		2.0f * (x * z + y * w), 2.0f * (y * z - x * w), 1.0f - 2.0f * (x * x + y * y)
 	);
 }
+
+void CorpsRigide::addForce(Vector3D force)
+{
+	this->m_forceAccum = this->m_forceAccum + force;
+}
+
+void CorpsRigide::addTorque(Vector3D torque)
+{
+	this->m_torqueAccum = this->m_torqueAccum + torque;
+}
+
+void CorpsRigide::addForceAtPoint(Vector3D force, Vector3D point)
+{
+
+	this->m_forceAccum	= m_torqueAccum		+	force;
+	this->m_torqueAccum = m_torqueAccum		+	(point - this->position) * force;
+}
+
+void CorpsRigide::addForceAtBodyPoint(Vector3D force, Vector3D point)
+{
+	// Convert to coordinates relative to center of mass.
+	Vector3D worldSpacePoint = this->GetPointInWorldSpace(this->position);
+	this->addForceAtPoint(force, worldSpacePoint);
+}
+
+Vector3D CorpsRigide::GetPointInLocalSpace(const Vector3D point)
+{
+	return this->transformMatrix.transformInversePosition(point);
+
+}
+
+Vector3D CorpsRigide::GetPointInWorldSpace(const Vector3D point)
+{
+	return this->transformMatrix.transformPosition(point);
+}
