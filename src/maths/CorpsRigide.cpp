@@ -11,7 +11,6 @@ CorpsRigide::CorpsRigide() {
 	this->angularDamping = 0.0f;
 	this->transformMatrix;
 	this->inverseInertiaTensor;
-
 }
 
 CorpsRigide::CorpsRigide(float inverseMasse) {
@@ -22,10 +21,11 @@ CorpsRigide::CorpsRigide(float inverseMasse) {
 	this->acceleration;
 	this->rotation;			//velicte angulaire
 	this->orientation;
-	this->angularDamping;
+	this->angularDamping = 0.0f;
 	this->transformMatrix;
 	this->inverseInertiaTensor;
 }
+
 CorpsRigide::CorpsRigide(Vector3D initialPosition, Vector3D initialVitesse, Vector3D initialAcceleration) {
 	this->inverseMass = 1.0f;
 	this->linearDamping = 0.0f;
@@ -76,4 +76,43 @@ Vector3D CorpsRigide::GetPointInLocalSpace(const Vector3D point)
 Vector3D CorpsRigide::GetPointInWorldSpace(const Vector3D point)
 {
 	return this->transformMatrix.transformPosition(point);
+}
+
+void CorpsRigide::integrer(float temps) {
+	this->updateLinearAcceleration(temps);
+	this->updateAngularAcceleration(temps);
+	this->updateLinearVelocity(temps);
+	this->updateAngularVelocity(temps);
+	//TODO this->drag();
+	this->updatePosition(temps);
+	this->updateOrientation(temps);
+	this->calculDonneesDerivee();
+
+	this->m_forceAccum = Vector3D();
+	this->m_torqueAccum = Vector3D();
+}
+
+void CorpsRigide::updateLinearAcceleration(float temps) {
+	this->acceleration = this->inverseMass * this->m_forceAccum;
+}
+
+void CorpsRigide::updateAngularAcceleration(float temps) {
+	this->accelerationAngulaire = this->inverseInertiaTensor * this->m_torqueAccum;
+}
+
+void CorpsRigide::updateLinearVelocity(float temps) {
+	this->velocite = this->velocite + this->acceleration * temps;
+}
+
+void CorpsRigide::updateAngularVelocity(float temps) {
+	this->rotation = this->accelerationAngulaire * temps;
+}
+
+void CorpsRigide::updatePosition(float temps) {
+	this->position = this->position + this->velocite * temps + this->acceleration * pow(temps, 2) * 0.5f;
+}
+
+void CorpsRigide::updateOrientation(float temps) {
+	Quaternion velocityAngular = Quaternion(this->rotation.x, this->rotation.y, this->rotation.z, 0);
+	this->orientation = this->orientation + (1 / 2) * temps * (velocityAngular * this->orientation);
 }

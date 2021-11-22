@@ -19,6 +19,7 @@ private:
 	Vector3D velocite;
 	Vector3D acceleration;
 	Quaternion orientation;
+	Vector3D accelerationAngulaire;
 	Vector3D rotation;			//velicte angulaire
 
 	Matrix4 transformMatrix;
@@ -54,5 +55,12 @@ public:
 
 	Vector3D GetPointInWorldSpace(const Vector3D point);
 	
+	void integrer(float temps);
+	void updateLinearAcceleration(float temps);
+	void updateAngularAcceleration(float temps);
+	void updateLinearVelocity(float temps);
+	void updateAngularVelocity(float temps);
+	void updatePosition(float temps);
+	void updateOrientation(float temps);
 };
 
