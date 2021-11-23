@@ -7,6 +7,7 @@
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_glfw.h"
 #include "ImGui/imgui_impl_opengl3.h"
+#include "../maths/FormeIrreguliere.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -27,7 +28,10 @@ public:
 	UserInterface(GLFWwindow* window);
 
 	void frameCreation();
-	void frameOption(std::vector<Model*> models, float time);
+	void frameOptionForModel(std::vector<Model*> models, float time);
+
+
+	void frameOptionForRigidBody(FormeIrreguliere forme, float time);
 
 	void terminate();
 };

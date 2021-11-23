@@ -29,7 +29,7 @@ void UserInterface::frameCreation()
 
 }
 
-void UserInterface::frameOption(std::vector<Model*> models, float time)
+void UserInterface::frameOptionForModel(std::vector<Model*> models, float time)
 {
 
 	ImGui::Begin("I'm Window, ImGui Window");
@@ -89,6 +89,33 @@ void UserInterface::frameOption(std::vector<Model*> models, float time)
 		ImGui::Text("Distance entre les particules 0 et 1 : % f", distance);
 	}
 
+	ImGui::End();
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
+{
+	ImGui::Begin("I'm Window, ImGui Window");
+	ImGui::Text("Let's play with particle");
+	ImGui::Text("Time = %.3f", time);
+	//----
+
+	int index = 0;
+	for (Vector3D *pt : forme.allPoints) {
+		ImGui::Text("pt %i  position    (x : %.2f  y : %.2f  z:%.2f ) ", index,
+			pt->x,
+			pt->y,
+			pt->z);
+
+		index++;
+	}
+
+
+
+
+
+	//----
 	ImGui::End();
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -103,7 +103,7 @@ int main(void)
 			prevTime = crntTime;
 			counter = 0;
 
-			forme.updateAllPoint(timeDiff);
+			//forme.updateAllPoint(timeDiff);
 
 			//----
 			// Gestion des inputs
@@ -115,7 +115,8 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// ImGUI Frame Creation
-		//my_UI.frameCreation();
+		my_UI.frameCreation();
+
 
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
@@ -128,6 +129,11 @@ int main(void)
 		
 		forme.Draw(shaderProgram, camera);
 		
+
+
+
+		my_UI.frameOptionForRigidBody(forme, crntTime);
+
 		// moteur 
 		my_MoteurPhysique.display();
 	}

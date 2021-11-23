@@ -222,7 +222,7 @@ void Phase2::run()
 		// draw floor
 		floor.Draw(shaderProgram, camera);
 
-		my_UI.frameOption(models, crntTime); //ImGui Frame option
+		my_UI.frameOptionForModel(models, crntTime); //ImGui Frame option
 
 		// moteur 
 		my_MoteurPhysique.display();
