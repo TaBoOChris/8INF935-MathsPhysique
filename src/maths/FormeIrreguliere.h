@@ -14,11 +14,9 @@ public :
 
 	CorpsRigide* selfCorps;
 
-	std::vector<Vector3D*> allPointsObjet;
+	std::vector<Vector3D> allPointsObjet;
 
 	std::vector<Vector3D*> allPointsMonde;
-
-	
 
 	Mesh mesh;
 
@@ -28,6 +26,8 @@ public :
 
 	void setMesh();
 	void Draw(Shader& shader, Camera& camera);
+
+	void setPointsObjetCoord();
 
 };
 

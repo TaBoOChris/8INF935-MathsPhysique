@@ -7,7 +7,7 @@ CorpsRigide::CorpsRigide() {
 	this->velocite;
 	this->acceleration;
 	this->rotation;			//velicte angulaire
-	this->orientation = Quaternion(0, 0.382f, 0, 0.923f);
+	this->orientation = Quaternion(0.382f, 0.382f, 0.382f, 0.923f);
 	this->angularDamping = 0.0f;
 	this->transformMatrix;
 	this->inverseInertiaTensor;

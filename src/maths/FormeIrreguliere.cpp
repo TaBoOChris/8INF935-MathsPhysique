@@ -2,23 +2,8 @@
 
 FormeIrreguliere::FormeIrreguliere()
 {
-	Vector3D pt0 = Vector3D(-1, -1, -1);
-	allPointsObjet.push_back(&pt0);
-	Vector3D pt1 = Vector3D(-1, -1, 1);
-	allPointsObjet.push_back(&pt1);
-	Vector3D pt2 = Vector3D(-1, 1, 1);
-	allPointsObjet.push_back(&pt2);
-	Vector3D pt3 = Vector3D(-1, 1, -1);
-	allPointsObjet.push_back(&pt3);
-	Vector3D pt4 = Vector3D(1, -1, -1);
-	allPointsObjet.push_back(&pt4);
-	Vector3D pt5 = Vector3D(1, -1, 1);
-	allPointsObjet.push_back(&pt5);
-	Vector3D pt6 = Vector3D(1, 1, 1);
-	allPointsObjet.push_back(&pt6);
-	Vector3D pt7 = Vector3D(1, 1, -1);
-	allPointsObjet.push_back(&pt7);
 
+	setPointsObjetCoord();
 
 	for (size_t i = 0; i < 8; i++)
 	{
@@ -37,11 +22,14 @@ FormeIrreguliere::FormeIrreguliere()
 }
 
 void FormeIrreguliere::updateAllPoint(float temps) {
+	
+	setPointsObjetCoord();
+
 	Quaternion orientation = this->selfCorps->getOrientation();
 
 	int index = 0;
 	for (Vector3D* pt : allPointsMonde){
-		*pt = allPointsObjet[index]->rotateByQuaternion(orientation);
+		*pt = allPointsObjet[index].rotateByQuaternion(orientation);
 		index++;
 	}
 }
@@ -112,4 +100,26 @@ void FormeIrreguliere::Draw(Shader& shader, Camera& camera)
 	setMesh();
 	mesh.Draw(shader, camera);
 
+}
+
+void FormeIrreguliere::setPointsObjetCoord()
+{
+	allPointsObjet.clear();
+
+	Vector3D pt0 = Vector3D(-1, -1, -1);
+	allPointsObjet.push_back(pt0);
+	Vector3D pt1 = Vector3D(-1, -1, 1);
+	allPointsObjet.push_back(pt1);
+	Vector3D pt2 = Vector3D(-1, 1, 1);
+	allPointsObjet.push_back(pt2);
+	Vector3D pt3 = Vector3D(-1, 1, -1);
+	allPointsObjet.push_back(pt3);
+	Vector3D pt4 = Vector3D(1, -1, -1);
+	allPointsObjet.push_back(pt4);
+	Vector3D pt5 = Vector3D(1, -1, 1);
+	allPointsObjet.push_back(pt5);
+	Vector3D pt6 = Vector3D(1, 1, 1);
+	allPointsObjet.push_back(pt6);
+	Vector3D pt7 = Vector3D(1, 1, -1);
+	allPointsObjet.push_back(pt7);
 }

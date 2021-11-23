@@ -59,10 +59,13 @@ Quaternion operator+(Quaternion const& q1, Quaternion const& q2)
 
 Quaternion operator*(Quaternion const& q1, Quaternion const& q2)
 {
+	//t1 = (r0   q1   + r1     q0    - r2   q3  +  r3   q2)
+	//t2 = (r0   q2   + r1     q3    + r2   q0  -  r3   q1)
+	//t3 = (r0   q3   - r1     q2    + r2   q1  +  r3   q0)
 	return Quaternion(
-		q1.w * q2.x + q1.x * q2.w + q1.y*q2.z - q1.z*q2.y,
-		q1.w * q2.y + q1.y * q2.w + q1.z*q2.x - q1.x*q2.z,
-		q1.w * q2.z + q1.z * q2.w + q1.x*q2.y - q1.y*q2.x,
+		q1.w * q2.x + q1.x * q2.w - q1.y*q2.z + q1.z*q2.y,
+		q1.w * q2.y + q1.x * q2.z + q1.y*q2.w - q1.z*q2.x,
+		q1.w * q2.z - q1.x * q2.y + q1.y*q2.x + q1.z*q2.w,
 
 		q1.w * q2.w - q1.x * q2.x - q1.y*q2.y - q1.z*q2.z
 	);

@@ -37,6 +37,12 @@ namespace fs = std::filesystem;
 
 int main(void)
 {
+
+
+
+	
+
+
 	//Load GLAD so it configures OpenGL
 	gladLoadGL();
 
@@ -84,7 +90,7 @@ int main(void)
 	Model floor((parentDir + floorPath).c_str());
 
 
-	FormeIrreguliere forme = FormeIrreguliere();
+	FormeIrreguliere *forme = new FormeIrreguliere();
 	
 
 	// Boucle de Rendu
@@ -104,8 +110,8 @@ int main(void)
 			counter = 0;
 
 			// Forme Irregu
-			forme.selfCorps->integrer(timeDiff);
-			forme.updateAllPoint(timeDiff);
+			forme->selfCorps->integrer(timeDiff);
+			forme->updateAllPoint(timeDiff);
 
 			//----
 			// Gestion des inputs
@@ -129,12 +135,12 @@ int main(void)
 		floor.Draw(shaderProgram, camera);
 
 		
-		forme.Draw(shaderProgram, camera);
+		forme->Draw(shaderProgram, camera);
 		
 
 
 
-		my_UI.frameOptionForRigidBody(forme, crntTime);
+		my_UI.frameOptionForRigidBody(*forme, crntTime);
 
 		// moteur 
 		my_MoteurPhysique.display();
