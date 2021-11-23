@@ -13,6 +13,7 @@ public :
 
 	std::vector<Vector3D*> allPoints;
 
+	Vector3D pt0;
 	Vector3D pt1;
 	Vector3D pt2;
 	Vector3D pt3;
@@ -20,7 +21,6 @@ public :
 	Vector3D pt5;
 	Vector3D pt6;
 	Vector3D pt7;
-	Vector3D pt8;
 
 
 	FormeIrreguliere();

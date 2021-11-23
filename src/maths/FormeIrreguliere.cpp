@@ -2,21 +2,21 @@
 
 FormeIrreguliere::FormeIrreguliere()
 {
-	pt1 = Vector3D(-1, -1, -1);
+	pt0 = Vector3D(-1, -1, -1);
 	allPoints.push_back(&pt1);
-	pt2 = Vector3D(-1, -1, 1);
+	pt1 = Vector3D(-1, -1, 1);
 	allPoints.push_back(&pt2);
-	pt3 = Vector3D(-1, 1, 1);
+	pt2 = Vector3D(-1, 1, 1);
 	allPoints.push_back(&pt3);
-	pt4 = Vector3D(-1, 1, -1);
+	pt3 = Vector3D(-1, 1, -1);
 	allPoints.push_back(&pt4);
-	pt5 = Vector3D(1, -1, -1);
+	pt4 = Vector3D(1, -1, -1);
 	allPoints.push_back(&pt5);
-	pt6 = Vector3D(1, -1, 1);
+	pt5 = Vector3D(1, -1, 1);
 	allPoints.push_back(&pt6);
-	pt7 = Vector3D(1, 1, 1);
+	pt6 = Vector3D(1, 1, 1);
 	allPoints.push_back(&pt7);
-	pt8 = Vector3D(1, 1, -1);
+	pt7 = Vector3D(1, 1, -1);
 	allPoints.push_back(&pt8);
 
 	selfCorps = new CorpsRigide();
