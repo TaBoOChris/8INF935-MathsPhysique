@@ -7,7 +7,7 @@ CorpsRigide::CorpsRigide() {
 	this->velocite;
 	this->acceleration;
 	this->rotation;			//velicte angulaire
-	this->orientation;
+	this->orientation = Quaternion(0,0,1,0);
 	this->angularDamping = 0.0f;
 	this->transformMatrix;
 	this->inverseInertiaTensor;
@@ -23,6 +23,7 @@ CorpsRigide::CorpsRigide(float inverseMasse) {
 	this->orientation;
 	this->angularDamping = 0.0f;
 	this->transformMatrix;
+	this->calculDonneesDerivee();
 	this->inverseInertiaTensor;
 }
 
@@ -78,6 +79,10 @@ Vector3D CorpsRigide::GetPointInWorldSpace(const Vector3D point)
 	return this->transformMatrix.transformPosition(point);
 }
 
+void CorpsRigide::setInverseInertiaTensor(Matrix3 inverseInertia) {
+	this->inverseInertiaTensor = inverseInertia;
+}
+
 void CorpsRigide::integrer(float temps) {
 	this->updateLinearAcceleration(temps);
 	this->updateAngularAcceleration(temps);
@@ -105,7 +110,7 @@ void CorpsRigide::updateLinearVelocity(float temps) {
 }
 
 void CorpsRigide::updateAngularVelocity(float temps) {
-	this->rotation = this->accelerationAngulaire * temps;
+	this->rotation = this->rotation + this->accelerationAngulaire * temps;
 }
 
 void CorpsRigide::updatePosition(float temps) {
@@ -115,4 +120,8 @@ void CorpsRigide::updatePosition(float temps) {
 void CorpsRigide::updateOrientation(float temps) {
 	Quaternion velocityAngular = Quaternion(this->rotation.x, this->rotation.y, this->rotation.z, 0);
 	this->orientation = this->orientation + (1 / 2) * temps * (velocityAngular * this->orientation);
+}
+
+Quaternion CorpsRigide::getOrientation() {
+	return this->orientation;
 }

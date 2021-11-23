@@ -51,6 +51,8 @@ public:
 	void addForceAtPoint(Vector3D force, Vector3D point);
 	void addForceAtBodyPoint(Vector3D force, Vector3D point);
 
+	void setInverseInertiaTensor(Matrix3 inverseInertia);
+
 	Vector3D GetPointInLocalSpace(const Vector3D point);
 
 	Vector3D GetPointInWorldSpace(const Vector3D point);
@@ -62,5 +64,7 @@ public:
 	void updateAngularVelocity(float temps);
 	void updatePosition(float temps);
 	void updateOrientation(float temps);
+
+	Quaternion getOrientation();
 };
 

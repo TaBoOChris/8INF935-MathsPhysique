@@ -1,11 +1,17 @@
 #pragma once
 
 #include "Vecteur3D.h"
+#include "CorpsRigide.h"
+#include <vector>
 
 
 class FormeIrreguliere
 {
 public :
+
+	CorpsRigide* selfCorps;
+
+	std::vector<Vector3D*> allPoints;
 
 	Vector3D pt1;
 	Vector3D pt2;
@@ -18,6 +24,8 @@ public :
 
 
 	FormeIrreguliere();
+
+	void updateAllPoint(float temps);
 
 	void Draw();
 };
