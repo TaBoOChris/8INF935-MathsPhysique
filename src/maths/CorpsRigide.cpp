@@ -54,6 +54,12 @@ void CorpsRigide::addTorque(Vector3D torque)
 	this->m_torqueAccum = this->m_torqueAccum + torque;
 }
 
+void CorpsRigide::clearAccumulators()
+{
+	this->m_forceAccum = Vector3D();
+	this->m_torqueAccum = Vector3D();
+}
+
 void CorpsRigide::addForceAtPoint(Vector3D force, Vector3D point)
 {
 
@@ -84,17 +90,16 @@ void CorpsRigide::setInverseInertiaTensor(Matrix3 inverseInertia) {
 }
 
 void CorpsRigide::integrer(float temps) {
-	this->updateLinearAcceleration(temps);
-	this->updateAngularAcceleration(temps);
-	this->updateLinearVelocity(temps);
-	this->updateAngularVelocity(temps);
+	this->updateLinearAcceleration(temps);		// calcul l'acceleration lineaire a partir de Force Accum
+	this->updateAngularAcceleration(temps);		// calcul l'acceleration angulaire a partir de force Accum
+	this->updateLinearVelocity(temps);			// On update la velocite lineaire
+	this->updateAngularVelocity(temps);			// On update la velocite angulaire
 	//TODO this->drag();
-	this->updatePosition(temps);
-	this->updateOrientation(temps);
-	this->calculDonneesDerivee();
+	this->updatePosition(temps);				// On update la position
+	this->updateOrientation(temps);				// On update l'orientation
+	this->calculDonneesDerivee();				// On calcul la matrice de transformation
+	this->clearAccumulators();					// On vide les accumulators
 
-	this->m_forceAccum = Vector3D();
-	this->m_torqueAccum = Vector3D();
 }
 
 void CorpsRigide::updateLinearAcceleration(float temps) {
