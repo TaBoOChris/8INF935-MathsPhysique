@@ -68,6 +68,8 @@ public:
 	void updatePosition(float temps);
 	void updateOrientation(float temps);
 
+	Vector3D getPosition();
+
 	Quaternion getOrientation();
 };
 

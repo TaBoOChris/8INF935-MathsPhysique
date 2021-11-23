@@ -25,11 +25,13 @@ void FormeIrreguliere::updateAllPoint(float temps) {
 	
 	setPointsObjetCoord();
 
+
 	Quaternion orientation = this->selfCorps->getOrientation();
 
 	int index = 0;
 	for (Vector3D* pt : allPointsMonde){
 		*pt = allPointsObjet[index].rotateByQuaternion(orientation);
+		*pt = *pt + this->selfCorps->getPosition();
 		index++;
 	}
 }

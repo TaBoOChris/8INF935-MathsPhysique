@@ -7,7 +7,7 @@ CorpsRigide::CorpsRigide() {
 	this->velocite;
 	this->acceleration;
 	this->rotation;			//velicte angulaire
-	this->orientation = Quaternion(0.382f, 0.382f, 0.382f, 0.923f);
+	this->orientation = Quaternion(0, 0, 0, 1);
 	this->angularDamping = 0.0f;
 	this->transformMatrix;
 	this->inverseInertiaTensor;
@@ -129,4 +129,8 @@ void CorpsRigide::updateOrientation(float temps) {
 
 Quaternion CorpsRigide::getOrientation() {
 	return this->orientation;
+}
+
+Vector3D CorpsRigide::getPosition() {
+	return this->position;
 }
