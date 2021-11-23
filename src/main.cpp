@@ -38,11 +38,6 @@ namespace fs = std::filesystem;
 int main(void)
 {
 
-
-
-	
-
-
 	//Load GLAD so it configures OpenGL
 	gladLoadGL();
 
@@ -110,8 +105,8 @@ int main(void)
 			counter = 0;
 
 			// Forme Irregu
-			forme->selfCorps->addForceAtBodyPoint(Vector3D(0, 1, 2), Vector3D(1,0,-1));
-
+			forme->selfCorps->addForceAtBodyPoint(Vector3D(0, 1, -0.5f), Vector3D(1,0,-1));
+			//forme->selfCorps->addTorque(Vector3D(1, 0, 1));
 			forme->selfCorps->integrer(timeDiff);
 			forme->updateAllPoint(timeDiff);
 
@@ -127,20 +122,13 @@ int main(void)
 		// ImGUI Frame Creation
 		my_UI.frameCreation();
 
-
 		// Updates and exports the camera matrix to the Vertex Shader
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
-
-
 		// draw floor
 		floor.Draw(shaderProgram, camera);
-
 		
 		forme->Draw(shaderProgram, camera);
-		
-
-
 
 		my_UI.frameOptionForRigidBody(*forme, crntTime);
 

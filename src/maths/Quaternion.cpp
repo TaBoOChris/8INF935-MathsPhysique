@@ -76,3 +76,10 @@ Quaternion operator/(Quaternion const& Q, float const& a)
 	// TODO
 	return Q;
 }
+
+std::ostream& operator<<(std::ostream& os, Quaternion const& Q)
+{
+	os << " x=" << Q.x << " y=" << Q.y << " z=" << Q.z << " w=" << Q.w << std::endl;
+
+	return os;
+}

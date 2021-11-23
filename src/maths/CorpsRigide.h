@@ -44,6 +44,10 @@ public:
 
 
 	Matrix4 getTransformMatrix() { return transformMatrix; }
+	Vector3D getForceAccum() { return m_forceAccum; }
+	Vector3D getTorqueAccum() { return m_torqueAccum; }
+	Vector3D getAccelerationAngulaire() { return this->accelerationAngulaire; }
+	Vector3D getRotation() { return this->rotation; }
 
 	void calculDonneesDerivee();
 

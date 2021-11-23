@@ -7,7 +7,7 @@ CorpsRigide::CorpsRigide() {
 	this->velocite;
 	this->acceleration;
 	this->rotation;			//velicte angulaire
-	this->orientation = Quaternion(0, 0, 0, 1);
+	this->orientation = Quaternion(0.382, 0.382, 0.382, 0);
 	this->angularDamping = 0.0f;
 	this->transformMatrix;
 	this->inverseInertiaTensor;
@@ -64,7 +64,7 @@ void CorpsRigide::addForceAtPoint(Vector3D force, Vector3D point)
 {
 
 	this->m_forceAccum	= m_torqueAccum		+	force;
-	this->m_torqueAccum = m_torqueAccum		+	(point - this->position) * force;
+	this->m_torqueAccum = m_torqueAccum		+	(point - this->position).produitvectoriel( force);
 }
 
 void CorpsRigide::addForceAtBodyPoint(Vector3D force, Vector3D point)
@@ -99,7 +99,7 @@ void CorpsRigide::integrer(float temps) {
 	this->updateOrientation(temps);				// On update l'orientation
 	this->calculDonneesDerivee();				// On calcul la matrice de transformation
 	this->clearAccumulators();					// On vide les accumulators
-
+	//std::cout << "torque : "<<this->m_forceAccum;
 }
 
 void CorpsRigide::updateLinearAcceleration(float temps) {
@@ -124,7 +124,9 @@ void CorpsRigide::updatePosition(float temps) {
 
 void CorpsRigide::updateOrientation(float temps) {
 	Quaternion velocityAngular = Quaternion(this->rotation.x, this->rotation.y, this->rotation.z, 0);
-	this->orientation = this->orientation + (1 / 2) * temps * (velocityAngular * this->orientation);
+	
+
+	this->orientation = this->orientation + ((1.0f / 2.0f) * temps) * (velocityAngular * this->orientation);
 }
 
 Quaternion CorpsRigide::getOrientation() {

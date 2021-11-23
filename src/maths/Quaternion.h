@@ -34,6 +34,10 @@ public:
 
 	void rotateByVector(class Vector3D v);
 	void UpdateAngularVelocity(class Vector3D w, float duration);
+
+	friend std::ostream& operator<<(std::ostream& os, Quaternion const& Q);
+
+
 };
 
 #endif

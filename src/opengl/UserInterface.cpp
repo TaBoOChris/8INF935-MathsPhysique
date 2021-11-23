@@ -102,7 +102,7 @@ void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 	ImGui::NewLine();
 	ImGui::Text("Time = %.3f", time);
 	
-	//Affichage des 8 points 
+	//Affichage des 8 points world
 	ImGui::NewLine();
 	int index = 0;
 	for (Vector3D *pt : forme.allPointsMonde) {
@@ -114,7 +114,7 @@ void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 		index++;
 	}
 
-	//Affichage des 8 points 
+	//Affichage des 8 points  obj
 	ImGui::NewLine();
 	index = 0;
 	for (Vector3D pt : forme.allPointsObjet) {
@@ -147,6 +147,19 @@ void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 		orientation.x ,  orientation.y , orientation.z , orientation.w);
 
 
+	// Affichage de force et troque accum
+	ImGui::NewLine();
+	ImGui::Text("forceAccum : x:%.2f    y:%.2f    z:%.2f ",
+		forme.selfCorps->getForceAccum().x, forme.selfCorps->getForceAccum().y, forme.selfCorps->getForceAccum().z);
+
+	ImGui::Text("TorqueAccum : x:%.2f    y:%.2f    z:%.2f",
+		forme.selfCorps->getTorqueAccum().x, forme.selfCorps->getTorqueAccum().y, forme.selfCorps->getTorqueAccum().z);
+
+	ImGui::Text("Acceleration Angulaire : x:%.2f    y:%.2f    z:%.2f",
+		forme.selfCorps->getAccelerationAngulaire().x, forme.selfCorps->getAccelerationAngulaire().y, forme.selfCorps->getAccelerationAngulaire().z);
+
+	ImGui::Text("Rotation: x:%.2f    y:%.2f    z:%.2f",
+		forme.selfCorps->getRotation().x, forme.selfCorps->getRotation().y, forme.selfCorps->getRotation().z);
 
 	//----
 	ImGui::End();
