@@ -18,5 +18,7 @@ public :
 
 
 	FormeIrreguliere();
+
+	void Draw();
 };
 
