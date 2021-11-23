@@ -1,8 +1,10 @@
-#pragma once
+#ifndef QUATERNION_H
+#define QUATERNION_H
+
 #include <stdio.h>      /* printf */
 #include <math.h>       /* sqrt */
 
-#include "Vecteur3D.h"
+#include"Vecteur3D.h"
 
 class Quaternion
 {
@@ -30,7 +32,8 @@ public:
 
 	Quaternion inverse();
 
-	void rotateByVector(Vector3D const& v);
-	void UpdateAngularVelocity(Vector3D const& w, float duration);
+	void rotateByVector(class Vector3D v);
+	void UpdateAngularVelocity(class Vector3D w, float duration);
 };
 
+#endif

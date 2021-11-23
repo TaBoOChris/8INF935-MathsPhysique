@@ -2,8 +2,6 @@
 
 #include "Vecteur3D.h"
 
-#include <math.h>       /* sqrt */
-
 Vector3D::Vector3D() 
 {
     this->x = 0.0f;
@@ -96,15 +94,15 @@ Vector3D Vector3D::normalisation() const
     return *this * (1/this->norme()) ;
 }
 
-//void Vector3D::rotateByQuaternion(Quaternion & q)
-//{
-//    Quaternion vecQ = Quaternion(this->x, this->y, this->z, 0.0f);
-//    Quaternion q2 = q.conjugue();
-//    Quaternion rotQ = (q * vecQ) * q2;
-//    this->x = rotQ.x;
-//    this->y = rotQ.y;
-//    this->z = rotQ.z;
-//}
+void Vector3D::rotateByQuaternion(Quaternion* q)
+{
+    Quaternion vecQ = Quaternion(this->x, this->y, this->z, 0.0f);
+    Quaternion q2 = q->conjugue();
+    Quaternion rotQ = (*q * vecQ) * q2;
+    this->x = rotQ.x;
+    this->y = rotQ.y;
+    this->z = rotQ.z;
+}
 
 ostream& operator<<(ostream& os,  Vector3D const& u) 
 {

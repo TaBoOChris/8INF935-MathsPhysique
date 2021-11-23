@@ -1,9 +1,13 @@
-#pragma once
+#ifndef VECTEUR3D_H
+#define VECTEUR3D_H
+
 
 #include <iostream>
 #include <string>
 #include <stdio.h>
-//#include "Quaternion.h"
+#include <math.h>       /* sqrt */
+
+#include "Quaternion.h"
 
 using namespace std;
 
@@ -43,9 +47,11 @@ class Vector3D{
 
         Vector3D normalisation()const;
 
-        //void rotateByQuaternion(Quaternion & q);
+        void rotateByQuaternion(class Quaternion* q);
 
         friend ostream& operator<<(ostream& os,  Vector3D const& u);
 
 
 };
+
+#endif

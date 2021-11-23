@@ -36,13 +36,13 @@ Quaternion Quaternion::inverse()
 	return Quaternion( this->conjugue() / this->norme());
 }
 
-void Quaternion::rotateByVector(Vector3D const& v)
+void Quaternion::rotateByVector(Vector3D v)
 {
 	Quaternion q(0, v.x, v.y, v.z);
 	(*this) = (*this) * q;
 }
 
-void Quaternion::UpdateAngularVelocity(Vector3D const& w, float duration)
+void Quaternion::UpdateAngularVelocity(Vector3D w, float duration)
 {
 	(*this) = (*this) + (1 / 2) * (duration * Quaternion(w.x, w.y, w.z, 0.0f) * (*this));
 }
