@@ -94,11 +94,11 @@ Vector3D Vector3D::normalisation() const
     return *this * (1/this->norme()) ;
 }
 
-void Vector3D::rotateByQuaternion(Quaternion* q)
+void Vector3D::rotateByQuaternion(Quaternion q)
 {
     Quaternion vecQ = Quaternion(this->x, this->y, this->z, 0.0f);
-    Quaternion q2 = q->conjugue();
-    Quaternion rotQ = (*q * vecQ) * q2;
+    Quaternion q2 = q.conjugue();
+    Quaternion rotQ = (q * vecQ) * q2;
     this->x = rotQ.x;
     this->y = rotQ.y;
     this->z = rotQ.z;

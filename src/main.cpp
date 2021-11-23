@@ -75,8 +75,6 @@ int main(void)
 
 	//----------------------------------------------------------------------------------------------------------
 	
-	FormeIrreguliere cube;
-	cube = new FormeIrreguliere();
 
 	// Model Creation
 	std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
@@ -105,6 +103,8 @@ int main(void)
 			prevTime = crntTime;
 			counter = 0;
 
+			forme.updateAllPoint(timeDiff);
+
 			//----
 			// Gestion des inputs
 			camera.Inputs(window);
@@ -125,7 +125,7 @@ int main(void)
 		// draw floor
 		floor.Draw(shaderProgram, camera);
 
-
+		
 		forme.Draw(shaderProgram, camera);
 		
 		// moteur 

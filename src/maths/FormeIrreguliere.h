@@ -1,8 +1,11 @@
 #pragma once
+#include <vector>
+
+#include "../opengl/Mesh.h"
+#include "../opengl/Texture.h"
 
 #include "Vecteur3D.h"
 #include "CorpsRigide.h"
-#include <vector>
 
 
 class FormeIrreguliere
@@ -22,11 +25,14 @@ public :
 	Vector3D pt6;
 	Vector3D pt7;
 
+	Mesh mesh;
 
 	FormeIrreguliere();
 
 	void updateAllPoint(float temps);
 
-	void Draw();
+	void setMesh();
+	void Draw(Shader& shader, Camera& camera);
+
 };
 

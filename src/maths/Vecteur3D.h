@@ -47,7 +47,7 @@ class Vector3D{
 
         Vector3D normalisation()const;
 
-        void rotateByQuaternion(class Quaternion* q);
+        void rotateByQuaternion(class Quaternion q);
 
         friend ostream& operator<<(ostream& os,  Vector3D const& u);
 
