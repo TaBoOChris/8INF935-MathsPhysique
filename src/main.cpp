@@ -105,7 +105,7 @@ int main(void)
 			counter = 0;
 
 			// Forme Irregu
-			forme->selfCorps->addForceAtBodyPoint(Vector3D(0, 1, -0.5f), Vector3D(1,0,-1));
+			forme->selfCorps->addForceAtPoint(Vector3D(0, 0.2f, 0), Vector3D(0,0,1));
 			//forme->selfCorps->addTorque(Vector3D(1, 0, 1));
 			forme->selfCorps->integrer(timeDiff);
 			forme->updateAllPoint(timeDiff);
