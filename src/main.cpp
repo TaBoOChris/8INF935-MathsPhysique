@@ -12,6 +12,9 @@ namespace fs = std::filesystem;
 #include "maths/Particule.h"
 #include "maths/Matrix3.h"
 #include "maths/Matrix4.h"
+#include "maths/Quaternion.h"
+#include "maths/CorpsRigide.h"
+#include "maths/FormeIrreguliere.h"
 
 #include "maths/force/RegistreForces.h"
 #include "maths/force/BungeeString.h"
@@ -75,6 +78,8 @@ int main(void)
 
 	//----------------------------------------------------------------------------------------------------------
 	
+	FormeIrreguliere cube;
+	cube = new FormeIrreguliere();
 
 	// Model Creation
 	std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
