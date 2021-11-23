@@ -126,6 +126,14 @@ void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 		mat.a20, mat.a21, mat.a22, mat.a23);
 
 
+	// Affichage de l'orientation
+	Quaternion orientation = forme.selfCorps->getOrientation();
+
+	ImGui::NewLine();
+	ImGui::Text("Orientation");
+	ImGui::Text("x:%.2f    y:%.2f    z:%.2f     w:%.2f ",
+		orientation.x ,  orientation.y , orientation.z , orientation.w);
+
 
 
 	//----

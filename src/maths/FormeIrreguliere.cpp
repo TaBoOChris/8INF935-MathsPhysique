@@ -43,6 +43,7 @@ void FormeIrreguliere::updateAllPoint(float temps) {
 	for (Vector3D* pt : allPointsMonde){
 		*pt = allPointsObjet[index]->rotateByQuaternion(orientation);
 		//pt->rotateByQuaternion(orientation);
+		index++;
 	}
 }
 
@@ -108,15 +109,6 @@ void FormeIrreguliere::setMesh()
 
 void FormeIrreguliere::Draw(Shader& shader, Camera& camera)
 {
-	/*mesh.vertices[0].position = glm::vec3(pt0.x, pt0.y, pt0.z);
-	mesh.vertices[1].position = glm::vec3(pt1.x, pt1.y, pt1.z);
-	mesh.vertices[2].position = glm::vec3(pt2.x, pt2.y, pt2.z);
-	mesh.vertices[3].position = glm::vec3(pt3.x, pt3.y, pt3.z);
-	mesh.vertices[4].position = glm::vec3(pt4.x, pt4.y, pt4.z);
-	mesh.vertices[5].position = glm::vec3(pt5.x, pt5.y, pt5.z);
-	mesh.vertices[6].position = glm::vec3(pt6.x, pt6.y, pt6.z);
-	mesh.vertices[7].position = glm::vec3(pt7.x, pt7.y, pt7.z);*/
-
 
 	setMesh();
 	mesh.Draw(shader, camera);
