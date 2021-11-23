@@ -103,6 +103,8 @@ int main(void)
 			prevTime = crntTime;
 			counter = 0;
 
+			// Forme Irregu
+			forme.selfCorps->integrer(timeDiff);
 			forme.updateAllPoint(timeDiff);
 
 			//----

@@ -42,7 +42,6 @@ void FormeIrreguliere::updateAllPoint(float temps) {
 	int index = 0;
 	for (Vector3D* pt : allPointsMonde){
 		*pt = allPointsObjet[index]->rotateByQuaternion(orientation);
-		//pt->rotateByQuaternion(orientation);
 		index++;
 	}
 }
