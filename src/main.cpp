@@ -24,10 +24,7 @@ namespace fs = std::filesystem;
 #include "maths/force/ParticleBuoyancy.h"
 #include "maths/force/ParticleSpring.h"
 
-#include "maths/contact/ParticleContactResolver.h"
-#include "maths/contact/ParticleLink.h"
-#include "maths/contact/ParticleRod.h"
-#include "maths/contact/ParticleCable.h"
+#include "maths/FormeIrreguliere.h"
 
 #include "opengl/Model.h"
 #include "opengl/UserInterface.h"
@@ -88,6 +85,10 @@ int main(void)
 	// floor creation
 	Model floor((parentDir + floorPath).c_str());
 
+
+	FormeIrreguliere forme = FormeIrreguliere();
+	
+
 	// Boucle de Rendu
 	while (!glfwWindowShouldClose(window))
 	{
@@ -123,6 +124,9 @@ int main(void)
 
 		// draw floor
 		floor.Draw(shaderProgram, camera);
+
+
+		forme.Draw(shaderProgram, camera);
 		
 		// moteur 
 		my_MoteurPhysique.display();
