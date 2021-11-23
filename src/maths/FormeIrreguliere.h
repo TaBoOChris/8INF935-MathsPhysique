@@ -14,16 +14,11 @@ public :
 
 	CorpsRigide* selfCorps;
 
-	std::vector<Vector3D*> allPoints;
+	std::vector<Vector3D*> allPointsObjet;
 
-	Vector3D pt0;
-	Vector3D pt1;
-	Vector3D pt2;
-	Vector3D pt3;
-	Vector3D pt4;
-	Vector3D pt5;
-	Vector3D pt6;
-	Vector3D pt7;
+	std::vector<Vector3D*> allPointsMonde;
+
+	
 
 	Mesh mesh;
 

@@ -105,7 +105,7 @@ void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 	//Affichage des 8 points 
 	ImGui::NewLine();
 	int index = 0;
-	for (Vector3D *pt : forme.allPoints) {
+	for (Vector3D *pt : forme.allPointsMonde) {
 		ImGui::Text("pt %i  position    (x : %.2f  y : %.2f  z:%.2f ) ", index,
 			pt->x,
 			pt->y,
