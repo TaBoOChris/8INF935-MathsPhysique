@@ -96,11 +96,14 @@ void UserInterface::frameOptionForModel(std::vector<Model*> models, float time)
 
 void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 {
-	ImGui::Begin("I'm Window, ImGui Window");
-	ImGui::Text("Let's play with particle");
-	ImGui::Text("Time = %.3f", time);
-	//----
+	ImGui::Begin("8INF935 - Mathematiques et physique ");
+	ImGui::Text("Phase 3 : Gestion des corps rigides ");
 
+	ImGui::NewLine();
+	ImGui::Text("Time = %.3f", time);
+	
+	//Affichage des 8 points 
+	ImGui::NewLine();
 	int index = 0;
 	for (Vector3D *pt : forme.allPoints) {
 		ImGui::Text("pt %i  position    (x : %.2f  y : %.2f  z:%.2f ) ", index,
@@ -111,6 +114,16 @@ void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 		index++;
 	}
 
+
+	// Affichage de la TransformMatrix
+	Matrix4 mat = forme.selfCorps->getTransformMatrix();
+
+	ImGui::NewLine();
+	ImGui::Text("TransformMatrix");
+	ImGui::Text("%.2f %.2f %.2f %.2f  \n%.2f %.2f %.2f %.2f  \n%.2f %.2f %.2f %.2f",
+		mat.a00, mat.a01, mat.a02, mat.a03,
+		mat.a10, mat.a11, mat.a12, mat.a13,
+		mat.a20, mat.a21, mat.a22, mat.a23);
 
 
 

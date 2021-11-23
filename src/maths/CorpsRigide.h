@@ -42,6 +42,9 @@ public:
 
 	CorpsRigide(Vector3D initialPosition, Vector3D initialVitesse, Vector3D initialAcceleration);
 
+
+	Matrix4 getTransformMatrix() { return transformMatrix; }
+
 	void calculDonneesDerivee();
 
 	void addForce(Vector3D force);

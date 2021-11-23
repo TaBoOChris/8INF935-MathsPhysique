@@ -103,7 +103,7 @@ int main(void)
 			prevTime = crntTime;
 			counter = 0;
 
-			//forme.updateAllPoint(timeDiff);
+			forme.updateAllPoint(timeDiff);
 
 			//----
 			// Gestion des inputs

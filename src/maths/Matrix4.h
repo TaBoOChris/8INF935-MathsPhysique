@@ -14,11 +14,13 @@ class Matrix4
 private: 
 
 
+
+public:
+	
 	float  	a00, a01, a02, a03;
 	float  	a10, a11, a12, a13;
 	float  	a20, a21, a22, a23;
-
-public:
+	
 	Matrix4();
 
 	Matrix4(
