@@ -7,11 +7,7 @@
 
 class Matrix3
 {
-private:
-	
-
 public : 
-
 
 	float  	a00, a01, a02;
 	float  	a10, a11, a12;
@@ -23,6 +19,9 @@ public :
 		float a00, float a01, float a02,
 		float a10, float a11, float a12,
 		float a20, float a21, float a22);
+
+
+	// Operateur --------------------------------------------------------------------------
 
 	friend Matrix3 operator+(Matrix3 const& A, Matrix3 const& B);		// A + B
 	friend Matrix3 operator-(Matrix3 const& A, Matrix3 const& B);		// A - B
@@ -38,13 +37,15 @@ public :
 	friend Vector3D operator*(Vector3D const& v, Matrix3 const& M);		// v * M
 	friend Vector3D operator*(Matrix3 const& M, Vector3D const& v);		// M * v
 
-
+	// Methodes principales -----------------------------------------------------------
 	float getDeterminant();
 	bool isInvertible();
 	Matrix3 getTranspose();
 	Matrix3 getAdjoint();
 	Matrix3 getInverse();
 
+
+	// Affichage console
 	friend std::ostream& operator<<(std::ostream& os, Matrix3 const& M);
 
 };

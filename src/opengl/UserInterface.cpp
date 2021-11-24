@@ -115,7 +115,7 @@ void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 	}
 	float cote = sqrt((forme.allPointsMonde[0]->x - forme.allPointsMonde[1]->x) * (forme.allPointsMonde[0]->x - forme.allPointsMonde[1]->x) + (forme.allPointsMonde[0]->y - forme.allPointsMonde[1]->y) * (forme.allPointsMonde[0]->y - forme.allPointsMonde[1]->y));
 
-	ImGui::Text("Taille d'un coté : %.2f", cote);
+	//ImGui::Text("Taille d'un coté : %.2f", cote);
 
 	//Affichage des 8 points  obj
 	ImGui::NewLine();
@@ -152,6 +152,7 @@ void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 
 	// Affichage de force et troque accum
 	ImGui::NewLine();
+	/*
 	ImGui::Text("forceAccum : x:%.2f    y:%.2f    z:%.2f ",
 		forme.selfCorps->getForceAccum().x, forme.selfCorps->getForceAccum().y, forme.selfCorps->getForceAccum().z);
 
@@ -160,6 +161,7 @@ void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 
 	ImGui::Text("Acceleration Angulaire : x:%.2f    y:%.2f    z:%.2f",
 		forme.selfCorps->getAccelerationAngulaire().x, forme.selfCorps->getAccelerationAngulaire().y, forme.selfCorps->getAccelerationAngulaire().z);
+	*/
 
 	ImGui::Text("Rotation: x:%.2f    y:%.2f    z:%.2f",
 		forme.selfCorps->getRotation().x, forme.selfCorps->getRotation().y, forme.selfCorps->getRotation().z);

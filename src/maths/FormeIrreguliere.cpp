@@ -3,34 +3,37 @@
 FormeIrreguliere::FormeIrreguliere()
 {
 
-	setPointsObjetCoord();
+	setPointsObjetCoord();			// On defini les points dans le repere local
 
 	for (size_t i = 0; i < 8; i++)
 	{
-		allPointsMonde.push_back(new Vector3D());
+		allPointsMonde.push_back(new Vector3D());	// On creer les point du repere global
 	}
 
-	selfCorps = new CorpsRigide();
+	selfCorps = new CorpsRigide();					// On creer le corps rigide
 
+	// On defini notre matrice d'inertie
 	Matrix3* inertiaTensor = new Matrix3(
 		8.0f / 12.0f, 0.0f, 0.0f,
 		0.0f, 8.0f / 12.0f, 0.0f,
 		0.0f, 0.0f, 8.0f / 12.0f
 	);
 
-	selfCorps->setInverseInertiaTensor(inertiaTensor->getInverse());
+	selfCorps->setInverseInertiaTensor(inertiaTensor->getInverse());		// On ajoute la matrice au corps rigide
 }
 
 void FormeIrreguliere::updateAllPoint(float temps) {
 	
-	setPointsObjetCoord();
+	setPointsObjetCoord();	// On defini les points dans le repere local
 
 
-	Quaternion orientation = this->selfCorps->getOrientation();
+	Quaternion orientation = this->selfCorps->getOrientation();	// on recupere l'orientation du RigidBody
 
+
+	// Pour chaque point, on calcul les position dans le repere monde
 	int index = 0;
 	for (Vector3D* pt : allPointsMonde){
-		*pt = allPointsObjet[index].rotateByQuaternion(orientation);
+		*pt = allPointsObjet[index].rotateByQuaternion(orientation);	
 		*pt = *pt + this->selfCorps->getPosition();
 		index++;
 	}
@@ -98,16 +101,17 @@ void FormeIrreguliere::setMesh()
 
 void FormeIrreguliere::Draw(Shader& shader, Camera& camera)
 {
-
-	setMesh();
-	mesh.Draw(shader, camera);
+	
+	setMesh();					// On cree notre objet
+	mesh.Draw(shader, camera);	// On l'affiche
 
 }
 
 void FormeIrreguliere::setPointsObjetCoord()
 {
-	allPointsObjet.clear();
+	allPointsObjet.clear();			// On supprime les anciens points
 
+	// On cree les 8 points du cube
 	Vector3D pt0 = Vector3D(-1, -1, -1);
 	allPointsObjet.push_back(pt0);
 	Vector3D pt1 = Vector3D(-1, -1, 1);

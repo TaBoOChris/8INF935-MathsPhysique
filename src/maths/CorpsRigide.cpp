@@ -94,7 +94,7 @@ Vector3D CorpsRigide::GetPointInWorldSpace(const Vector3D point)
 // Integrateur
 void CorpsRigide::integrer(float temps) {
 	this->updateLinearAcceleration(temps);		// calcul l'acceleration lineaire a partir de Force Accum
-	this->updateAngularAcceleration(temps);		// calcul l'acceleration angulaire a partir de force Accum
+	this->updateAngularAcceleration(temps);		// calcul l'acceleration angulaire a partir de Troque Accum
 	this->updateLinearVelocity(temps);			// On update la velocite lineaire
 	this->updateAngularVelocity(temps);			// On update la velocite angulaire
 	//TODO this->drag();

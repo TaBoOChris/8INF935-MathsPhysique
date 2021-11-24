@@ -11,10 +11,6 @@
 
 class Matrix4
 {
-private: 
-
-
-
 public:
 	
 	float  	a00, a01, a02, a03;
@@ -30,6 +26,8 @@ public:
 
 	Matrix4(Matrix3 mat3, Vector3D vec);
 
+	// Operateur --------------------------------------------------------------------------
+
 	friend Matrix4 operator+(Matrix4 const& A, Matrix4 const& B);		// A + B
 	friend Matrix4 operator-(Matrix4 const& A, Matrix4 const& B);		// A - B
 
@@ -39,20 +37,19 @@ public:
 	friend Vector3D operator*(Vector3D const& v, Matrix4 const& M);		// v * M
 	friend Vector3D operator*(Matrix4 const& M, Vector3D const& v);		// M * v
 
-	Matrix3 getAij(int i, int j);
-	Matrix3 getMatrix3();
-	Vector3D getVector3D();
+	// Methodes principales -----------------------------------------------------------
+	Matrix3 getAij(int i, int j);		// Retourne la matrice 3x3 demande
+	Matrix3 getMatrix3();				// retourne la matrice 3x3
+	Vector3D getVector3D();				// retourne le Vecteur 3D
+	Matrix4 getInverse();				// retorune l'inverse de la matrice
+	float det();						// retorune le determinant		
 
-	Matrix4 getInverse();
-	Matrix4 setOrientation(Quaternion const& q);
-
-	float det();
-
-
-	Vector3D transformPosition(Vector3D vec);
-
+	Matrix4 setOrientation(Quaternion const& q);			// set l'orientation de la matrice
+	Vector3D transformPosition(Vector3D vec);				// multiplie la matrice par un vecteur
 	Vector3D transformInversePosition(Vector3D vec);
 
+
+	// Affichage
 	friend std::ostream& operator<<(std::ostream& os, Matrix4 const& M);
 };
 
