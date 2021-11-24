@@ -26,6 +26,14 @@ float Quaternion::norme()
 	return sqrt( pow(this->w, 2) + Vector3D(x, y, z).norme());
 }
 
+void Quaternion::normalize()
+{
+	this->x = this->x / this->norme();
+	this->y = this->y / this->norme();
+	this->z= this->z/ this->norme();
+	this->w= this->w / this->norme();
+}
+
 Quaternion Quaternion::conjugue()
 {
 	return Quaternion(-this->x, -this->y, -this->z, this->w);

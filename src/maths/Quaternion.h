@@ -28,6 +28,8 @@ public:
 	Quaternion negation();
 	float norme();
 
+	void normalize();
+
 	Quaternion conjugue();
 
 	Quaternion inverse();

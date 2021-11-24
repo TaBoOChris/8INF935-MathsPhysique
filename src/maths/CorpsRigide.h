@@ -19,6 +19,7 @@ private:
 	Vector3D velocite;
 	Vector3D acceleration;
 	Quaternion orientation;
+	Quaternion orientation_0;
 	Vector3D accelerationAngulaire;
 	Vector3D rotation;			//velicte angulaire
 
