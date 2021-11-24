@@ -23,7 +23,7 @@ Quaternion Quaternion::negation()
 
 float Quaternion::norme()
 {
-	return sqrt( pow(this->w, 2) + Vector3D(x, y, z).norme());
+	return sqrt( pow(this->w, 2) + pow(this->x, 2)+ pow(this->y, 2)+ pow(this->z, 2));
 }
 
 void Quaternion::normalize()
