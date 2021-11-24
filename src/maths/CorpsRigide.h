@@ -76,5 +76,11 @@ public:
 	Vector3D getPosition();
 
 	Quaternion getOrientation();
+
+	void setPosition(Vector3D n_position);
+
+	void setVelocite(Vector3D n_velocite);
+
+	void setRotation(Vector3D n_rotation);
 };
 

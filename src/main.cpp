@@ -86,7 +86,8 @@ int main(void)
 
 
 	FormeIrreguliere *forme = new FormeIrreguliere();
-	
+	forme->selfCorps->setVelocite(Vector3D(0, 10.f, -3.5f));
+	forme->selfCorps->setRotation(Vector3D(45.f, 0, 0));
 
 	// Boucle de Rendu
 	while (!glfwWindowShouldClose(window))
@@ -105,7 +106,7 @@ int main(void)
 			counter = 0;
 
 			// Forme Irregu
-			forme->selfCorps->addForceAtPoint(Vector3D(0, 0.2f, 0), Vector3D(0,0,1));
+			forme->selfCorps->addForce(Vector3D(0, -0.981f, 0));
 			//forme->selfCorps->addTorque(Vector3D(1, 0, 1));
 			forme->selfCorps->integrer(timeDiff);
 			forme->updateAllPoint(timeDiff);

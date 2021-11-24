@@ -64,7 +64,7 @@ void CorpsRigide::clearAccumulators()
 void CorpsRigide::addForceAtPoint(Vector3D force, Vector3D point)
 {
 
-	this->m_forceAccum	= m_torqueAccum		+	force;
+	this->m_forceAccum	= this->m_forceAccum + m_torqueAccum + force;
 	this->m_torqueAccum = m_torqueAccum		+	(point - this->position).produitvectoriel( force);
 }
 
@@ -126,8 +126,8 @@ void CorpsRigide::updatePosition(float temps) {
 void CorpsRigide::updateOrientation(float temps) {
 	Quaternion velocityAngular = Quaternion(this->rotation.x, this->rotation.y, this->rotation.z, 0.0f);
 	
-	this->orientation = this->orientation_0 + (temps/2.f) * (velocityAngular * this->orientation_0);
-	//this->orientation.normalize();
+	this->orientation = this->orientation + (temps/2.f) * (velocityAngular * this->orientation);
+	this->orientation.normalize();
 }
 
 Quaternion CorpsRigide::getOrientation() {
@@ -136,4 +136,16 @@ Quaternion CorpsRigide::getOrientation() {
 
 Vector3D CorpsRigide::getPosition() {
 	return this->position;
+}
+
+void CorpsRigide::setPosition(Vector3D n_position) {
+	this->position = n_position;
+}
+
+void CorpsRigide::setRotation(Vector3D n_rotation) {
+	this->rotation = n_rotation;
+}
+
+void CorpsRigide::setVelocite(Vector3D n_velocite) {
+	this->velocite = n_velocite;
 }

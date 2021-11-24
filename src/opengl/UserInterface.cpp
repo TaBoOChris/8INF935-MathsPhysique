@@ -113,6 +113,9 @@ void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 
 		index++;
 	}
+	float cote = sqrt((forme.allPointsMonde[0]->x - forme.allPointsMonde[1]->x) * (forme.allPointsMonde[0]->x - forme.allPointsMonde[1]->x) + (forme.allPointsMonde[0]->y - forme.allPointsMonde[1]->y) * (forme.allPointsMonde[0]->y - forme.allPointsMonde[1]->y));
+
+	ImGui::Text("Taille d'un coté : %.2f", cote);
 
 	//Affichage des 8 points  obj
 	ImGui::NewLine();
@@ -161,6 +164,12 @@ void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 	ImGui::Text("Rotation: x:%.2f    y:%.2f    z:%.2f",
 		forme.selfCorps->getRotation().x, forme.selfCorps->getRotation().y, forme.selfCorps->getRotation().z);
 
+
+	if (ImGui::Button("reset pos")) {			// Button for reset Position intial speed
+		forme.selfCorps->setPosition(Vector3D(0, 0, 0));
+		forme.selfCorps->setVelocite(Vector3D(0, 10.f, -3.5f));
+		forme.selfCorps->setRotation(Vector3D(45.f, 0, 0));
+	}
 	//----
 	ImGui::End();
 	ImGui::Render();
