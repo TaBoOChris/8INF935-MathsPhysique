@@ -57,37 +57,33 @@ int main(void)
 	glUniform4f(glGetUniformLocation(shaderProgram.m_ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	glUniform3f(glGetUniformLocation(shaderProgram.m_ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
-	//----
-
 	glEnable(GL_DEPTH_TEST);
+	
 
-	Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(30.0f, 10.0f, 0.0f));
+	// floor creation
+	std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
+	std::string floorPath = "/8INF935-MathsPhysique/ressources/floor/floor.gltf";
+	Model floor((parentDir + floorPath).c_str());
 
+
+	// Def de la forme irreguliere
+	FormeIrreguliere *forme = new FormeIrreguliere();
+	forme->selfCorps->setVelocite(Vector3D(0, 10.f, -3.5f));
+	forme->selfCorps->setRotation(Vector3D(45.f, 0, 0));
+
+	// Def de l'UI
 	UserInterface my_UI(window);
 
-	//---
+	// Def de la camera
+	Camera camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(30.0f, 10.0f, 0.0f));
 
+
+	//Init Time
 	double prevTime = 0.0f;
 	double crntTime = 0.0f;
 	double timeDiff;
 	unsigned int counter = 0;
 
-	//glfwSwapInterval(60);
-
-	//----------------------------------------------------------------------------------------------------------
-	
-
-	// Model Creation
-	std::string parentDir = (fs::current_path().fs::path::parent_path()).string();
-	std::string floorPath = "/8INF935-MathsPhysique/ressources/floor/floor.gltf";
-
-	// floor creation
-	Model floor((parentDir + floorPath).c_str());
-
-
-	FormeIrreguliere *forme = new FormeIrreguliere();
-	forme->selfCorps->setVelocite(Vector3D(0, 10.f, -3.5f));
-	forme->selfCorps->setRotation(Vector3D(45.f, 0, 0));
 
 	// Boucle de Rendu
 	while (!glfwWindowShouldClose(window))
@@ -97,7 +93,7 @@ int main(void)
 		timeDiff = crntTime - prevTime;
 		counter++;
 		if (timeDiff >= 1.0 / 30.0) {
-			// fps and ms calcul
+			// ------ fps and ms calcul ------
 			std::string FPS = std::to_string((1.0 / timeDiff) * counter);
 			std::string ms = std::to_string((timeDiff / counter) * 1000);
 			std::string newTitle = "MoteurPhysique ( " + FPS + "fps, " + ms + "ms)";
@@ -105,41 +101,31 @@ int main(void)
 			prevTime = crntTime;
 			counter = 0;
 
-			// Forme Irregu
+			// ------ Forme Irregu ---------
 			forme->selfCorps->addForce(Vector3D(0, -9.81f * pow(10,-1), 0));
 			//forme->selfCorps->addForceAtPoint(Vector3D(0.0f, 2.0f, 0.0f), Vector3D(0, 0, 1));
 			forme->selfCorps->integrer(timeDiff);
 			forme->updateAllPoint(timeDiff);
 
-			//----
-			// Gestion des inputs
-			camera.Inputs(window);
+			
+			camera.Inputs(window);	// Gestion des inputs
 		}
 
 		// Specify the color of the background
 		glClearColor(0.85f, 0.85f, 0.90f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// ImGUI Frame Creation
-		my_UI.frameCreation();
-
-		// Updates and exports the camera matrix to the Vertex Shader
-		camera.updateMatrix(45.0f, 0.1f, 100.0f);
-
-		// draw floor
-		floor.Draw(shaderProgram, camera);
-		
-		forme->Draw(shaderProgram, camera);
-
-		my_UI.frameOptionForRigidBody(*forme, crntTime);
-
-		// moteur 
-		my_MoteurPhysique.display();
+		my_UI.frameCreation();								// ImGUI Frame Creation
+		camera.updateMatrix(45.0f, 0.1f, 100.0f);			// Updates and exports the camera matrix to the Vertex Shader
+		floor.Draw(shaderProgram, camera);					// draw floor
+		forme->Draw(shaderProgram, camera);					// draw forme
+		my_UI.frameOptionForRigidBody(*forme, crntTime);	// affichage des infos de l'UI
+		my_MoteurPhysique.display();						// affichage du moteur a l'ecran
 	}
 	
-	my_UI.terminate();
-	shaderProgram.terminate();
-	my_MoteurPhysique.terminate();
+	my_UI.terminate();					// Mettre fin a l'UI
+	shaderProgram.terminate();			// Mettre fin aux shader
+	my_MoteurPhysique.terminate();		// Mettre fin au moteur
 	return 0;
 	
 }

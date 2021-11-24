@@ -100,7 +100,6 @@ void CorpsRigide::integrer(float temps) {
 	this->updateOrientation(temps);				// On update l'orientation
 	this->calculDonneesDerivee();				// On calcul la matrice de transformation
 	this->clearAccumulators();					// On vide les accumulators
-	//std::cout << "torque : "<<this->m_forceAccum;
 }
 
 void CorpsRigide::updateLinearAcceleration(float temps) {

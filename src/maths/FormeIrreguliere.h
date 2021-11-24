@@ -12,22 +12,19 @@ class FormeIrreguliere
 {
 public :
 
-	CorpsRigide* selfCorps;
-
 	std::vector<Vector3D> allPointsObjet;
-
 	std::vector<Vector3D*> allPointsMonde;
+
+	CorpsRigide* selfCorps;
 
 	Mesh mesh;
 
 	FormeIrreguliere();
 
-	void updateAllPoint(float temps);
+	void updateAllPoint(float temps);				// Update la position de chaque point dans le repere globale
 
-	void setMesh();
-	void Draw(Shader& shader, Camera& camera);
-
-	void setPointsObjetCoord();
-
+	void setPointsObjetCoord();						// definir la position des points dans le repere local
+	void setMesh();									// construire le Mesh
+	void Draw(Shader& shader, Camera& camera);		// Afficher le mesh
 };
 
