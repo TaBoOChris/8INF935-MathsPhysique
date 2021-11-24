@@ -1,9 +1,4 @@
 #pragma once
-/// <summary>
-/// L'objet doit tourner autour du centre de mass
-/// 
-/// </summary>
-
 
 #include "Vecteur3D.h"
 #include "Quaternion.h"
@@ -30,57 +25,54 @@ private:
 	float angularDamping;
 
 	// ------------- Force -------------
-
 	Vector3D m_forceAccum;
 	Vector3D m_torqueAccum;
 	
 
 public:
 
+	// Constructeurs ------------------
 	CorpsRigide();
-
 	CorpsRigide(float inverseMasse);
-
 	CorpsRigide(Vector3D initialPosition, Vector3D initialVitesse, Vector3D initialAcceleration);
 
-
+	// getter ------------------
+	Vector3D getPosition() { return this->position; }
+	Quaternion getOrientation() { return orientation; }
 	Matrix4 getTransformMatrix() { return transformMatrix; }
 	Vector3D getForceAccum() { return m_forceAccum; }
 	Vector3D getTorqueAccum() { return m_torqueAccum; }
 	Vector3D getAccelerationAngulaire() { return this->accelerationAngulaire; }
 	Vector3D getRotation() { return this->rotation; }
 
-	void calculDonneesDerivee();
+	// setter ------------------
+	void setPosition(Vector3D n_position) { this->position = n_position; }
+	void setVelocite(Vector3D n_velocite) { this->velocite = n_velocite; }
+	void setRotation(Vector3D n_rotation) { this->rotation = n_rotation; }
+	void setInverseInertiaTensor(Matrix3 inverseInertia){ this->inverseInertiaTensor = inverseInertia; }
 
-	void addForce(Vector3D force);
-	void addTorque(Vector3D torque);
-	void clearAccumulators();
-
-	void addForceAtPoint(Vector3D force, Vector3D point);
-	void addForceAtBodyPoint(Vector3D force, Vector3D point);
-
-	void setInverseInertiaTensor(Matrix3 inverseInertia);
-
-	Vector3D GetPointInLocalSpace(const Vector3D point);
-
-	Vector3D GetPointInWorldSpace(const Vector3D point);
 	
-	void integrer(float temps);
-	void updateLinearAcceleration(float temps);
-	void updateAngularAcceleration(float temps);
-	void updateLinearVelocity(float temps);
-	void updateAngularVelocity(float temps);
-	void updatePosition(float temps);
-	void updateOrientation(float temps);
 
-	Vector3D getPosition();
+	// Methodes principales ------------------
+	void calculDonneesDerivee();		// definir l'orientation de transformMatrix 
+	void addForce(Vector3D force);		// add force in ForceAccum
+	void addTorque(Vector3D torque);	// add Torque in TorqueAccum
+	void clearAccumulators();			// Set ForceAccum et TorqueAccum a 0
 
-	Quaternion getOrientation();
+	void addForceAtPoint(Vector3D force, Vector3D point);		// ajouter une force a un point precis de l'obj
+	void addForceAtBodyPoint(Vector3D force, Vector3D point);	// ajouter une force a un point precis de l'obj dans le repere local
 
-	void setPosition(Vector3D n_position);
 
-	void setVelocite(Vector3D n_velocite);
+	Vector3D GetPointInLocalSpace(const Vector3D point);		// retourne le point dans le repere local
+	Vector3D GetPointInWorldSpace(const Vector3D point);		// retourne le point dans le repere global
+	
+	void integrer(float temps);						// Integrateur
+	void updateLinearAcceleration(float temps);		// inverse mass * les force accumule
+	void updateAngularAcceleration(float temps);	// inverseInertiaTensor * les torque accumule
+	void updateLinearVelocity(float temps);			// On ajoute l'acceleration à la velocite
+	void updateAngularVelocity(float temps);		// On ajoute l'acceleration Angular à la rotation
+	void updatePosition(float temps);				// applique l'acc et la velocite a la position 
+	void updateOrientation(float temps);			// calcul de la vitesse angulaire pour obtenir l'orientation
 
-	void setRotation(Vector3D n_rotation);
 };
 

@@ -41,55 +41,57 @@ CorpsRigide::CorpsRigide(Vector3D initialPosition, Vector3D initialVitesse, Vect
 	this->inverseInertiaTensor;
 }
 
+// definir l'orientation de transformMatrix 
 void CorpsRigide::calculDonneesDerivee() {
 	this->transformMatrix = this->transformMatrix.setOrientation(this->orientation);
 }
 
+// add force in ForceAccum
 void CorpsRigide::addForce(Vector3D force)
 {
-	this->m_forceAccum = this->m_forceAccum + force;
+	this->m_forceAccum = this->m_forceAccum + force;	
 }
 
+// add Torque in TorqueAccum
 void CorpsRigide::addTorque(Vector3D torque)
 {
 	this->m_torqueAccum = this->m_torqueAccum + torque;
 }
 
+// Set ForceAccum et TorqueAccum a 0
 void CorpsRigide::clearAccumulators()
 {
 	this->m_forceAccum = Vector3D();
 	this->m_torqueAccum = Vector3D();
 }
 
+// ajouter une force a un point precis de l'obj
 void CorpsRigide::addForceAtPoint(Vector3D force, Vector3D point)
 {
-
 	this->m_forceAccum	= this->m_forceAccum + m_torqueAccum + force;
 	this->m_torqueAccum = m_torqueAccum		+	(point - this->position).produitvectoriel( force);
 }
 
+// ajouter une force a un point precis de l'obj dans le repere local
 void CorpsRigide::addForceAtBodyPoint(Vector3D force, Vector3D point)
 {
-	// Convert to coordinates relative to center of mass.
 	Vector3D worldSpacePoint = this->GetPointInWorldSpace(this->position);
 	this->addForceAtPoint(force, worldSpacePoint);
 }
 
+// retourne le point dans le repere local
 Vector3D CorpsRigide::GetPointInLocalSpace(const Vector3D point)
 {
 	return this->transformMatrix.transformInversePosition(point);
-
 }
 
+// retourne le point dans le repere global
 Vector3D CorpsRigide::GetPointInWorldSpace(const Vector3D point)
 {
 	return this->transformMatrix.transformPosition(point);
 }
 
-void CorpsRigide::setInverseInertiaTensor(Matrix3 inverseInertia) {
-	this->inverseInertiaTensor = inverseInertia;
-}
-
+// Integrateur
 void CorpsRigide::integrer(float temps) {
 	this->updateLinearAcceleration(temps);		// calcul l'acceleration lineaire a partir de Force Accum
 	this->updateAngularAcceleration(temps);		// calcul l'acceleration angulaire a partir de force Accum
@@ -102,49 +104,38 @@ void CorpsRigide::integrer(float temps) {
 	this->clearAccumulators();					// On vide les accumulators
 }
 
+// inverse mass * les force accumule
 void CorpsRigide::updateLinearAcceleration(float temps) {
-	this->acceleration = this->inverseMass * this->m_forceAccum;
+	this->acceleration = this->inverseMass * this->m_forceAccum;	
 }
 
+// inverseInertiaTensor * les torque accumule
 void CorpsRigide::updateAngularAcceleration(float temps) {
-	this->accelerationAngulaire = this->inverseInertiaTensor * this->m_torqueAccum;
+	this->accelerationAngulaire = this->inverseInertiaTensor * this->m_torqueAccum;		
 }
 
+// On ajoute l'acceleration à la velocite
 void CorpsRigide::updateLinearVelocity(float temps) {
-	this->velocite = this->velocite + this->acceleration * temps;
+	this->velocite = this->velocite + this->acceleration * temps;		
 }
 
+// On ajoute l'acceleration Angular à la rotation
 void CorpsRigide::updateAngularVelocity(float temps) {
-	this->rotation = this->rotation + this->accelerationAngulaire * temps;
+	this->rotation = this->rotation + this->accelerationAngulaire * temps;		
 }
 
+// applique l'acc et la velocite a la position 
 void CorpsRigide::updatePosition(float temps) {
+	
 	this->position = this->position + this->velocite * temps + this->acceleration * pow(temps, 2) * 0.5f;
 }
 
+// calcul de la vitesse angulaire pour obtenir l'orientation
 void CorpsRigide::updateOrientation(float temps) {
+
 	Quaternion velocityAngular = Quaternion(this->rotation.x, this->rotation.y, this->rotation.z, 0.0f);
 	
 	this->orientation = this->orientation + (temps/2.f) * (velocityAngular * this->orientation);
 	this->orientation.normalize();
 }
 
-Quaternion CorpsRigide::getOrientation() {
-	return this->orientation;
-}
-
-Vector3D CorpsRigide::getPosition() {
-	return this->position;
-}
-
-void CorpsRigide::setPosition(Vector3D n_position) {
-	this->position = n_position;
-}
-
-void CorpsRigide::setRotation(Vector3D n_rotation) {
-	this->rotation = n_rotation;
-}
-
-void CorpsRigide::setVelocite(Vector3D n_velocite) {
-	this->velocite = n_velocite;
-}
