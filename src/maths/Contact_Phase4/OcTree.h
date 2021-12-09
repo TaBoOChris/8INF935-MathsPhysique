@@ -1,8 +1,13 @@
 #pragma once
 #include "../Vecteur3D.h"
-#include "VolumeEnglobant.h"
+#include "SphereEnglobante.h"
+#include <vector>
 
 class OcTree {
+
+private:
+	std::vector<SphereEnglobante*> objectsInside;
+
 public:
 	Vector3D firstPoint;
 	Vector3D secondPoint;
@@ -12,7 +17,7 @@ public:
 	/*
 	* L'ocTree est construit avec ses enfants de la facon suivante :
 	*		   E--F
-	*		  /  /|
+	*		  /| /|
 	*		 H--G |
 	*		 | A|-B
 	*   y  	 |/ |/
@@ -32,8 +37,8 @@ public:
 	OcTree* childG = nullptr;
 	OcTree* childH = nullptr;
 
-	//Volumes englobant []
-
-
-
+	OcTree();
+	std::vector<SphereEnglobante*> getObjectsInside();
+	int getNumberInside();
+	void addObjectInside(SphereEnglobante* new_object);
 };
