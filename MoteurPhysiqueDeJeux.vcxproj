@@ -159,6 +159,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\maths\Contact_Phase4\Box.cpp" />
+    <ClCompile Include="src\maths\Contact_Phase4\Plane.cpp" />
+    <ClCompile Include="src\maths\Contact_Phase4\Primitive.cpp" />
+    <ClCompile Include="src\maths\Contact_Phase4\CollisionData.cpp" />
+    <ClCompile Include="src\maths\Contact_Phase4\Contact.cpp" />
     <ClCompile Include="src\maths\FormeIrreguliere.cpp" />
     <ClCompile Include="src\Phase2.cpp" />
     <ClCompile Include="src\maths\Quaternion.cpp" />
@@ -201,6 +206,11 @@
     <ClCompile Include="src\opengl\VBO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\maths\Contact_Phase4\Box.h" />
+    <ClInclude Include="src\maths\Contact_Phase4\Plane.h" />
+    <ClInclude Include="src\maths\Contact_Phase4\Primitive.h" />
+    <ClInclude Include="src\maths\Contact_Phase4\CollisionData.h" />
+    <ClInclude Include="src\maths\Contact_Phase4\Contact.h" />
     <ClInclude Include="src\maths\FormeIrreguliere.h" />
     <ClInclude Include="src\Phase2.h" />
     <ClInclude Include="src\maths\Quaternion.h" />
