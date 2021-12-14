@@ -1,15 +1,11 @@
 #pragma once
 #include "../Vecteur3D.h"
-#include "../CorpsRigide.h"
 
 
 // Bounding Sphere 
-class SphereEnglobante {
-public:
-	Vector3D position;
+typedef struct SphereEnglobante {
 
+	Vector3D center;
 	float rayon;
 
-	CorpsRigide self;
-
-};
+}SphereEnglobante_t;
