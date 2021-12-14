@@ -4,6 +4,10 @@
 
 class Contact
 {
+
+public:
+	Contact();
+
 private:
 
 	Vector3D contactPoint;
