@@ -13,7 +13,10 @@ public:
     Vector3D getHalfsize();
     Matrix4 getOffset();
     CorpsRigide* getBody();
+    std::vector<Vector3D*> getPoints() { return points; }
+
     void setPoints(std::vector<Vector3D*> vect);
+
     Mesh mesh;		//Objet 3D
     void setMesh();									// construire le Mesh
     void Draw(Shader& shader, Camera& camera);		// Afficher le mesh
