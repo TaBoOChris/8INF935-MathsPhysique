@@ -6,8 +6,11 @@ CollisionData::CollisionData() {
 }
 
 void CollisionData::generateContact(Box* prim1, Plane* prim2) {
-	this->contacts = std::vector<Contact*>();
-	Quaternion orientation = prim1->getBody()->getOrientation();
+	this->contacts = std::vector<Contact*>();						// On initialise les Contacts
+
+	Quaternion orientation = prim1->getBody()->getOrientation();	// On recup l'orientation
+
+	// On definit les 8 points de notre cube
 	std::vector<Vector3D*> eightpoints;
 	eightpoints.push_back(new Vector3D(0.0f, 0.0f, 0.0f));
 	eightpoints.push_back(new Vector3D(prim1->getHalfsize().x, 0.0f, 0.0f));
@@ -18,6 +21,8 @@ void CollisionData::generateContact(Box* prim1, Plane* prim2) {
 	eightpoints.push_back(new Vector3D(prim1->getHalfsize().x, prim1->getHalfsize().y, prim1->getHalfsize().z));
 	eightpoints.push_back(new Vector3D(0.0f, prim1->getHalfsize().y, prim1->getHalfsize().z));
 
+
+	// Pour chaque points, on applique la rotation
 	for (Vector3D* vec : eightpoints)
 	{
 		*vec = *vec + prim1->getBody()->getPosition();

@@ -99,7 +99,10 @@ void Box::Draw(Shader& shader, Camera& camera)
 }
 
 void Box::updateMesh() {
-	Quaternion orientation = Body->getOrientation();
+
+	Quaternion orientation = Body->getOrientation(); // On recup l'orientation
+
+	// On definit les 8 points de notre cube
 	std::vector<Vector3D*> eightpoints;
 	eightpoints.push_back(new Vector3D(0.0f, 0.0f, 0.0f));
 	eightpoints.push_back(new Vector3D(this->getHalfsize().x, 0.0f, 0.0f));
@@ -110,6 +113,7 @@ void Box::updateMesh() {
 	eightpoints.push_back(new Vector3D(this->getHalfsize().x, this->getHalfsize().y, this->getHalfsize().z));
 	eightpoints.push_back(new Vector3D(0.0f, this->getHalfsize().y, this->getHalfsize().z));
 
+	// Pour chaque points, on applique la rotation
 	for (Vector3D* vec : eightpoints)
 	{
 		*vec = *vec * this->getOffset();
