@@ -6,6 +6,7 @@ CollisionData::CollisionData() {
 }
 
 void CollisionData::generateContact(Box* prim1, Plane* prim2) {
+	this->contacts = std::vector<Contact*>();
 	Quaternion orientation = prim1->getBody()->getOrientation();
 	std::vector<Vector3D*> eightpoints;
 	eightpoints.push_back(new Vector3D(0.0f, 0.0f, 0.0f));
@@ -23,7 +24,7 @@ void CollisionData::generateContact(Box* prim1, Plane* prim2) {
 		*vec = *vec * prim1->getOffset();
 		vec->rotateByQuaternion(orientation);
 		float dist = prim2->getNormal() * *vec;
-		if (dist <= prim2->getOffset()) {
+		if (dist <= -prim2->getOffset()) {
 			float interpenetration = dist + prim2->getOffset();
 			Contact* res = new Contact(*vec, prim2->getNormal(), interpenetration);
 			this->contacts.push_back(res);
@@ -38,7 +39,7 @@ void CollisionData::printContact_console()
 	for (Contact* contact : contacts)
 	{
 		std::cout << "contact " << index << " : " << std::endl;
-		std::cout << contact << std::endl;
+		std::cout << *contact << std::endl;
 		std::cout << "\n" << std::endl;
 
 		index++;

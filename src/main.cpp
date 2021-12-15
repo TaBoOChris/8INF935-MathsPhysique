@@ -85,7 +85,7 @@ int main(void)
 	Box* box = new Box(bodyBox, Vector3D(1.0f), Matrix4(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f));
 
 	// Def Plan
-	Plane* plane = new Plane(Vector3D(0.0f, 0.0f, 1.0f), 100.0f);
+	Plane* plane = new Plane(Vector3D(0.0f, 0.0f, 1.0f), 19.0f);
 
 	// Def du BVH
 	BVH* bvh = new BVH(bodyBox->getSphereEnglobante());
@@ -151,8 +151,6 @@ int main(void)
 		cd->generateContact(box, plane);
 
 		cd->printContact_console();
-
-		cout << crntTime;
 		
 		//my_UI.frameOptionForRigidBody(*forme, crntTime);	// affichage des infos de l'UI
 		my_MoteurPhysique.display();						// affichage du moteur a l'ecran

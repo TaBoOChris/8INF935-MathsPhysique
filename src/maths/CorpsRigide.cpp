@@ -23,7 +23,8 @@ CorpsRigide::CorpsRigide(float inverseMasse) {
 	this->velocite;
 	this->acceleration;
 	this->rotation;			//velicte angulaire
-	this->orientation;
+	this->orientation_0 = Quaternion(0, 0, 0, 1);
+	this->orientation = orientation_0;
 	this->angularDamping = 0.0f;
 	this->transformMatrix;
 	this->calculDonneesDerivee();
@@ -39,7 +40,8 @@ CorpsRigide::CorpsRigide(Vector3D initialPosition, Vector3D initialVitesse, Vect
 	this->velocite = initialVitesse;
 	this->acceleration = initialAcceleration;
 	this->rotation;			//velicte angulaire
-	this->orientation;
+	this->orientation_0 = Quaternion(0, 0, 0, 1);
+	this->orientation = orientation_0;
 	this->angularDamping = 0.0f;
 	this->transformMatrix;
 	this->inverseInertiaTensor;
