@@ -178,6 +178,73 @@ void UserInterface::frameOptionForRigidBody(FormeIrreguliere forme, float time)
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
+void UserInterface::frameOptionForPh4(CollisionData collisionData, CorpsRigide rb, Box box, float time)
+{
+	ImGui::Begin("8INF935 - Mathematiques et physique ");
+	ImGui::Text("Phase 4 : Systeme Elementaire de Resolution de Collisions ");
+
+	ImGui::NewLine();
+	ImGui::Text("Time = %.3f", time);
+
+	ImGui::NewLine();
+	ImGui::Text("---------------------------------");
+	ImGui::NewLine();
+	ImGui::Text("Collision Data");
+	ImGui::Text("Nombre contact = " , collisionData.getContacts().size());
+
+
+	ImGui::NewLine();
+	ImGui::Text("---------------------------------");
+	ImGui::NewLine();
+
+	ImGui::Text("CorpsRigide");
+
+	// Affichage de la TransformMatrix
+	Matrix4 mat = rb.getTransformMatrix();
+
+	ImGui::NewLine();
+	ImGui::Text("TransformMatrix");
+	ImGui::Text("%.2f %.2f %.2f %.2f  \n%.2f %.2f %.2f %.2f  \n%.2f %.2f %.2f %.2f",
+		mat.a00, mat.a01, mat.a02, mat.a03,
+		mat.a10, mat.a11, mat.a12, mat.a13,
+		mat.a20, mat.a21, mat.a22, mat.a23);
+
+
+	// Affichage de l'orientation
+	Quaternion orientation = rb.getOrientation();
+
+	ImGui::NewLine();
+	ImGui::Text("Orientation");
+	ImGui::Text("x:%.2f    y:%.2f    z:%.2f     w:%.2f ",
+		orientation.x, orientation.y, orientation.z, orientation.w);
+
+
+
+	ImGui::NewLine();
+	ImGui::Text("---------------------------------");
+	ImGui::NewLine();
+
+	ImGui::Text("Box");
+
+
+	int index = 0;
+	for (Vector3D* pt : box.getPoints())
+	{
+		ImGui::Text("pt %i Objectposition    (x : %.2f  y : %.2f  z:%.2f ) ", index,
+			pt->x,
+			pt->y,
+			pt->z);
+
+		index++;
+	}
+
+
+	//----
+	ImGui::End();
+	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
 void UserInterface::terminate()
 {
 

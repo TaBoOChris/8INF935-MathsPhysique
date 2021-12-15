@@ -142,7 +142,7 @@ int main(void)
 		glClearColor(0.85f, 0.85f, 0.90f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		//my_UI.frameCreation();								// ImGUI Frame Creation
+		my_UI.frameCreation();								// ImGUI Frame Creation
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);			// Updates and exports the camera matrix to the Vertex Shader
 		floor.Draw(shaderProgram, camera);					// draw floor
 		boxMesh.Draw(shaderProgram, camera);
@@ -154,7 +154,7 @@ int main(void)
 
 		cout << crntTime;
 		
-		//my_UI.frameOptionForRigidBody(*forme, crntTime);	// affichage des infos de l'UI
+		my_UI.frameOptionForPh4(*cd, *bodyBox , *box, crntTime );	// affichage des infos de l'UI
 		my_MoteurPhysique.display();						// affichage du moteur a l'ecran
 	}
 	

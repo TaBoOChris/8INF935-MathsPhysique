@@ -8,6 +8,9 @@
 #include "ImGui/imgui_impl_glfw.h"
 #include "ImGui/imgui_impl_opengl3.h"
 #include "../maths/FormeIrreguliere.h"
+#include "../maths/Contact_Phase4/CollisionData.h"
+#include "../maths/Contact_Phase4/Box.h"
+
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -32,6 +35,12 @@ public:
 
 
 	void frameOptionForRigidBody(FormeIrreguliere forme, float time);
+
+	void frameOptionForPh4(
+		CollisionData collisionData,
+		CorpsRigide rb,
+		Box box,
+		float time);
 
 	void terminate();
 };
