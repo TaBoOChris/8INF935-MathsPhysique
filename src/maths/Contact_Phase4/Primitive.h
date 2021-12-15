@@ -9,6 +9,7 @@ class Primitive
 public:
 	Primitive();
 	Primitive(FormeIrreguliere body);
+	virtual CorpsRigide* getBody();
 
 private:
 protected:

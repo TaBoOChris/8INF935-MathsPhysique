@@ -11,6 +11,7 @@ class CollisionData
 public:
 	CollisionData();
 	void generateContact(Box* prim1, Plane* prim2);
+	void generateContact(Primitive* prim1, Primitive* prim2);
 	void printContact_console();
 	std::vector<Contact*> getContacts();
 private:

@@ -6,6 +6,8 @@
 #include <iostream>
 
 #include "SphereEnglobante.h"
+#include "Primitive.h"
+#include "CollisionData.h"
 
 class Node {
 
@@ -14,9 +16,12 @@ public :
 	Node* node_parent;
 	SphereEnglobante_t sphere;
 	std::vector<Node*> nodes_enfant;
+	Primitive primitive;
 
 	Node();
 	Node(SphereEnglobante_t sphere);
+
+	Node(Primitive prim);
 
 
 	// ----------  Sphere methodes ------
@@ -45,6 +50,7 @@ public :
 	//^------ affichage -------------
 
 	void print(int degree);
+
 };
 
 class BVH
@@ -53,7 +59,9 @@ public :
 
 	BVH();
 	BVH(SphereEnglobante_t sphere);
+	void checkCollision(Node* parent, CollisionData* cd);
 	Node* root;
+	void checkCollision();
 
 };
 

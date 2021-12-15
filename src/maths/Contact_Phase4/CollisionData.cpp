@@ -33,6 +33,10 @@ void CollisionData::generateContact(Box* prim1, Plane* prim2) {
 	prim1->setPoints(eightpoints);
 }
 
+void CollisionData::generateContact(Primitive* prim1, Primitive* prim2)
+{
+}
+
 void CollisionData::printContact_console()
 {
 	int index = 1;

@@ -14,6 +14,12 @@ Node::Node(SphereEnglobante_t sphere)
 	this->sphere = sphere;
 }
 
+Node::Node(Primitive prim) {
+	this->node_parent = nullptr;
+	this->primitive = prim;
+	this->sphere = prim.getBody()->getSphereEnglobante();
+}
+
 float Node::getSphereVolume()
 {
 	return  (4 / 3) * 3.1415 * sphere.rayon * sphere.rayon;
@@ -145,4 +151,19 @@ BVH::BVH()
 BVH::BVH(SphereEnglobante_t sphere)
 {
 	root = new Node(sphere);
+}
+
+void BVH::checkCollision(Node* parent, CollisionData* cd) {
+	for (size_t i = 0; i < parent->nodes_enfant.size(); i++)
+	{
+		for (size_t j = i+1; j < parent->nodes_enfant.size(); j++)
+		{
+			if ((parent->nodes_enfant[i]->sphere.center - parent->nodes_enfant[j]->sphere.center).norme() < parent->nodes_enfant[i]->sphere.rayon + parent->nodes_enfant[j]->sphere.rayon) {
+				cd->generateContact(&(parent->nodes_enfant[i]->primitive), &(parent->nodes_enfant[j]->primitive));
+			}
+		}
+		if (!parent->nodes_enfant[i]->isLeaf()) {
+			checkCollision(parent->nodes_enfant[i], cd);
+		}
+	}
 }
