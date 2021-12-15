@@ -8,3 +8,4 @@ Primitive::Primitive(FormeIrreguliere body)
 {
 	this->Body = body.selfCorps;
 }
+

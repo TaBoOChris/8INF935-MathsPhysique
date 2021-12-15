@@ -11,6 +11,9 @@ public:
 
     Plane(Vector3D normal, float offset);
 
+    Vector3D getNormal();
+    float getOffset();
+
 private:
     Vector3D normal;
     float offset;
