@@ -31,13 +31,14 @@ SphereEnglobante_t Node::addSphere(SphereEnglobante_t sphereA, SphereEnglobante_
 		(sphereA.center.z + sphereB.center.z) / 2);
 
 	newSphere.rayon = distanceAB + sphereA.rayon + sphereB.rayon;
-
+	
+	return newSphere;
 }
 
 Node* Node::getBrother()
 {
 	Node* returnBrother = nullptr;			// creation du pt à retourner
-	if (hasParent) {
+	if (hasParent()) {
 		for (Node* brother : this->node_parent->nodes_enfant)		// pour chaque frere
 		{
 			if (brother != this && returnBrother == nullptr) {		// verification du frere
@@ -72,7 +73,7 @@ void Node::RemoveFromChild(Node* nodeToRemove)
 
 void Node::insertion(Node* NewNode)
 {
-	if (isLeaf) {
+	if (isLeaf()) {
 		this->node_parent->RemoveFromChild(this);
 
 		Node* NewParent;
@@ -103,7 +104,7 @@ void Node::insertion(Node* NewNode)
 
 void Node::suppression()
 {
-	if (hasParent && this->node_parent->nodes_enfant.size() == 2)
+	if (hasParent() && this->node_parent->nodes_enfant.size() == 2)
 	{
 		Node* parrent2 = this->node_parent->node_parent;
 		Node* parrent = this->node_parent;
