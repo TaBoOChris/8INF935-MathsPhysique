@@ -190,7 +190,7 @@ void UserInterface::frameOptionForPh4(CollisionData collisionData, CorpsRigide r
 	ImGui::Text("---------------------------------");
 	ImGui::NewLine();
 	ImGui::Text("Collision Data");
-	ImGui::Text("Nombre contact = " , collisionData.getContacts().size());
+	ImGui::Text("Nombre contact = %i" , collisionData.getContacts().size());
 
 
 	ImGui::NewLine();
