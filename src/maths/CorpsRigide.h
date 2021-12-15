@@ -47,6 +47,7 @@ public:
 	Vector3D getTorqueAccum() { return m_torqueAccum; }
 	Vector3D getAccelerationAngulaire() { return this->accelerationAngulaire; }
 	Vector3D getRotation() { return this->rotation; }
+	float getInverseMasse() { return this->inverseMass; }
 
 	// setter ------------------
 	void setPosition(Vector3D n_position) { this->position = n_position; }
