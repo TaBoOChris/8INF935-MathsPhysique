@@ -99,6 +99,7 @@ int main(void)
 	forme->selfCorps->setVelocite(Vector3D(0, 6.f, -5.5f));
 	forme->selfCorps->setRotation(Vector3D(45.f, 0, 0));*/
 
+
 	// Def de l'UI
 	UserInterface my_UI(window);
 
@@ -111,8 +112,8 @@ int main(void)
 	double crntTime = 0.0f;
 	double timeDiff;
 	unsigned int counter = 0;
-
-
+	
+	bool playSimu = true;
 	// Boucle de Rendu
 	while (!glfwWindowShouldClose(window))
 	{
@@ -129,14 +130,19 @@ int main(void)
 			prevTime = crntTime;
 			counter = 0;
 
-			// ------ Forme Irregu ---------
-			bodyBox->addForce(Vector3D(0, -9.81f * pow(10,-1), -3.0f));
-			bodyBox->setRotation(Vector3D(45.0f, 0.0f, 0.0f));
-			//forme->selfCorps->addForceAtPoint(Vector3D(0.0f, 2.0f, 0.0f), Vector3D(0, 0, 1));
-			bodyBox->integrer(timeDiff);
-			box->updateMesh();
+			if (playSimu) {
+				// ------ Forme Irregu ---------
+				bodyBox->addForce(Vector3D(0, -9.81f * pow(10, -1), -3.0f));
+				bodyBox->setRotation(Vector3D(45.0f, 0.0f, 0.0f));
+				//forme->selfCorps->addForceAtPoint(Vector3D(0.0f, 2.0f, 0.0f), Vector3D(0, 0, 1));
+				bodyBox->integrer(timeDiff);
+				box->updateMesh();
+			}
+			
 			
 			camera.Inputs(window);	// Gestion des inputs
+
+			
 		}
 
 		// Specify the color of the background
@@ -149,12 +155,17 @@ int main(void)
 		boxMesh.Draw(shaderProgram, camera);
 		box->Draw(shaderProgram, camera);					// draw forme
 
+
+		
 		cd->generateContact(box, plane);
 
-		cd->printContact_console();
+		if (playSimu == true)
+			cd->printContact_console();
 		
 		my_UI.frameOptionForPh4(*cd, *bodyBox , *box, crntTime );	// affichage des infos de l'UI
 		my_MoteurPhysique.display();						// affichage du moteur a l'ecran
+
+		if (cd->getContacts().size() > 0) { playSimu = false; }
 	}
 	
 	my_UI.terminate();					// Mettre fin a l'UI
