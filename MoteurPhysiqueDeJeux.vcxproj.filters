@@ -296,6 +296,9 @@
     <ClInclude Include="src\maths\Contact_Phase4\Box.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="src\maths\Contact_Phase4\OcTree.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\opengl\default.frag" />

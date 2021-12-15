@@ -6,7 +6,7 @@ class Contact
 {
 
 public:
-	Contact();
+	Contact(Vector3D contactPoint, Vector3D contactNormal, float penetration);
 
 private:
 
