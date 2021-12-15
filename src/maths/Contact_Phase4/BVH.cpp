@@ -17,7 +17,7 @@ Node::Node(SphereEnglobante_t sphere)
 Node::Node(Primitive prim) {
 	this->node_parent = nullptr;
 	this->primitive = prim;
-	this->sphere = prim.getBody()->getSphereEnglobante();
+	//this->sphere = prim.getBody()->getSphereEnglobante();
 }
 
 float Node::getSphereVolume()
@@ -159,7 +159,8 @@ void BVH::checkCollision(Node* parent, CollisionData* cd) {
 		for (size_t j = i+1; j < parent->nodes_enfant.size(); j++)
 		{
 			if ((parent->nodes_enfant[i]->sphere.center - parent->nodes_enfant[j]->sphere.center).norme() < parent->nodes_enfant[i]->sphere.rayon + parent->nodes_enfant[j]->sphere.rayon) {
-				cd->generateContact(&(parent->nodes_enfant[i]->primitive), &(parent->nodes_enfant[j]->primitive));
+				//cd->generateContact(&(parent->nodes_enfant[i]->primitive), &(parent->nodes_enfant[j]->primitive));
+				cout << "Generation de contact lié à la Broad Phase" << endl;
 			}
 		}
 		if (!parent->nodes_enfant[i]->isLeaf()) {

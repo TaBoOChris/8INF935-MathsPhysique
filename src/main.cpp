@@ -80,7 +80,12 @@ int main(void)
 
 	// Def de CorpsRigide de la box
 	CorpsRigide* bodyBox = new CorpsRigide(Vector3D(0.0f, 10.0f, 0.0f), Vector3D(0.0f), Vector3D(0.0f));
-	bodyBox->setInverseInertiaTensor(Matrix3(bodyBox->getInverseMasse()/6.0f, 0.0f, 0.0f, 0.0f, bodyBox->getInverseMasse() / 6.0f, 0.0f, 0.0f, 0.0f, bodyBox->getInverseMasse() / 6.0f));
+	Matrix3* inertiaTensor = new Matrix3(
+		8.0f / 12.0f, 0.0f, 0.0f,
+		0.0f, 8.0f / 12.0f, 0.0f,
+		0.0f, 0.0f, 8.0f / 12.0f
+	);
+	bodyBox->setInverseInertiaTensor(inertiaTensor->getInverse());
 	
 	// Def de la box
 	Box* box = new Box(bodyBox, Vector3D(1.0f), Matrix4(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f));
@@ -133,7 +138,7 @@ int main(void)
 			if (playSimu) {
 				// ------ Forme Irregu ---------
 				bodyBox->addForce(Vector3D(0, -9.81f * pow(10, -1), -3.0f));
-				bodyBox->setRotation(Vector3D(45.0f, 0.0f, 0.0f));
+				bodyBox->setRotation(Vector3D(1.0f, 0.0f, 0.0f));
 				//forme->selfCorps->addForceAtPoint(Vector3D(0.0f, 2.0f, 0.0f), Vector3D(0, 0, 1));
 				bodyBox->integrer(timeDiff);
 				box->updateMesh();

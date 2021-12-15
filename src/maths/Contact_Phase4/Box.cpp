@@ -113,7 +113,7 @@ void Box::updateMesh() {
 	for (Vector3D* vec : eightpoints)
 	{
 		*vec = *vec * this->getOffset();
-		vec->rotateByQuaternion(orientation);
+		*vec = vec->rotateByQuaternion(orientation);
 		*vec = *vec + this->getBody()->getPosition();
 	}
 	this->setPoints(eightpoints);

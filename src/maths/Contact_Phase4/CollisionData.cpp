@@ -22,7 +22,7 @@ void CollisionData::generateContact(Box* prim1, Plane* prim2) {
 	{
 		*vec = *vec + prim1->getBody()->getPosition();
 		*vec = *vec * prim1->getOffset();
-		vec->rotateByQuaternion(orientation);
+		*vec = vec->rotateByQuaternion(orientation);
 		float dist = prim2->getNormal() * *vec;
 		if (dist <= -prim2->getOffset()) {
 			float interpenetration = dist + prim2->getOffset();
@@ -30,7 +30,6 @@ void CollisionData::generateContact(Box* prim1, Plane* prim2) {
 			this->contacts.push_back(res);
 		}
 	}
-	prim1->setPoints(eightpoints);
 }
 
 void CollisionData::generateContact(Primitive* prim1, Primitive* prim2)
