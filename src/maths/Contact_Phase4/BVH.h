@@ -41,6 +41,10 @@ public :
 	void insertion(Node* NewNode);
 
 	void suppression();
+
+	//^------ affichage -------------
+
+	void print(int degree);
 };
 
 class BVH
@@ -48,9 +52,6 @@ class BVH
 public :
 
 	Node* root;
-
-	
-
 
 };
 

@@ -119,3 +119,19 @@ void Node::suppression()
 	}
 	delete this;
 }
+
+void Node::print(int degree)
+{
+	std::cout << "|";
+	for (int i = 0; i < degree; i++) {
+		std::cout << "----";
+	}
+
+	std::cout << "Node \n";
+
+	for (Node* child : this->nodes_enfant)
+	{
+		child->print(degree+1);
+	}
+
+}
