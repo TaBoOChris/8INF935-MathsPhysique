@@ -91,7 +91,7 @@ int main(void)
 	Box* box = new Box(bodyBox, Vector3D(1.0f), Matrix4(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f));
 
 	// Def Plan
-	Plane* plane = new Plane(Vector3D(0.0f, 0.0f, 1.0f), 19.0f);
+	Plane* plane = new Plane(Vector3D(0.0f, 0.0f, 1.0f), 18.3f);
 
 	// Def du BVH
 	BVH* bvh = new BVH(bodyBox->getSphereEnglobante());
@@ -137,8 +137,9 @@ int main(void)
 
 			if (playSimu) {
 				// ------ Forme Irregu ---------
-				bodyBox->addForce(Vector3D(0, -9.81f * pow(10, -1), -3.0f));
-				bodyBox->setRotation(Vector3D(1.0f, 0.0f, 0.0f));
+				//bodyBox->addForce(Vector3D(0, -9.81f * pow(10, -1), -3.0f));
+				bodyBox->addForce(Vector3D(0, -1, -3.0f));
+				bodyBox->setRotation(Vector3D(0.0f, 0.0f, 3.0f));
 				//forme->selfCorps->addForceAtPoint(Vector3D(0.0f, 2.0f, 0.0f), Vector3D(0, 0, 1));
 				bodyBox->integrer(timeDiff);
 				box->updateMesh();
