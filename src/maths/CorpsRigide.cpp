@@ -12,6 +12,8 @@ CorpsRigide::CorpsRigide() {
 	this->angularDamping = 0.0f;
 	this->transformMatrix;
 	this->inverseInertiaTensor;
+	this->sphereEnglobante.center = this->position;
+	this->sphereEnglobante.rayon = 1.0f;
 }
 
 CorpsRigide::CorpsRigide(float inverseMasse) {
@@ -26,6 +28,8 @@ CorpsRigide::CorpsRigide(float inverseMasse) {
 	this->transformMatrix;
 	this->calculDonneesDerivee();
 	this->inverseInertiaTensor;
+	this->sphereEnglobante.center = this->position;
+	this->sphereEnglobante.rayon = 1.0f;
 }
 
 CorpsRigide::CorpsRigide(Vector3D initialPosition, Vector3D initialVitesse, Vector3D initialAcceleration) {
@@ -39,6 +43,8 @@ CorpsRigide::CorpsRigide(Vector3D initialPosition, Vector3D initialVitesse, Vect
 	this->angularDamping = 0.0f;
 	this->transformMatrix;
 	this->inverseInertiaTensor;
+	this->sphereEnglobante.center = this->position;
+	this->sphereEnglobante.rayon = 1.0f;
 }
 
 // definir l'orientation de transformMatrix 
@@ -91,6 +97,11 @@ Vector3D CorpsRigide::GetPointInWorldSpace(const Vector3D point)
 	return this->transformMatrix.transformPosition(point);
 }
 
+SphereEnglobante_t CorpsRigide::getSphereEnglobante()
+{
+	return this->sphereEnglobante;
+}
+
 // Integrateur
 void CorpsRigide::integrer(float temps) {
 	this->updateLinearAcceleration(temps);		// calcul l'acceleration lineaire a partir de Force Accum
@@ -128,6 +139,7 @@ void CorpsRigide::updateAngularVelocity(float temps) {
 void CorpsRigide::updatePosition(float temps) {
 	
 	this->position = this->position + this->velocite * temps + this->acceleration * pow(temps, 2) * 0.5f;
+	this->sphereEnglobante.center = this->position;
 }
 
 // calcul de la vitesse angulaire pour obtenir l'orientation

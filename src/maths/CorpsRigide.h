@@ -4,6 +4,7 @@
 #include "Quaternion.h"
 #include "Matrix3.h"
 #include "Matrix4.h"
+#include "Contact_Phase4/SphereEnglobante.h"
 
 class CorpsRigide
 {
@@ -23,6 +24,8 @@ private:
 	Matrix3 inverseInertiaTensor;
 
 	float angularDamping;
+
+	SphereEnglobante sphereEnglobante;
 
 	// ------------- Force -------------
 	Vector3D m_forceAccum;
@@ -51,6 +54,7 @@ public:
 	void setRotation(Vector3D n_rotation) { this->rotation = n_rotation; }
 	void setInverseInertiaTensor(Matrix3 inverseInertia){ this->inverseInertiaTensor = inverseInertia; }
 
+	void setSphere(Vector3D position, float rayon) { this->sphereEnglobante.center = position; this->sphereEnglobante.rayon = rayon; }
 	
 
 	// Methodes principales ------------------
@@ -65,6 +69,8 @@ public:
 
 	Vector3D GetPointInLocalSpace(const Vector3D point);		// retourne le point dans le repere local
 	Vector3D GetPointInWorldSpace(const Vector3D point);		// retourne le point dans le repere global
+
+	SphereEnglobante_t getSphereEnglobante();
 	
 	void integrer(float temps);						// Integrateur
 	void updateLinearAcceleration(float temps);		// inverse mass * les force accumule

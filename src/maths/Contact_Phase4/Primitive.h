@@ -9,7 +9,6 @@ class Primitive
 public:
 	Primitive();
 	Primitive(FormeIrreguliere body);
-	virtual Contact contact(Primitive other);
 
 private:
 protected:

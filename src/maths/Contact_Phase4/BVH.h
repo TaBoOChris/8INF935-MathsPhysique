@@ -51,6 +51,8 @@ class BVH
 {
 public :
 
+	BVH();
+	BVH(SphereEnglobante_t sphere);
 	Node* root;
 
 };

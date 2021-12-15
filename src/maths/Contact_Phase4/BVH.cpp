@@ -136,3 +136,13 @@ void Node::print(int degree)
 	}
 
 }
+
+BVH::BVH()
+{
+	root = new Node();
+}
+
+BVH::BVH(SphereEnglobante_t sphere)
+{
+	root = new Node(sphere);
+}

@@ -24,15 +24,22 @@ namespace fs = std::filesystem;
 #include "maths/force/ParticleBuoyancy.h"
 #include "maths/force/ParticleSpring.h"
 
-#include "maths/FormeIrreguliere.h"
+#include "maths/Contact_Phase4/Box.h"
+#include "maths/Contact_Phase4/BVH.h"
+#include "maths/Contact_Phase4/CollisionData.h"
+#include "maths/Contact_Phase4/Contact.h"
+#include "maths/Contact_Phase4/Plane.h"
+#include "maths/Contact_Phase4/Primitive.h"
+#include "maths/Contact_Phase4/SphereEnglobante.h"
 
 #include "opengl/Model.h"
 #include "opengl/UserInterface.h"
 #include "opengl/MoteurPhysique.h"
-#include"opengl/VAO.h"
-#include"opengl/EBO.h"
-#include"opengl/Camera.h"
-#include"opengl/Texture.h"
+#include "opengl/VAO.h"
+#include "opengl/EBO.h"
+#include "opengl/Camera.h"
+#include "opengl/Texture.h"
+
 
 
 
@@ -69,19 +76,27 @@ int main(void)
 	std::string floorPath = "/8INF935-MathsPhysique/ressources/floor/floor.gltf";
 	std::string boxPath = "/8INF935-MathsPhysique/ressources/box/box.gltf";
 	Model floor((parentDir + floorPath).c_str());
-	Model box((parentDir + boxPath).c_str());
+	Model boxMesh((parentDir + boxPath).c_str());
 
-
-
+	// Def de CorpsRigide de la box
+	CorpsRigide* bodyBox = new CorpsRigide(Vector3D(0.0f, 10.0f, 0.0f), Vector3D(0.0f), Vector3D(0.0f));
 	
+	// Def de la box
+	Box* box = new Box(bodyBox, Vector3D(1.0f), Matrix4(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f));
 
+	// Def Plan
+	Plane* plane = new Plane(Vector3D(0.0f, 0.0f, 1.0f), 100.0f);
 
+	// Def du BVH
+	BVH* bvh = new BVH(bodyBox->getSphereEnglobante());
+
+	// Def CollisionData
+	CollisionData* cd = new CollisionData();
+	
 	// Def de la forme irreguliere
-	FormeIrreguliere *forme = new FormeIrreguliere();
+	/*FormeIrreguliere *forme = new FormeIrreguliere();
 	forme->selfCorps->setVelocite(Vector3D(0, 6.f, -5.5f));
-	forme->selfCorps->setRotation(Vector3D(45.f, 0, 0));
-
-
+	forme->selfCorps->setRotation(Vector3D(45.f, 0, 0));*/
 
 	// Def de l'UI
 	UserInterface my_UI(window);
@@ -114,10 +129,11 @@ int main(void)
 			counter = 0;
 
 			// ------ Forme Irregu ---------
-			forme->selfCorps->addForce(Vector3D(0, -9.81f * pow(10,-1), 0));
+			bodyBox->addForce(Vector3D(0, -9.81f * pow(10,-1), 0));
+			bodyBox->addForceAtPoint(Vector3D(0.0f, 0.0f, -2.0f), Vector3D(10.0f, 0.0f, 0.0f));
 			//forme->selfCorps->addForceAtPoint(Vector3D(0.0f, 2.0f, 0.0f), Vector3D(0, 0, 1));
-			forme->selfCorps->integrer(timeDiff);
-			forme->updateAllPoint(timeDiff);
+			bodyBox->integrer(timeDiff);
+			box->updateMesh();
 			
 			camera.Inputs(window);	// Gestion des inputs
 		}
@@ -126,13 +142,19 @@ int main(void)
 		glClearColor(0.85f, 0.85f, 0.90f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		my_UI.frameCreation();								// ImGUI Frame Creation
+		//my_UI.frameCreation();								// ImGUI Frame Creation
 		camera.updateMatrix(45.0f, 0.1f, 100.0f);			// Updates and exports the camera matrix to the Vertex Shader
 		floor.Draw(shaderProgram, camera);					// draw floor
-		box.Draw(shaderProgram, camera);
-		forme->Draw(shaderProgram, camera);					// draw forme
+		boxMesh.Draw(shaderProgram, camera);
+		box->Draw(shaderProgram, camera);					// draw forme
+
+		cd->generateContact(box, plane);
+
+		cd->printContact_console();
+
+		cout << crntTime;
 		
-		my_UI.frameOptionForRigidBody(*forme, crntTime);	// affichage des infos de l'UI
+		//my_UI.frameOptionForRigidBody(*forme, crntTime);	// affichage des infos de l'UI
 		my_MoteurPhysique.display();						// affichage du moteur a l'ecran
 	}
 	
